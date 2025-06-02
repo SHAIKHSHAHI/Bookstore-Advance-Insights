@@ -76,6 +76,13 @@ bookstore-sql-insights/
 ### 1️⃣ Sales and Revenue Analysis
 
 **Objective:** Analyze yearly sales revenue and quantity sold.
+**Output:**
+- 📦 Extracted yearly total revenue and quantity sold from the `Orders` table using SQL aggregation.
+- 📊 Plotted the results to visualize:
+  - Annual revenue trends.
+  - Yearly sales quantity.
+  - Comparison between revenue and quantity sold.
+  - Revenue share per year using a pie chart.
 
 ```sql
 SELECT YEAR(Order_Date) AS Year, 

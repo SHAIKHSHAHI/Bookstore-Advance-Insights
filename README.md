@@ -83,7 +83,21 @@ SELECT YEAR(Order_Date) AS Year,
        SUM(Quantity) AS Yearly_SalesQuantity
 FROM Orders
 GROUP BY YEAR(Order_Date)
-ORDER BY Year```
+ORDER BY Year
+```
+---
+```import matplotlib.pyplot as plt
+import seaborn as sns
+
+plt.figure(figsize=(10, 6))
+sns.lineplot(data=Yearly_Revenue_Quantity, x='Year', y='Yearly_Revenue', marker='o', color='purple')
+plt.title('Revenue Generated Per Year')
+plt.xlabel('Year')
+plt.ylabel('Revenue')
+plt.grid(True, linestyle='--', alpha=0.7)
+plt.show()
+```
+
 
 ## 📌 Conclusion
 

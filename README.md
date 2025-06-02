@@ -61,7 +61,7 @@ bookstore-sql-insights/
 - 💰 Analyzed key revenue drivers across products and customers.  
 - 📈 Showcased consistent growth in orders and revenue.
 
-- 
+
 ---
 
 ## 🔄 Data Analysis Workflow - Key Points

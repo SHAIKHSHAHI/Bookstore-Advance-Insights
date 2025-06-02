@@ -380,10 +380,53 @@ plt.show()
 ![Customer Segment Trend](CustomerSegment.png)
 ## 4. 📈 Borrowing Trend Analysis
 1.Extracted top 3 trending books by genre in 2024 based on total quantity ordered .
+
 2.Extracted monthly borrowing event counts for 2024 from Orders.
 ## Visuals
 1.Created a bar plot comparing stock vs total quantity ordered for the top 3 books per genre.
+
 2.Created a line plot showing the monthly borrowing events trend in 2024.
+
+```sql
+Top3_TrendingBooks_ByGenre_2024="""
+with BookOrders as(
+select a.Book_ID ,a.Genre,
+a.Title,a.Stock,
+sum(b.Quantity)as Total_Quantiy_Ordered,
+Count(Distinct b.Order_ID )as
+Order_Count
+From Books as a
+Join Orders as b
+on a.Book_ID=b.Book_ID
+where year(Order_Date)=2024
+group by a.Book_ID,a.Genre,a.Title,a.Stock),
+
+RankedBooks AS (
+    SELECT *,
+           Dense_rank()OVER (PARTITION BY Genre ORDER BY  Total_Quantiy_Ordered  DESC) AS Genre_Rank
+    FROM BookOrders
+)
+SELECT *
+FROM RankedBooks
+WHERE Genre_Rank <=3
+
+"""
+Top3Books_PerGenre_2024=pd.read_sql(Top3_TrendingBooks_ByGenre_2024
+,conn)
+
+
+
+Monthly_Borrowing_2024 = """
+SELECT 
+    MONTHNAME(Order_Date) AS Month,
+    COUNT(DISTINCT Order_ID) AS Borrowing_Events_2024
+FROM Orders 
+WHERE EXTRACT(YEAR FROM Order_Date) = 2024
+GROUP BY MONTHNAME(Order_Date), EXTRACT(MONTH FROM Order_Date)
+ORDER BY EXTRACT(MONTH FROM Order_Date)
+"""
+Monthly_Analysis2024 = pd.read_sql(Monthly_Borrowing_2024, conn)
+```
 
 ![ Borrowing Trend](Borrowing%20Trend.png)
 

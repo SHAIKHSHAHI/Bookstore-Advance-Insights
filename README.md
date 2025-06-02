@@ -63,26 +63,26 @@ bookstore-sql-insights/
 
 ## 📋 Basic Queries
 
-# ✅ 1. Total Quantity Ordered
+## ✅ 1. Total Quantity Ordered
 ```sql
 Total_Quantity_Ordered = """
 SELECT SUM(Quantity) AS Total_Quantity_Ordered
 FROM Orders"""
 ```
-# ✅ 2. Total Revenue Generated
+## ✅ 2. Total Revenue Generated
 ```sql
 Total_Revenue = """
 SELECT SUM(Total_Amount) AS Total_Revenue_Generated
 FROM Orders"""
 ```
-# ✅ 3. Orders Placed Years
+## ✅ 3. Orders Placed Years
 ```sql
 Order_Years = """
 SELECT DISTINCT EXTRACT(YEAR FROM Order_Date) AS years 
 FROM Orders
 ORDER BY years"""
 ```
-# ✅ 4. Genre-wise Borrowed Books
+## ✅ 4. Genre-wise Borrowed Books
 ```sql
 Genrewise_Borrowed_Books = """
 SELECT Genre,
@@ -94,7 +94,7 @@ WHERE Book_ID IN (
 GROUP BY Genre"""
 ```
 
-# ✅ 5. Author-wise Borrowed Books
+## ✅ 5. Author-wise Borrowed Books
 ```sql
 Authorwise_Borrowed_Books = """
 SELECT a.Author,
@@ -105,7 +105,7 @@ GROUP BY a.Author
 ORDER BY Borrowed_Books DESC"""
 
 ```
-# ✅ 6. Number of Customers per Year
+## ✅ 6. Number of Customers per Year
 ```sql
 CustomersPerYear = """
 SELECT COUNT(DISTINCT Customer_ID) AS Customers_Per_Year,
@@ -117,7 +117,7 @@ ORDER BY Order_Year;
 ```
 ## 🔷 Intermediate SQL Queries
 
-# ✅ 1. Average Borrowing Per Order
+## ✅ 1. Average Borrowing Per Order
 ```sql
 Avg_Borrowing_Per_Order = """
 SELECT AVG(Quantity_per_Order) AS AvgQuantity_Per_Order
@@ -128,7 +128,7 @@ FROM (
     GROUP BY Order_ID
 ) AS sub"""
 ```
-# ✅ 2. Monthly Borrowing Quantity in 2023
+## ✅ 2. Monthly Borrowing Quantity in 2023
 ```sql
 Monthly_Borrowing_2023 = """
 SELECT 
@@ -142,7 +142,7 @@ ORDER BY EXTRACT(MONTH FROM Order_Date)
 Borrowing_monthly2023 = pd.read_sql(Monthly_Borrowing_2023, conn)
 print("Monthly Borrowing in 2023:\n", Borrowing_monthly2023)"""
 ```
-# ✅ 3. Lower Stock Books (Stock ≤ 10 in 2024)
+## ✅ 3. Lower Stock Books (Stock ≤ 10 in 2024)
 ```sql
 Lower_Stock_Books = """
 SELECT DISTINCT a.Book_ID, a.Stock AS Stock_Available
@@ -154,7 +154,7 @@ WHERE YEAR(b.Order_Date) = 2024
   AND a.Stock <= 10
 ORDER BY a.Stock asc"""
 ```
-# ✅ 4. Out of Stock Books (Stock = 0 or NULL in 2024)
+## ✅ 4. Out of Stock Books (Stock = 0 or NULL in 2024)
 ```sql
 Out_of_Stock_Books = """
 SELECT DISTINCT a.Book_ID, a.Stock AS Stock_Available
@@ -163,7 +163,7 @@ JOIN Orders AS b ON a.Book_ID = b.Book_ID
 WHERE YEAR(b.Order_Date) = 2024
   AND (a.Stock IS NULL OR a.Stock = 0)"""
 ```
-# ✅ 5. Top 10 Most Expensive Books
+## ✅ 5. Top 10 Most Expensive Books
 ```sql
 Most10_expensive_Books = """
 SELECT DISTINCT Book_ID,
@@ -174,7 +174,7 @@ ORDER BY Price_Of_Book DESC
 LIMIT 10"""
 ```
 
-# ✅ 6. Regular vs Irregular Customers Count
+## ✅ 6. Regular vs Irregular Customers Count
 ```sql
 Regular_Customers_Count = """
 SELECT 
@@ -198,7 +198,19 @@ WHERE Customer_ID IN (
 )
 """
 ```
-# ✅ 8. New & Most Active Customers in 2024
+## ✅ 7. Customers Who Ordered from 3 or More Genres
+```sql
+Diverse_Customers = """
+SELECT a.Customer_ID,
+       COUNT(DISTINCT b.Genre) AS Genre_Count
+FROM Orders AS a
+JOIN Books AS b ON a.Book_ID = b.Book_ID
+GROUP BY a.Customer_ID
+HAVING Genre_Count >= 3
+"""
+```
+
+## ✅ 8. New & Most Active Customers in 2024
 ```sql
 # 🆕 New Customers in 2024
 
@@ -223,6 +235,75 @@ ORDER BY Total_Orders DESC
 LIMIT 3;
 """
 ```
+## 🚀 Advanced SQL Queries
+
+## 🚀 1. Top 3 Trending Books by Genre in 2024
+```sql
+Top3_TrendingBooks_ByGenre_2024 = """
+WITH BookOrders AS (
+    SELECT a.Book_ID, a.Genre,
+           a.Title, a.Stock,
+           SUM(b.Quantity) AS Total_Quantiy_Ordered,
+           COUNT(DISTINCT b.Order_ID) AS Order_Count
+    FROM Books AS a
+    JOIN Orders AS b ON a.Book_ID = b.Book_ID
+    WHERE YEAR(Order_Date) = 2024
+    GROUP BY a.Book_ID, a.Genre, a.Title, a.Stock
+),
+RankedBooks AS (
+    SELECT *,
+           DENSE_RANK() OVER (PARTITION BY Genre ORDER BY Total_Quantiy_Ordered DESC) AS Genre_Rank
+    FROM BookOrders
+)
+SELECT *
+FROM RankedBooks
+WHERE Genre_Rank <= 3;
+"""
+```
+
+## 🚀 2. Customer Segment Revenue Analysis by Year
+```sql
+Customer_Segment_Revenue = """
+WITH CustomerSegment AS (
+    SELECT
+        Customer_ID,
+        COUNT(Order_ID) AS Order_Count,
+        SUM(Total_Amount) AS Total_Spent,
+        CASE
+            WHEN SUM(Total_Amount) >= 800 THEN 'Premium'
+            WHEN SUM(Total_Amount) >= 500 THEN 'Regular'
+            WHEN COUNT(Order_ID) = 1 THEN 'One Time Buyer'
+            ELSE 'Low Spender'
+        END AS CustomerSegment
+    FROM Orders
+    GROUP BY Customer_ID
+)
+SELECT 
+    SUM(b.Total_Amount) AS Customer_Revenue,
+    SUM(b.Quantity) AS Quantity,
+    a.CustomerSegment,
+    YEAR(b.Order_Date) AS Year
+FROM CustomerSegment AS a
+JOIN Orders AS b ON a.Customer_ID = b.Customer_ID
+GROUP BY YEAR(b.Order_Date), CustomerSegment
+ORDER BY Year, CustomerSegment;
+"""
+```
+## 🚀 3. Book Segment on Price Classification Basis
+
+```sql
+Book_Segment = """
+SELECT 
+    Book_ID,
+    Price,
+    CASE
+        WHEN Price >= 30 THEN 'Premium'
+        WHEN Price < 30 THEN 'Cheaper'
+    END AS BookSegment
+FROM Books;
+"""
+```
+
 ## 🔄 Data Analysis Workflow - Key Points
 
 - Performed all data querying and analysis directly in MySQL using optimized SQL queries.  

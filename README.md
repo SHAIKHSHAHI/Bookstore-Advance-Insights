@@ -156,6 +156,39 @@ Visualized the insights using two plots:
 
 📈 Line Plot showing total number of orders placed per genre, over time.
 
+```sql
+select b.Genre,
+       year(a.Order_Date) as Year,
+       count(Distinct a.Book_ID) as Book_Count,
+       count(Distinct a.Order_ID) as Total_Orders
+from Orders as a
+join Books as b
+on a.Book_ID = b.Book_ID
+group by year(Order_Date), b.genre
+order by Book_Count;
+```
+```Python
+# Matplotlib & Seaborn Visualization
+plt.figure(figsize=(8,10), dpi=300)
+
+# Bar Plot - Unique Books by Genre
+plt.subplot(2,1,1)
+sns.barplot(data=Genre_Books_Count,
+x='Genre', y='Book_Count', hue='Year',
+palette='Dark2', saturation=0.75)
+plt.title("Unique Book Borrowings by Genre Over the Years")
+
+# Line Plot - Orders by Genre
+plt.subplot(2,1,2)
+sns.lineplot(data=Genre_Books_Count, x='Genre',
+ y='Total_Orders', hue='Year', style='Year',
+ palette='flare')
+plt.title("Total Orders Placed Genre-Wise Over the Years")
+
+plt.tight_layout()
+plt.savefig('Genres Trend.png')
+plt.show()
+```
 ## 📌 Conclusion
 
 This project leverages SQL to deliver actionable insights into bookstore sales, customer behavior, and inventory management.  

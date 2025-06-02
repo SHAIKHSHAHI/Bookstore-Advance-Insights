@@ -31,7 +31,7 @@ It provides actionable insights based on real-world data structures.
 
 ---
 
-## 📁 Project Structure
+
 ## 📁 Project Structure
 
 ```
@@ -50,3 +50,20 @@ bookstore-sql-insights/
 ├── Reports/                      
 └── Visuals/                
 ```
+## 📊 Key Insights
+
+- 📅 Tracked monthly and yearly sales trends using order data.  
+- 🧾 Identified top-selling books and high-revenue genres.  
+- 👥 Segmented customers by location for regional insights.  
+- 🔁 Found repeat buyers and high-frequency customers.  
+- 📚 Highlighted low-stock, high-demand books for restocking.  
+- 🕵️‍♀️ Observed changing genre preferences over time.  
+- 💰 Analyzed key revenue drivers across products and customers.  
+- 📈 Showcased consistent growth in orders and revenue.
+
+
+## 📌 Conclusion
+
+This project leverages SQL to deliver actionable insights into bookstore sales, customer behavior, and inventory management.  
+The analysis provides a clear understanding of market trends and opportunities for strategic decision-making.  
+Overall, it serves as a valuable tool to enhance business performance and growth.

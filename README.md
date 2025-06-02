@@ -61,7 +61,48 @@ bookstore-sql-insights/
 - 💰 Analyzed key revenue drivers across products and customers.  
 - 📈 Showcased consistent growth in orders and revenue.
 
+## 📋 Basic Queries
 
+```sql
+# ✅ 1. Total Quantity Ordered
+Total_Quantity_Ordered = """
+SELECT SUM(Quantity) AS Total_Quantity_Ordered
+FROM Orders;
+"""
+Data1 = pd.read_sql(Total_Quantity_Ordered, conn)
+print("Total Quantity Ordered:\n", Data1)
+
+# ✅ 2. Total Revenue Generated
+Total_Revenue = """
+SELECT SUM(Total_Amount) AS Total_Revenue_Generated
+FROM Orders;
+"""
+Data2 = pd.read_sql(Total_Revenue, conn)
+print("Total Revenue Generated:\n", Data2)
+
+# ✅ 3. Orders Placed Years
+Order_Years = """
+SELECT DISTINCT EXTRACT(YEAR FROM Order_Date) AS years 
+FROM Orders
+ORDER BY years;
+"""
+Orders_Placed_Years = pd.read_sql(Order_Years, conn)
+print("Orders Placed Years:\n", Orders_Placed_Years)
+
+# ✅ 4. Genre-wise Borrowed Books
+Genrewise_Borrowed_Books = """
+SELECT Genre,
+       COUNT(Book_ID) AS Borrowed_Books
+FROM Books
+WHERE Book_ID IN (
+    SELECT Book_ID FROM Orders
+)
+GROUP BY Genre;
+"""
+Genre_Books = pd.read_sql(Genrewise_Borrowed_Books, conn)
+print("Genre-wise Borrowed Books:\n", Genre_Books)
+
+```
 ---
 
 ## 🔄 Data Analysis Workflow - Key Points

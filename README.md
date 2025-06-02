@@ -378,6 +378,8 @@ plt.savefig('CustomerSegment.png')
 plt.show()
 
 ![Customer Segment Trend](CustomerSegment.png)
+![ Borrowing Trend](Borrowing%20Trend.png)
+
 ## 📌 Conclusion
 
 This project leverages SQL to deliver actionable insights into bookstore sales, customer behavior, and inventory management.  

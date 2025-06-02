@@ -92,6 +92,7 @@ FROM Orders
 GROUP BY YEAR(Order_Date)
 ORDER BY Year
 ```
+## Visual Code
 ---
 ```python
 plt.figure(figsize=(10, 14),dpi=300)
@@ -167,6 +168,7 @@ on a.Book_ID = b.Book_ID
 group by year(Order_Date), b.genre
 order by Book_Count;
 ```
+## Visual Code
 ```Python
 # Matplotlib & Seaborn Visualization
 plt.figure(figsize=(8,10), dpi=300)
@@ -316,6 +318,7 @@ categories = ['Regular Customers', 'Irregular Customers']
 counts = [regular, Irregular]
 
 ```
+## Visual Code
 ```python
 plt.figure(figsize=(15,12),dpi=300)
 

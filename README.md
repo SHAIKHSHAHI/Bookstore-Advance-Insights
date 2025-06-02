@@ -4,22 +4,22 @@
 
 ## 📖 Project Overview
 
-**This project dives deep into bookstore transaction data using advanced SQL queries.  
-We explore sales patterns, customer behavior, and genre preferences.  
-It provides actionable insights based on real-world data structures.
-**
+### This project dives deep into bookstore transaction data using advanced SQL queries.  
+### We explore sales patterns, customer behavior, and genre preferences.  
+### It provides actionable insights based on real-world data structures.
+
 ---
 
 ## 🎯 Project Objectives
 
-**- ✅ Perform monthly and yearly sales & revenue analysis** 
-**- ✅ Identify top-selling books by genre and author**  
-**- ✅ Segment customers based on location and purchasing behavior** 
-**- ✅ Analyze borrowing patterns over different periods**
-**- ✅ Evaluate inventory stock vs. demand for better planning** 
-**- ✅ Spot genre trends and seasonal fluctuations**
-**- ✅ Detect customer engagement through repeat orders** 
-**- ✅ Discover revenue contribution by customer location.**
+- ✅ Perform monthly and yearly sales & revenue analysis
+- ✅ Identify top-selling books by genre and author
+- ✅ Segment customers based on location and purchasing behavior
+- ✅ Analyze borrowing patterns over different periods
+- ✅ Evaluate inventory stock vs. demand for better planning
+- ✅ Spot genre trends and seasonal fluctuations
+- ✅ Detect customer engagement through repeat orders
+- ✅ Discover revenue contribution by customer location.
 
 ---
 

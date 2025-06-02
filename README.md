@@ -144,6 +144,17 @@ plt.show()
 
 ![Sales and Revenue Analysis](Sales%20And%20Revenue%20Analysis.png)
 
+### 📚 Genre-Wise Borrowing Trends Analysis Over the Years
+
+- Extracted genre-wise data from the Orders and Books tables using SQL:
+- Fetched distinct book count and total orders for each genre per year.
+
+
+Visualized the insights using two plots:
+
+📊 Bar Plot showing unique books borrowed by genre, across years.
+
+📈 Line Plot showing total number of orders placed per genre, over time.
 
 ## 📌 Conclusion
 

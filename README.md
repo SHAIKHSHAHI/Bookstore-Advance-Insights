@@ -191,7 +191,7 @@ plt.show()
 ```
 ![Genre-Wise Trends](Genres%20Trend.png)
 
-## 🧑‍🤝‍🧑 Customer Segment and Trend Analysis
+## 3. 🧑‍🤝‍🧑 Customer Segment and Trend Analysis
 
 - 1.Extracted only customers who placed at least one order by joining the Customers and Orders tables.
 - 2.Queried year-wise count of unique customers to analyze growth over time.
@@ -378,6 +378,13 @@ plt.savefig('CustomerSegment.png')
 plt.show()
 
 ![Customer Segment Trend](CustomerSegment.png)
+## 4. 📈 Borrowing Trend Analysis
+1.Extracted top 3 trending books by genre in 2024 based on total quantity ordered .
+2.Extracted monthly borrowing event counts for 2024 from Orders.
+## Visuals
+1.Created a bar plot comparing stock vs total quantity ordered for the top 3 books per genre.
+2.Created a line plot showing the monthly borrowing events trend in 2024.
+
 ![ Borrowing Trend](Borrowing%20Trend.png)
 
 ## 📌 Conclusion

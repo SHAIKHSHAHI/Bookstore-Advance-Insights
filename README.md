@@ -68,10 +68,22 @@ bookstore-sql-insights/
 
 - Performed all data querying and analysis directly in MySQL using optimized SQL queries.  
 - Extracted valuable insights from the `Books`, `Orders`, and `Customers` tables through SQL commands.  
-- Established a connection between Python and MySQL to fetch query results for further use.  
-- Utilized `pandas` to load and organize the data retrieved from the database.  
+- Established a connection between Python and MySQL to fetch query results for further use.
 - Created clear and informative visualizations of sales trends and customer segments using `matplotlib` and `seaborn`.  
-- Leveraged the efficiency of SQL for data extraction combined with Python’s powerful visualization tools for comprehensive analysis.
+
+---
+
+### 1️⃣ Sales and Revenue Analysis
+
+**Objective:** Analyze yearly sales revenue and quantity sold.
+
+```sql
+SELECT YEAR(Order_Date) AS Year, 
+       SUM(Total_Amount) AS Yearly_Revenue, 
+       SUM(Quantity) AS Yearly_SalesQuantity
+FROM Orders
+GROUP BY YEAR(Order_Date)
+ORDER BY Year```
 
 ## 📌 Conclusion
 

@@ -304,6 +304,18 @@ FROM Books;
 """
 ```
 
+## 🚀 4. Top 10 Countries with Highest Number of Customers
+
+```sql
+Top10_Customer_Countries = """
+SELECT COUNT(DISTINCT Customer_ID) AS Customer_Count,
+       Country
+FROM Customers
+GROUP BY Country
+ORDER BY Customer_Count DESC
+LIMIT 10;
+"""
+```
 ## 🔄 Data Analysis Workflow - Key Points
 
 - Performed all data querying and analysis directly in MySQL using optimized SQL queries.  
@@ -716,9 +728,14 @@ plt.show()
 
 ![Borrowing Trend](Borrowing%20Trend.png)
 
+## 📘 Conclusion
+With each query, insights compiled,
+Customer trends and genres profiled.
+From stock alerts to revenue streams,
+Data unfolded like structured dreams.
+A clean script closes — analysis complete.
 
-## 📌 Conclusion
+## Author
 
-This project leverages SQL to deliver actionable insights into bookstore sales, customer behavior, and inventory management.  
-The analysis provides a clear understanding of market trends and opportunities for strategic decision-making.  
-Overall, it serves as a valuable tool to enhance business performance and growth.
+# SHAHISTA SHAIKH
+

@@ -105,6 +105,8 @@ JOIN Orders b ON a.Book_ID = b.Book_ID
 GROUP BY a.Author
 ORDER BY Borrowed_Books DESC"""
 ```
+## 🟨 Intermediate SQL Queries
+
 # ✅ 1. Average Borrowing Per Order
 ```sql
 Avg_Borrowing_Per_Order = """

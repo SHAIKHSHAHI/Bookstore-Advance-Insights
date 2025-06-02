@@ -47,6 +47,6 @@ bookstore-sql-insights/
 │   ├── books.csv                 → 500 rows × 7 columns  
 │   ├── orders.csv                → 500 rows × 6 columns  
 │   └── customers.csv             → 500 rows × 6 columns  
-├── Reports/                      → Screenshots or exported reports
-└── Visuals/                      → Charts or graphs (optional)
+├── Reports/                      
+└── Visuals/                
 ```

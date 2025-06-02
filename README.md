@@ -61,6 +61,17 @@ bookstore-sql-insights/
 - 💰 Analyzed key revenue drivers across products and customers.  
 - 📈 Showcased consistent growth in orders and revenue.
 
+- 
+---
+
+## 🔄 Data Analysis Workflow - Key Points
+
+- Performed all data querying and analysis directly in MySQL using optimized SQL queries.  
+- Extracted valuable insights from the `Books`, `Orders`, and `Customers` tables through SQL commands.  
+- Established a connection between Python and MySQL to fetch query results for further use.  
+- Utilized `pandas` to load and organize the data retrieved from the database.  
+- Created clear and informative visualizations of sales trends and customer segments using `matplotlib` and `seaborn`.  
+- Leveraged the efficiency of SQL for data extraction combined with Python’s powerful visualization tools for comprehensive analysis.
 
 ## 📌 Conclusion
 

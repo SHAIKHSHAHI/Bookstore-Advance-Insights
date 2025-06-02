@@ -68,20 +68,20 @@ bookstore-sql-insights/
 ```sql
 Total_Quantity_Ordered = """
 SELECT SUM(Quantity) AS Total_Quantity_Ordered
-FROM Orders;
+FROM Orders"""
 ```
 # ✅ 2. Total Revenue Generated
 ```sql
 Total_Revenue = """
 SELECT SUM(Total_Amount) AS Total_Revenue_Generated
-FROM Orders;
+FROM Orders"""
 ```
 # ✅ 3. Orders Placed Years
 ```sql
 Order_Years = """
 SELECT DISTINCT EXTRACT(YEAR FROM Order_Date) AS years 
 FROM Orders
-ORDER BY years;
+ORDER BY years"""
 ```
 # ✅ 4. Genre-wise Borrowed Books
 ```sql
@@ -92,7 +92,7 @@ FROM Books
 WHERE Book_ID IN (
     SELECT Book_ID FROM Orders
 )
-GROUP BY Genre;
+GROUP BY Genre"""
 ```
 
 # ✅ 5. Author-wise Borrowed Books
@@ -103,7 +103,88 @@ SELECT a.Author,
 FROM Books a
 JOIN Orders b ON a.Book_ID = b.Book_ID
 GROUP BY a.Author
-ORDER BY Borrowed_Books DESC;
+ORDER BY Borrowed_Books DESC"""
+```
+# ✅ 1. Average Borrowing Per Order
+```sql
+Avg_Borrowing_Per_Order = """
+SELECT AVG(Quantity_per_Order) AS AvgQuantity_Per_Order
+FROM (
+    SELECT Order_ID,
+           SUM(Quantity) AS Quantity_per_Order
+    FROM Orders
+    GROUP BY Order_ID
+) AS sub"""
+```
+# ✅ 2. Monthly Borrowing Quantity in 2023
+```sql
+Monthly_Borrowing_2023 = """
+SELECT 
+    MONTHNAME(Order_Date) AS Month,
+    SUM(Quantity) AS Borrowed_Quantity
+FROM Orders 
+WHERE EXTRACT(YEAR FROM Order_Date) = 2023
+GROUP BY MONTHNAME(Order_Date), EXTRACT(MONTH FROM Order_Date)
+ORDER BY EXTRACT(MONTH FROM Order_Date)
+"""
+Borrowing_monthly2023 = pd.read_sql(Monthly_Borrowing_2023, conn)
+print("Monthly Borrowing in 2023:\n", Borrowing_monthly2023)"""
+```
+# ✅ 3. Lower Stock Books (Stock ≤ 10 in 2024)
+```sql
+Lower_Stock_Books = """
+SELECT DISTINCT a.Book_ID, a.Stock AS Stock_Available
+FROM Books AS a
+JOIN Orders AS b ON a.Book_ID = b.Book_ID
+WHERE YEAR(b.Order_Date) = 2024
+  AND a.Stock IS NOT NULL 
+  AND a.Stock != 0
+  AND a.Stock <= 10
+ORDER BY a.Stock asc"""
+```
+# ✅ 4. Out of Stock Books (Stock = 0 or NULL in 2024)
+```sql
+Out_of_Stock_Books = """
+SELECT DISTINCT a.Book_ID, a.Stock AS Stock_Available
+FROM Books AS a
+JOIN Orders AS b ON a.Book_ID = b.Book_ID
+WHERE YEAR(b.Order_Date) = 2024
+  AND (a.Stock IS NULL OR a.Stock = 0)"""
+```
+# ✅ 5. Top 10 Most Expensive Books
+```sql
+Most10_expensive_Books = """
+SELECT DISTINCT Book_ID,
+       Title AS Book,
+       Price AS Price_Of_Book 
+FROM Books
+ORDER BY Price_Of_Book DESC
+LIMIT 10"""
+```
+
+# ✅ 6. Regular vs Irregular Customers Count
+```sql
+Regular_Customers_Count = """
+SELECT 
+    COUNT(Customer_ID) AS Regular_Customers
+FROM (
+    SELECT Customer_ID
+    FROM Orders
+    GROUP BY Customer_ID
+    HAVING COUNT(DISTINCT YEAR(Order_Date)) >= 2
+) AS ct
+
+Irregular_Customers_Count = """
+SELECT 
+    COUNT(DISTINCT Customer_ID) AS Irregular_Customers
+FROM Customers 
+WHERE Customer_ID IN (
+    SELECT Customer_ID
+    FROM Orders
+    GROUP BY Customer_ID
+    HAVING COUNT(DISTINCT YEAR(Order_Date)) = 1
+)
+"""
 ```
 
 ## 🔄 Data Analysis Workflow - Key Points

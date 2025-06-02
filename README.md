@@ -63,7 +63,6 @@ bookstore-sql-insights/
 
 ## 📋 Basic Queries
 
-
 # ✅ 1. Total Quantity Ordered
 ```sql
 Total_Quantity_Ordered = """
@@ -104,8 +103,19 @@ FROM Books a
 JOIN Orders b ON a.Book_ID = b.Book_ID
 GROUP BY a.Author
 ORDER BY Borrowed_Books DESC"""
+
 ```
-## 🟨 Intermediate SQL Queries
+# ✅ 6. Number of Customers per Year
+```sql
+CustomersPerYear = """
+SELECT COUNT(DISTINCT Customer_ID) AS Customers_Per_Year,
+       YEAR(Order_Date) AS Order_Year
+FROM Orders 
+GROUP BY Order_Year
+ORDER BY Order_Year;
+"""
+```
+## 🔷 Intermediate SQL Queries
 
 # ✅ 1. Average Borrowing Per Order
 ```sql
@@ -188,7 +198,31 @@ WHERE Customer_ID IN (
 )
 """
 ```
+# ✅ 8. New & Most Active Customers in 2024
+```sql
+# 🆕 New Customers in 2024
 
+New_Customers = """
+SELECT Customer_ID,
+       MIN(Order_Date) AS First_Order
+FROM Orders
+GROUP BY Customer_ID
+HAVING YEAR(First_Order) = 2024;
+"""
+Newly_Customers = pd.read_sql(New_Customers, conn)
+print("New Customers in 2024:\n", Newly_Customers)
+
+# 🔝 Top 3 Most Active Customers in 2024
+Most_Ordered_Customers = """
+SELECT Customer_ID,
+       COUNT(Order_ID) AS Total_Orders
+FROM Orders
+WHERE YEAR(Order_Date) = 2024
+GROUP BY Customer_ID
+ORDER BY Total_Orders DESC
+LIMIT 3;
+"""
+```
 ## 🔄 Data Analysis Workflow - Key Points
 
 - Performed all data querying and analysis directly in MySQL using optimized SQL queries.  

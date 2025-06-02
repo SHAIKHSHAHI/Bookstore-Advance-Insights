@@ -474,6 +474,7 @@ plt.savefig('Borrowing Trend.png')
 plt.show()
 ```
 
+![Borrowing Trend](Borrowing%20Trend.png)
 
 
 ## 📌 Conclusion

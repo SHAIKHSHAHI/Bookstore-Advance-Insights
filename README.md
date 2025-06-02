@@ -189,6 +189,8 @@ plt.tight_layout()
 plt.savefig('Genres Trend.png')
 plt.show()
 ```
+![Genre-Wise Trends](Genres%20Trend.png)
+
 ## 📌 Conclusion
 
 This project leverages SQL to deliver actionable insights into bookstore sales, customer behavior, and inventory management.  

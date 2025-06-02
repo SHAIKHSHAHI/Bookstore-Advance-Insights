@@ -86,7 +86,8 @@ GROUP BY YEAR(Order_Date)
 ORDER BY Year
 ```
 ---
-```import matplotlib.pyplot as plt
+```python
+import matplotlib.pyplot as plt
 import seaborn as sns
 
 plt.figure(figsize=(10, 6))

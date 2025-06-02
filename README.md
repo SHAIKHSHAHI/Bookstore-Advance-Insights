@@ -135,6 +135,7 @@ plt.savefig('Sales And Revenue Analysis.png')
 plt.show()
 ```
 
+![Sales and Revenue Analysis](Sales%20And%20Revenue%20Analysis.png)
 
 
 ## 📌 Conclusion

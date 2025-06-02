@@ -87,17 +87,54 @@ ORDER BY Year
 ```
 ---
 ```python
-import matplotlib.pyplot as plt
-import seaborn as sns
+plt.figure(figsize=(10, 14),dpi=300)
 
-plt.figure(figsize=(10, 6))
-sns.lineplot(data=Yearly_Revenue_Quantity, x='Year', y='Yearly_Revenue', marker='o', color='purple')
-plt.title('Revenue Generated Per Year')
-plt.xlabel('Year')
-plt.ylabel('Revenue')
-plt.grid(True, linestyle='--', alpha=0.7)
+plt.subplot(2,2,1)
+sns.lineplot(data=Yearly_Revenue_Quantity, x='Year', y='Yearly_Revenue',
+             marker='o', color='purple')
+plt.grid(True, linestyle='--', linewidth=1, alpha=0.7)
+plt.title('Revenue Generated Per Year', fontsize=12, fontweight='heavy', fontstyle='italic')
+plt.xlabel('Year', fontsize=12, fontweight='heavy')
+plt.ylabel('Revenue', fontsize=12, fontweight='heavy')
+plt.xticks(Yearly_Revenue_Quantity['Year'],rotation=20)
+
+plt.subplot(2,2,2)
+sns.barplot(data=Yearly_Revenue_Quantity, x='Year', y='Yearly_SalesQuantity',
+            palette='flare', alpha=0.8)
+plt.title('Quantity Sold Per Year', fontsize=12, fontweight='heavy', fontstyle='italic')
+plt.xlabel('Year', fontsize=12, fontweight='heavy')
+plt.ylabel('Sales Quantity', fontsize=12, fontweight='heavy')
+plt.xticks(rotation=20)
+
+
+plt.subplot(2,2, 3)
+sns.scatterplot(data=Yearly_Revenue_Quantity, x='Yearly_SalesQuantity', y='Yearly_Revenue', hue='Year', palette='flare', s=200)
+plt.title('Comparison of Quantity Sold and Revenue Earned', fontsize=12, fontweight='heavy', fontstyle='italic')
+plt.xlabel('Sales Quantity', fontsize=12, fontweight='heavy')
+plt.ylabel('Total Revenue', fontsize=12, fontweight='heavy')
+plt.legend(title='Year')
+
+plt.suptitle("Annual Wise Sales and Revenue Trend", fontsize=20, fontweight='heavy')
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(2, 2, 4)
+plt.pie(Yearly_Revenue_Quantity['Yearly_Revenue'], labels=Yearly_Revenue_Quantity['Year'],
+        colors=['pink','orange','coral'], autopct='%1.0f%%', shadow=True,radius=1.5,
+        textprops={'fontsize': 12, 'color': 'black', 'weight': 'bold'},
+        wedgeprops={'edgecolor': 'black', 'linewidth': 2,'width':0.8})
+plt.title('Revenue Contribution by Year', fontsize=12, fontweight='heavy', fontstyle='italic')
+plt.legend(title='year',loc='lower right')
+
+
+plt.tight_layout(rect=[1,1,1,3])  
+plt.suptitle("Annual Wise Sales and Revenue Trend", fontsize=20, fontweight='heavy')
+plt.subplots_adjust(hspace=0.5, wspace=0.5)
+plt.savefig('Sales And Revenue Analysis.png')
+
+
 plt.show()
 ```
+
 
 
 ## 📌 Conclusion

@@ -61,7 +61,7 @@ bookstore-sql-insights/
 - 💰 Analyzed key revenue drivers across products and customers.  
 - 📈 Showcased consistent growth in orders and revenue.
 
-## 📋 Basic Queries
+# 📋 Basic Queries
 
 ## ✅ 1. Total Quantity Ordered
 ```sql
@@ -115,7 +115,7 @@ GROUP BY Order_Year
 ORDER BY Order_Year;
 """
 ```
-## 🔷 Intermediate SQL Queries
+# 🔷 Intermediate SQL Queries
 
 ## ✅ 1. Average Borrowing Per Order
 ```sql
@@ -235,7 +235,7 @@ ORDER BY Total_Orders DESC
 LIMIT 3;
 """
 ```
-## 🚀 Advanced SQL Queries
+# 🚀 Advanced SQL Queries
 
 ## 🚀 1. Top 3 Trending Books by Genre in 2024
 ```sql

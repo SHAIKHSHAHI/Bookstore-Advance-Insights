@@ -83,7 +83,7 @@ bookstore-sql-insights/
   - Yearly sales quantity.
   - Comparison between revenue and quantity sold.
   - Revenue share per year using a pie chart.
-
+## Sql Code
 ```sql
 SELECT YEAR(Order_Date) AS Year, 
        SUM(Total_Amount) AS Yearly_Revenue, 
@@ -156,7 +156,7 @@ Visualized the insights using two plots:
 📊 Bar Plot showing unique books borrowed by genre, across years.
 
 📈 Line Plot showing total number of orders placed per genre, over time.
-
+## Sql Code
 ```sql
 select b.Genre,
        year(a.Order_Date) as Year,
@@ -229,7 +229,7 @@ plt.show()
 
 
 **4.Saved final visualization as CustomerSegment.png.**
-
+## Sql Code
 ```sql
 
 UniqueCustomers_Count="""
@@ -389,7 +389,7 @@ plt.show()
 1.Created a bar plot comparing stock vs total quantity ordered for the top 3 books per genre.
 
 2.Created a line plot showing the monthly borrowing events trend in 2024.
-
+## Sql Code
 ```sql
 Top3_TrendingBooks_ByGenre_2024="""
 with BookOrders as(
@@ -430,8 +430,51 @@ ORDER BY EXTRACT(MONTH FROM Order_Date)
 """
 Monthly_Analysis2024 = pd.read_sql(Monthly_Borrowing_2024, conn)
 ```
+## Python Code
+```python
+plt.figure(figsize=(10, 15),dpi=300)
 
-![ Borrowing Trend](Borrowing%20Trend.png)
+df_melted = pd.melt(
+    Top3Books_PerGenre_2024,
+    id_vars=['Book_ID'], 
+    value_vars=['Stock', 'Total_Quantiy_Ordered'],
+    var_name='Type', 
+    value_name='Value'
+)
+plt.subplot(2,1,1)
+sns.barplot(data=df_melted, x='Book_ID', y='Value', hue='Type', palette='Set2')
+
+plt.title('Top 3 Books of Each Genre on Quantity Basis (2024)',fontsize=14, fontweight='heavy')
+plt.xticks(rotation=60)
+
+plt.ylabel('Quantity Ordered vs Stock Available',fontsize=14, fontweight='heavy')
+plt.xlabel('Book Name',fontsize=14, fontweight='heavy')
+plt.legend()
+
+plt.subplot(2,1,2)
+
+plt.plot(
+    Monthly_Analysis2024['Month'],
+    Monthly_Analysis2024['Borrowing_Events_2024'],
+    marker='o',
+    color='teal'
+)
+plt.title('Monthly Borrowing Events in 2024', fontsize=14, fontweight='bold')
+plt.xlabel('Month', fontsize=14,fontweight='heavy')
+plt.ylabel('Number of Orders ', fontsize=14,fontweight='heavy')
+plt.xticks(rotation=30)
+plt.grid(True)
+
+plt.tight_layout(rect=[1,1,1,3])  
+plt.suptitle("Borrowing Trend Analysis",
+fontsize=20,fontweight='heavy')
+plt.subplots_adjust(hspace=0.5, wspace=0.5)
+plt.savefig('Borrowing Trend.png')
+
+plt.show()
+```
+
+
 
 ## 📌 Conclusion
 

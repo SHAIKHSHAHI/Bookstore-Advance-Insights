@@ -456,6 +456,7 @@ Book_ID 307, 288, 447, etc., have high orders (3 orders) and quantities (e.g., 2
 
 📈 Demand is clear from multiple years ordered and higher quantities.
 
+![OverStock vs Under Stock Books](OverStock%20vs%20Under%20Stock%20Books.png)
 
 ## Key Points
 🔸 Median stock is moderate, but some books have very high stock.

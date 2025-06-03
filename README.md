@@ -324,7 +324,120 @@ LIMIT 10;
 - Created clear and informative visualizations of sales trends and customer segments using `matplotlib` and `seaborn`.  
 
 ---
+## Comparison of Understock,Lowerstock,OverStock Books.
+```sql
+Out_of_Stock_Books="""
+select Distinct a.Book_ID,a.Stock as Stock_Available,
+count(Distinct b.Order_ID),
+sum(b.Quantity)as Quantity,
+count(b.Order_ID)as Orders,
+a.Price as Book_price
+from Books as a
+join Orders as b
+on a.Book_ID=b.Book_ID
+where a.Stock is null or a.Stock=0
+group by a.Book_ID
+"""
+Stock_Out_Books=pd.read_sql(Out_of_Stock_Books,conn)
 
+
+Over_Stock_Books="""
+select Distinct a.Book_ID,a.Stock as Stock_Available,
+sum(b.Quantity)as Quantity,
+Count(year(b.Order_Date)) as Total_Order_Years ,
+count(b.Order_ID)as Orders,
+a.Price as Book_price
+from Books as a
+join Orders as b
+on a.Book_ID=b.Book_ID
+and a.Stock is not null and a.Stock!=0
+and a.Stock >70
+group by a.Book_ID
+order by a.Stock asc
+
+"""
+
+Over_Stock=pd.read_sql(Over_Stock_Books,conn)
+
+
+Lower_Stock_Books="""
+select Distinct a.Book_ID,a.Stock as Stock_Available,
+sum(b.Quantity)as Quantity,
+count(b.Order_ID)as Orders,
+a.Price as Book_price
+from Books as a
+join Orders as b
+on a.Book_ID=b.Book_ID
+and a.Stock is not null and a.Stock!=0
+and a.Stock <=10
+group by a.Book_ID
+order by a.Stock asc
+
+"""
+
+Lowest_Stock=pd.read_sql(Lower_Stock_Books,conn)
+conn.close()
+
+
+```
+
+```plaintext
+Book_ID | Stock | Years Ordered | Quantity | Orders | Price
+------------------------------------------------------------
+60      | 0     | 1             | 9        | 1      | 35.14
+127     | 0     | 3             | 9        | 3      | 11.66
+163     | 0     | 1             | 3        | 1      | 19.11
+378     | 0     | 1             | 6        | 1      | 6.01
+```
+## 1. Out of Stock Books
+
+🧠 Insights:
+
+-📉 Low order frequency (1–3 orders only).
+
+- Still out of stock, meaning initial stock was very small.
+
+- 📊 These books didn’t sell a lot, so stock may have never been replenished.
+
+- ⚠️ May need better inventory planning or reorder automation.
+
+## 2. Overstocked Books (Stock > 70)
+
+Mostly only 1–2 orders per book.
+
+Low quantity per order (some just 1–3 units).
+
+### 🧠 Insights:
+
+📈 Over-purchased, but not in demand.
+
+🛒 Needs promotion, or stop ordering those not performing.
+
+## 3. Low Stock (Stock ≤ 10)
+
+### Books like:
+
+Book_ID 307, 288, 447, etc., have high orders (3 orders) and quantities (e.g., 23, 18, etc.).
+
+
+🧠 Insights:
+
+🔥 These are hot-selling books, about to run out of stock.
+
+✅ Good candidates for restocking quickly.
+
+📈 Demand is clear from multiple years ordered and higher quantities.
+
+
+## Key Points
+🔸 Median stock is moderate, but some books have very high stock.
+
+🎯 Outliers present — a few books are extremely overstocked.
+
+🛒 These books may not be selling well, leading to inventory pile-up.
+
+
+💡 Need better demand forecasting or promotional strategies for these titles.
 ### 1.Sales and Revenue Analysis
 
 **Objective:** Analyze yearly sales revenue and quantity sold.

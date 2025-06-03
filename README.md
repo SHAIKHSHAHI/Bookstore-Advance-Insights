@@ -115,6 +115,42 @@ GROUP BY Order_Year
 ORDER BY Order_Year;
 """
 ```
+
+## ✅ 7. Average Book Price
+```sql
+SELECT AVG(Price) AS avg_BookPrice
+FROM Books;
+```
+
+## ✅ 8. Average Borrowing Quantity Per Order
+
+```sql
+SELECT AVG(Quantity_per_Order) AS AvgQuantity_Per_Order
+FROM (
+    SELECT Order_ID,
+           SUM(Quantity) AS Quantity_per_Order
+    FROM Orders
+    GROUP BY Order_ID
+) AS sub;
+```
+## ✅ 9. Top 10 Revenue Generating Books
+```sql
+WITH cte AS (
+    SELECT Book_ID, 
+           SUM(Total_Amount) AS Total_Revenue 
+    FROM Orders
+    GROUP BY Book_ID
+    ORDER BY Total_Revenue DESC
+    LIMIT 10
+)
+SELECT a.Book_ID, 
+       b.Title, 
+       a.Total_Revenue 
+FROM cte AS a
+JOIN Books AS b
+ON a.Book_ID = b.Book_ID;
+```
+
 # 🔷 Intermediate SQL Queries
 
 ## ✅ 1. Average Borrowing Per Order
@@ -869,6 +905,39 @@ plt.show()
 ```
 
 ![Borrowing Trend](Borrowing%20Trend.png)
+
+## 📌 Recommendations
+
+Reduce purchase of overstocked books with low demand.
+
+Restock books that are out of stock but in high demand.
+
+Monitor past order quantity to plan stock effectively.
+
+Set alerts for books with critically low stock.
+
+Use discounts/offers to clear excess inventory.
+
+Revisit pricing of books with low sales.
+
+Avoid overstocking slow-moving titles.
+
+Focus on books with higher order frequency.
+
+Manage stock based on customer demand patterns.
+
+Promote top-selling books more aggressively.
+
+
+### 📍 Market & Customer Insights
+
+📈 We've identified 10 countries with more consumers — focus marketing and supply in these regions to create potential loyal customers.
+
+🌎 Explored data of diverse customers — analyze the genres they prefer and recommend similar books to increase engagement.
+
+💰 We have a list of top revenue-generating customers — provide exclusive offers or personalized messages to maintain their interest.
+
+🔍 Monitor popular genres based on order history to ensure you're offering what readers love.
 
 ## 📘 Conclusion
 With each query, insights compiled,

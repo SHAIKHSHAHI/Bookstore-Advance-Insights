@@ -324,7 +324,7 @@ LIMIT 10;
 - Created clear and informative visualizations of sales trends and customer segments using `matplotlib` and `seaborn`.  
 
 ---
-## Comparison of Understock,Lowerstock,OverStock Books.
+## 5.Comparison of Understock,Lowerstock,OverStock Books.
 ```sql
 Out_of_Stock_Books="""
 select Distinct a.Book_ID,a.Stock as Stock_Available,
@@ -400,6 +400,7 @@ Book_ID | Stock | Years Ordered | Quantity | Orders | Price
 - 📊 These books didn’t sell a lot, so stock may have never been replenished.
 
 - ⚠️ May need better inventory planning or reorder automation.
+
 ```plaintext
 Book_ID | Stock | Quantity | Orders | Price
 --------------------------------------------
@@ -425,6 +426,7 @@ Low quantity per order (some just 1–3 units).
 📈 Over-purchased, but not in demand.
 
 🛒 Needs promotion, or stop ordering those not performing.
+
 ```plaintext
 Book_ID | Stock | Quantity | Orders | Price
 --------------------------------------------
@@ -438,7 +440,6 @@ Book_ID | Stock | Quantity | Orders | Price
 342     |   2   |     21    |   9    |  11.90
 411     |   1   |     23    |   6    |  10.75
 151     |   2   |     24    |   8    |  13.60
-
 ```
 ## 3. Low Stock (Stock ≤ 10)
 

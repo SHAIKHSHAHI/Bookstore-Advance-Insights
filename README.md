@@ -503,7 +503,7 @@ Book_ID 307, 288, 447, etc., have high orders (3 orders) and quantities (e.g., 2
 
 
 💡 Need better demand forecasting or promotional strategies for these titles.
-### 1.Sales and Revenue Analysis
+## 1.Sales and Revenue Analysis
 
 **Objective:** Analyze yearly sales revenue and quantity sold.
 **Output:**
@@ -575,7 +575,7 @@ plt.show()
 
 ![Sales and Revenue Analysis](Sales%20And%20Revenue%20Analysis.png)
 
-### 2.📚 Genre-Wise Borrowing Trends Analysis Over the Years
+## 2.📚 Genre-Wise Borrowing Trends Analysis Over the Years
 
 - Extracted genre-wise data from the Orders and Books tables using SQL:
 - Fetched distinct book count and total orders for each genre per year.
@@ -949,4 +949,6 @@ A clean script closes — analysis complete.
 ## Author
 
 # SHAHISTA SHAIKH
+# Contact me:
+shaikhshahi326@gmail.com
 

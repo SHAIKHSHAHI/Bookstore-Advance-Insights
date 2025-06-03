@@ -400,7 +400,20 @@ Book_ID | Stock | Years Ordered | Quantity | Orders | Price
 - 📊 These books didn’t sell a lot, so stock may have never been replenished.
 
 - ⚠️ May need better inventory planning or reorder automation.
-
+```plaintext
+Book_ID | Stock | Quantity | Orders | Price
+--------------------------------------------
+105     |   85  |     12    |   6    |  25.99
+212     |   90  |     5     |   3    |  19.50
+337     |   72  |     7     |   4    |  22.75
+418     |   95  |     2     |   1    |  30.00
+129     |   88  |     9     |   3    |  15.60
+222     |   76  |     4     |   2    |  18.20
+301     |   99  |     1     |   1    |  34.10
+456     |   82  |     6     |   3    |  27.00
+199     |   74  |     8     |   4    |  20.00
+388     |   79  |     3     |   2    |  21.75
+```
 ## 2. Overstocked Books (Stock > 70)
 
 Mostly only 1–2 orders per book.
@@ -412,7 +425,21 @@ Low quantity per order (some just 1–3 units).
 📈 Over-purchased, but not in demand.
 
 🛒 Needs promotion, or stop ordering those not performing.
+```plaintext
+Book_ID | Stock | Quantity | Orders | Price
+--------------------------------------------
+390     |   1   |     15    |   6    |  13.99
+287     |   2   |     22    |   9    |  10.50
+128     |   1   |     18    |   7    |  11.25
+145     |   2   |     25    |   8    |  16.40
+319     |   1   |     20    |   6    |  12.00
+204     |   2   |     17    |   7    |  14.30
+277     |   1   |     19    |   5    |  15.80
+342     |   2   |     21    |   9    |  11.90
+411     |   1   |     23    |   6    |  10.75
+151     |   2   |     24    |   8    |  13.60
 
+```
 ## 3. Low Stock (Stock ≤ 10)
 
 ### Books like:

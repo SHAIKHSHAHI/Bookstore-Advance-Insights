@@ -150,7 +150,15 @@ FROM cte AS a
 JOIN Books AS b
 ON a.Book_ID = b.Book_ID;
 ```
-
+```plaintext
+Key Values
+AvgQuantity_Per_Order
+                5.394
+   Total_Quantity_ordered
+                2697.0
+   Total_Revenue_Generated
+                75628.66
+```
 # 🔷 Intermediate SQL Queries
 
 ## ✅ 1. Average Borrowing Per Order

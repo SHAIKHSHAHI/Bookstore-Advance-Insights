@@ -150,8 +150,8 @@ FROM cte AS a
 JOIN Books AS b
 ON a.Book_ID = b.Book_ID;
 ```
-```plaintext
-Key Values
+# Key Values
+```python
 AvgQuantity_Per_Order
                 5.394
    Total_Quantity_ordered

@@ -61,6 +61,17 @@ bookstore-sql-insights/
 - 💰 Analyzed key revenue drivers across products and customers.  
 - 📈 Showcased consistent growth in orders and revenue.
 
+
+# Key Values
+```python
+AvgQuantity_Per_Order
+                5.394
+   Total_Quantity_ordered
+                2697.0
+   Total_Revenue_Generated
+                75628.66
+```
+
 # 📋 Basic Queries
 ## 🌟 Code 1:  Unique Customer Count Analysis
 ```python
@@ -74,15 +85,7 @@ on a.Customer_ID=b.Customer_ID
 UniqueCustomers_Count=pd.read_sql(UniqueCustomers,conn)
 print(UniqueCustomers_Count)
 ```
-📌 Explanation:
-
-✅ This query calculates how many unique customers have placed at least one order.
-
-✅ It performs a join between the Customers and Orders tables to ensure only those with actual transactions are counted.
-
-🔍 Great for understanding how many engaged customers your business has!
-📊 Helps measure customer base size and business reach.
-💡 Useful for customer retention and marketing strategies.
+ 
 
 ## 🌟 Code 2: Unique Cities Count
 ```python
@@ -92,14 +95,7 @@ from Customers"""
 CitiesCount=pd.read_sql(City_Count,conn)
 print(CitiesCount)
 ```
-📌 Explanation:
-
-✅ This SQL query calculates how many unique cities your customers come from.
-
-✅ It helps you understand the geographical spread of your customer base.
-
-📍 Great for market segmentation and regional performance analysis.
-📊 A key metric to analyze your customer distribution.
+ 
 
 ## 🌟 Code 3: 📅 Distinct Order Years
 ```python
@@ -110,11 +106,7 @@ Order by years"""
 Orders_Placed_Years=pd.read_sql(Order_Years,conn)
 print(Orders_Placed_Years)
 ```
-📌 Explanation:
 
-✅ This query extracts all unique years in which orders were placed from the Orders table.
-
-✅ It's sorted in ascending order to give a clear timeline of order activity.
 
 
 ## 🌟 Code 4: 👥 Customers Per Year
@@ -129,13 +121,6 @@ Order by Order_Year
 Yearly_Customers= pd.read_sql(CustomersPerYear, conn)
 print(Yearly_Customers)
 ```
-📌 Explanation:
-
-✅ This query calculates the number of unique customers for each year by grouping data from the Orders table.
-
-✅ It helps in understanding customer growth or decline year over year.
-
-✅ The results are sorted by year for clear chronological insight.
 
 ## 🌟 Code 5: 📚 Total Unique Books Available
 ``` python
@@ -160,13 +145,7 @@ from Books"""
 TotalBooksAvailable=pd.read_sql(TotalUniqueBooks,conn)
 print(TotalBooksAvailable)
 ```
-📌 Explanation:
-
-✅ This SQL query calculates the total quantity of books ordered by summing up the Quantity column in the Orders table.
-
-✅ It gives insight into the total volume of orders placed, regardless of customer or product.
-
-🌟 Code 7: 📊 Average Quantity Sold
+## 🌟 Code 7: 📊 Average Quantity Sold
 ```python
 AverageQuantitySold="""
 select avg(Quantity)as avg_Quantiy
@@ -174,15 +153,7 @@ from Orders"""
 AvgQuantity=pd.read_sql(AverageQuantitySold,conn)
 print(AvgQuantity)
 ```
-📌 Explanation:
-
-✅ This query calculates the average quantity of books sold per order.
-
-✅ It uses the AVG() function on the Quantity column from the Orders table.
-
-✅ Useful to understand the typical order size customers place
-
-🌟 Code 8: 📅 Total Orders Placed Per Year
+## 🌟 Code 8: 📅 Total Orders Placed Per Year
 ```python
 OrdersPerYear="""
 select year(Order_Date)as Year,count(Distinct Order_ID)as Total_Orders
@@ -192,15 +163,14 @@ group by year(Order_Date)
 YearlyOrders=pd.read_sql(OrdersPerYear,conn)
 print(YearlyOrders)
 ```
-📌 Explanation:
+```plaintext
+Year  Total_Orders
+0  2022            16
+1  2023           256
+2  2024           228
+```
 
-✅ This query counts how many unique orders were placed each year.
-
-✅ It uses COUNT(DISTINCT Order_ID) grouped by the YEAR of the Order_Date.
-
-✅ Helps track yearly customer activity and order trends over time.
-
-🌟 Code 9: 💰 Total Sales Generated Per Year
+## 🌟 Code 9: 💰 Total Sales Generated Per Year
 ```python
 SalesPerYear="""
 select year(Order_Date)as Year,sum(Total_Amount)as Total_Sales
@@ -210,15 +180,7 @@ group by year(Order_Date)
 YearlySales=pd.read_sql(SalesPerYear,conn)
 print(YearlySales)
 ```
-📌 Explanation:
-
-✅ This query calculates the total sales amount generated each year.
-
-✅ It uses SUM(Total_Amount) and groups the results by the year from Order_Date.
-
-✅ Useful for understanding revenue growth trends across different years.
-
-🌟 Code 10: 📚 List of Distinct Book Genres
+## 🌟 Code 10: 📚 List of Distinct Book Genres
 ```python
 Genres="""
 select Distinct Genre from
@@ -227,13 +189,16 @@ Books
 Distinct_Genres=pd.read_sql(Genres,conn)
 print(Distinct_Genres)
 ```
-📌 Explanation:
-
-✅ This simple query fetches all unique book genres available in the Books table.
-
-✅ It helps in identifying category diversity within the inventory.
-
-🌟 Code 11: ✍️ Count of Unique Authors in the Dataset
+```plaintext
+0        Biography
+1          Fantasy
+2      Non-Fiction
+3          Fiction
+4          Romance
+5  Science Fiction
+6          Mystery
+```
+## 🌟 Code 11: ✍️ Count of Unique Authors in the Dataset
 ```python
 Authors="""
 select count(Distinct Author)as
@@ -243,312 +208,447 @@ Books
 Author_Count=pd.read_sql(Authors,conn)
 print(Author_Count)
 ```
-📌 Explanation:
-
-✅ This query calculates the total number of distinct authors in the Books table.
-
-✅ Helps in understanding the variety of contributors in the book collection.
-
-🌟 Code 12: 💰 Average Book Price Calculation
+```plaintext
+Authors_Count
+0            493
+```
+## 🌟 Code 12: 💰 Average Book Price Calculation
 ```python
 AvgBookPrice="""select avg(price)as avg_BookPrice
 from Books"""
 AvgPrice= pd.read_sql(AvgBookPrice,conn)
 ```
 
-📌 Explanation:
-
-✅ This query returns the average price of all books from the Books table.
-
-✅ Helps understand the pricing trend in the dataset and identify if the books are generally affordable or premium.
-
-🌟 Code 13: 💵 Total Revenue Generated
+## 🌟 Code 13: 💵 Total Revenue Generated
 ```python
 Total_Revenue="""select sum(Total_Amount)as Total_Revenue_Generated
 from Orders"""
 TotalRevenue=pd.read_sql(Total_Revenue,conn)
 print(TotalRevenue)
 ```
+## 🌟 Code 14: 🏆 Top 10 Customers Based on Orders Placed
+```python
+Top10Customers_OrdersBased="""
+Select a.Customer_ID as Customer,
+count(Distinct b.Order_ID)as Orders_placed
+from Customers as a
+join Orders as b
+on a.Customer_ID =b.Customer_ID
+group by a.Customer_ID
+order by Orders_placed desc
+limit 10
+"""
+Top10_OrderedCustomers=pd.read_sql(Top10Customers_OrdersBased,conn)
+print(Top10_OrderedCustomers)
+```
 📌 Explanation:
 
-✅ This query calculates the total revenue generated from all orders.
+✅ This SQL query identifies the top 10 customers who have placed the highest number of unique orders.
 
-✅ Useful for understanding the overall financial performance of the bookstore.
+✅ It uses JOIN to combine customer and order data.
 
-```
+✅ COUNT(DISTINCT Order_ID) ensures only unique orders are counted.
 
-# Key Values
+✅ ORDER BY Orders_placed DESC ranks them in descending order.
+
+✅ This helps analyze loyalty and engagement of high-value customers.
+
+## 🌟 Code 15: 👤 Count of One-Time Customers
 ```python
-AvgQuantity_Per_Order
-                5.394
-   Total_Quantity_ordered
-                2697.0
-   Total_Revenue_Generated
-                75628.66
-```
-# 🔷 Intermediate SQL Queries
-
-## ✅ 1. Average Borrowing Per Order
-```sql
-Avg_Borrowing_Per_Order = """
-SELECT AVG(Quantity_per_Ordr) AS AvgQuantity_Per_Order
-FROM (
-    SELECT Order_ID,
-           SUM(Quantity) AS Quantity_per_Order
-    FROM Orders
-    GROUP BY Order_ID
-) AS sub"""
-```
-## ✅ 2. Monthly Borrowing Quantity in 2023
-```sql
-Monthly_Borrowing_2023 = """
-SELECT 
-    MONTHNAME(Order_Date) AS Month,
-    SUM(Quantity) AS Borrowed_Quantity
-FROM Orders 
-WHERE EXTRACT(YEAR FROM Order_Date) = 2023
-GROUP BY MONTHNAME(Order_Date), EXTRACT(MONTH FROM Order_Date)
-ORDER BY EXTRACT(MONTH FROM Order_Date)
+One_Time_Customers = """
+SELECT
+COUNT(Distinct Customer_ID) AS One_Time_Customers
+FROM Customers
+WHERE Customer_ID IN (
+SELECT Customer_ID
+FROM Orders
+GROUP BY Customer_ID
+HAVING COUNT(Distinct Order_ID) = 1
+)
 """
-Borrowing_monthly2023 = pd.read_sql(Monthly_Borrowing_2023, conn)
-print("Monthly Borrowing in 2023:\n", Borrowing_monthly2023)"""
+One_Time_Customers_Count=pd.read_sql(One_Time_Customers,conn)
+print(One_Time_Customers_Count)
 ```
-## ✅ 3. Lower Stock Books (Stock ≤ 10 in 2024)
-```sql
-Lower_Stock_Books = """
-SELECT DISTINCT a.Book_ID, a.Stock AS Stock_Available
-FROM Books AS a
-JOIN Orders AS b ON a.Book_ID = b.Book_ID
-WHERE YEAR(b.Order_Date) = 2024
-  AND a.Stock IS NOT NULL 
-  AND a.Stock != 0
-  AND a.Stock <= 10
-ORDER BY a.Stock asc"""
-```
-## ✅ 4. Out of Stock Books (Stock = 0 or NULL in 2024)
-```sql
-Out_of_Stock_Books = """
-SELECT DISTINCT a.Book_ID, a.Stock AS Stock_Available
-FROM Books AS a
-JOIN Orders AS b ON a.Book_ID = b.Book_ID
-WHERE YEAR(b.Order_Date) = 2024
-  AND (a.Stock IS NULL OR a.Stock = 0)"""
-```
-## ✅ 5. Top 10 Most Expensive Books
-```sql
-Most10_expensive_Books = """
-SELECT DISTINCT Book_ID,
-       Title AS Book,
-       Price AS Price_Of_Book 
-FROM Books
-ORDER BY Price_Of_Book DESC
-LIMIT 10"""
-```
+📌 Explanation:
 
-## ✅ 6. Regular vs Irregular Customers Count
-```sql
-Regular_Customers_Count = """
-SELECT 
-    COUNT(Customer_ID) AS Regular_Customers
-FROM (
-    SELECT Customer_ID
-    FROM Orders
-    GROUP BY Customer_ID
-    HAVING COUNT(DISTINCT YEAR(Order_Date)) >= 2
-) AS ct
+✅ This query counts customers who placed only one order ever.
 
-Irregular_Customers_Count = """
+✅ Helpful in identifying low-retention or casual buyers.
+
+
+✅ Uses a subquery to filter customers with exactly 1 unique order.
+
+## 🌟 Code 16: 🔁 Count of Repeated Customers
+```python
+Repeated_Customers = """
 SELECT 
-    COUNT(DISTINCT Customer_ID) AS Irregular_Customers
+    COUNT(Distinct Customer_ID) AS Repeated_Customers
 FROM Customers 
 WHERE Customer_ID IN (
     SELECT Customer_ID
     FROM Orders
     GROUP BY Customer_ID
-    HAVING COUNT(DISTINCT YEAR(Order_Date)) = 1
+    HAVING COUNT(Distinct Order_ID) > 1
 )
 """
+Repeated_Customers_Count=pd.read_sql(Repeated_Customers,conn)
+print(Repeated_Customers_Count)
 ```
-## ✅ 7. Customers Who Ordered from 3 or More Genres
-```sql
-Diverse_Customers = """
-SELECT a.Customer_ID,
-       COUNT(DISTINCT b.Genre) AS Genre_Count
-FROM Orders AS a
-JOIN Books AS b ON a.Book_ID = b.Book_ID
-GROUP BY a.Customer_ID
-HAVING Genre_Count >= 3
+📌 Explanation:
+
+✅ This query finds customers who have placed more than one order.
+
+✅ Helps identify loyal or returning customers.
+
+✅ Useful for tracking customer retention trends.
+
+```plaintext
+One-time vs Repeated Customers
+One_Time_Customers = 168
+Repeated_Customers = 139
+```
+## 🌟 Code 17: 💰 Top 10 Customers Based on Total Spending
+```python
+Top10Customers_SpendingBased="""
+Select  a.Customer_ID as Customer,
+sum(b.Total_Amount)as Total_Spent
+from Customers as a
+join Orders as b
+on a.Customer_ID =b.Customer_ID
+group by a.Customer_ID
+order by  Total_Spent desc
+limit 10
 """
+Top10_SpendingCustomers=pd.read_sql(Top10Customers_SpendingBased,conn)
+print(Top10_SpendingCustomers)
+```
+```plaintext
+# Customers with Highest Total Spending
+Top_Spending_Customers = {
+    457: 1398.90,
+    174: 1080.95,
+    364: 1052.27,
+    405: 991.00,
+    386: 986.30,
+    425: 942.62,
+    474: 929.19,
+    163: 746.65,
+    167: 719.93,
+    214: 682.15
+}
+```
+📌 Explanation:
+
+✅ This SQL query retrieves the top 10 customers who have spent the most.
+
+✅ It joins Customers and Orders tables to sum total amount spent.
+
+✅ Helps businesses recognize their highest-value customers.
+
+✅ Useful for loyalty programs and customer engagement strategies.
+
+✅ Data is grouped by Customer_ID and sorted in descending order.
+
+## 🌟 Code 18: 🏙️ Top 10 Cities with Highest Customer Count
+```python
+Top10CustomersCities="""
+select City,count(Distinct Customer_ID)
+as Customer_Count
+from Customers 
+group by City
+Order by Customer_Count desc
+limit 10"""
+Country_CustomerCount=pd.read_sql(Top10CustomersCities,conn)
+print(Country_CustomerCount)
+```
+📌 Explanation:
+
+✅ This query finds the top 10 cities with the most unique customers.
+
+✅ Helps identify geographical hotspots where customer base is concentrated.
+
+✅ Groups customer data by city and counts distinct Customer_ID.
+
+✅ Insightful for targeted marketing and regional campaigns.
+
+✅ Data is sorted in descending order by customer count.
+
+✅ Supports location-wise customer segmentation.
+
+## 🌟 Code 19: ❌ Churned/Inactive Customers Before 2024
+```python
+Churned_Customers="""select Customer_ID,
+Max(Order_Date)as Last_Order
+from Orders
+Group by Customer_ID
+Having year(Last_Order)<2024
+"""
+Inactive_Customers= pd.read_sql(Churned_Customers, conn)
+print(Inactive_Customers)
+```
+📌 Explanation:
+
+✅ This query identifies churned customers—those who haven’t placed any orders in 2024.
+
+✅ It retrieves each customer's latest order date.
+
+✅ Filters out customers whose last purchase was before 2024.
+
+✅ Helps in understanding customer retention and targeting re-engagement campaigns.
+
+✅ Valuable for calculating churn rate in business performance analysis.
+
+✅ Result: a list of customers considered inactive or lost.
+
+```
+🌟 Code 20: 🆕 Most Recent Customer Details
+```python
+Recent_Customer="""
+select a.Customer_ID ,
+a.Order_Date,
+b.Name,
+b.Country
+,b.City
+from Orders as a
+join Customers as b
+on a.Customer_ID=b.Customer_ID
+order by a.Order_Date Desc
+limit 1"""
+RecentCustomer= pd.read_sql(Recent_Customer, conn)
+print(RecentCustomer)
 ```
 
-## ✅ 8. New & Most Active Customers in 2024
-```sql
-# 🆕 New Customers in 2024
+📌 Explanation:
 
-New_Customers = """
-SELECT Customer_ID,
-       MIN(Order_Date) AS First_Order
+✅ This query fetches the most recent customer who placed an order.
+
+✅ It includes details like Customer ID, Order Date, Name, Country, and City.
+
+✅ Uses ORDER BY Order_Date DESC to sort from latest to oldest.
+
+✅ LIMIT 1 ensures only the latest customer is retrieved.
+
+✅ Helps identify who was the last active buyer on the platform.
+
+✅ Useful for recent engagement analysis or real-time dashboards.
+
+## 🌟 Code 21: 🥇 First Customer Details
+```python
+First_Customer="""
+select a.Customer_ID ,
+a.Order_Date,
+b.Name,
+b.Country
+,b.City
+from Orders as a
+join Customers as b
+on a.Customer_ID=b.Customer_ID
+order by a.Order_Date
+limit 1"""
+FirstCustomer= pd.read_sql(First_Customer, conn)
+print(FirstCustomer)
+```
+📌 Explanation:
+
+✅ This query retrieves the first-ever customer who placed an order.
+
+✅ Displays key information like Customer ID, Order Date, Name, Country, and City.
+
+✅ Uses ORDER BY Order_Date to sort from earliest to latest.
+
+✅ LIMIT 1 ensures only the first customer is selected.
+
+✅ Helpful in understanding early adopters and customer journey beginnings.
+
+✅ Can be used in historical analysis and platform growth tracking.
+
+## 🌟 Code 22: 📚 Published Year Range of Books
+```python
+Published_Years_Range="""
+with Earliest as
+(select Published_Year as year 
+from Books
+ order by Published_Year asc
+  limit 1) ,
+Latest as
+(select Published_Year as year from Books 
+order by Published_Year desc
+ limit 1)
+select
+(select year from Earliest ) as Earliest_year,
+(select year from  Latest )as Latest_year
+"""
+PublishedYearsRange=pd.read_sql(Published_Years_Range,conn)
+print(PublishedYearsRange)
+```
+
+📌 Explanation:
+
+✅ This query fetches the earliest and latest published year of all books.
+
+✅ Uses two CTEs: Earliest and Latest to find minimum and maximum years.
+
+✅ LIMIT 1 with ORDER BY ensures only the top record is selected.
+
+✅ Returns a single row with Earliest_year and Latest_year.
+
+✅ Useful for understanding the publication span of your book catalog.
+
+✅ Helpful in tracking how recent or historical your inventory is.
+
+## 🌟 Code 23: 🕰️ Old vs Latest Books Count
+```python
+Old_Books_Count="select count(Book_ID) from Books where Published_Year=1990"
+OldBooks=pd.read_sql(Old_Books_Count,conn)
+print(OldBooks)
+
+Latest_Books_Count="select count(Book_ID) from Books where Published_Year=2003"
+LatestBooks=pd.read_sql(Latest_Books_Count,conn)
+print(LatestBooks)
+```
+📌 Explanation:
+
+✅ This query fetches the earliest and latest published year of all books.
+
+✅ Uses two CTEs: Earliest and Latest to find minimum and maximum years.
+
+✅ LIMIT 1 with ORDER BY ensures only the top record is selected.
+
+✅ Returns a single row with Earliest_year and Latest_year.
+
+✅ Useful for understanding the publication span of your book catalog.
+
+✅ Helpful in tracking how recent or historical your inventory is.
+
+## 🌟 Code 24: 📦 Book Stock Level Classification
+```python
+Stock_Status="""
+select Book_ID,
+sum(Stock),
+    case  
+        when sum(Stock) is not null and
+        sum(Stock) != 0 and sum(Stock)<10 then 'Understock'
+        when sum(Stock)>50 then 'Overstock'
+        Else 'Optimum Stock'
+    end as Stock_Status
+from Books
+group by Book_ID 
+"""
+Stocks=pd.read_sql(Stock_Status,conn)
+print(Stocks)
+```
+📌 Explanation:
+
+✅ This query groups books by Book_ID and calculates total stock.
+
+✅ Then it classifies stock into three categories: Understock, Overstock, and Optimum Stock.
+
+✅ Understock → stock < 10, Overstock → stock > 50, else optimum.
+
+✅ Helps in inventory planning, highlighting books that need restocking or clearance.
+
+✅ Great for maintaining stock efficiency and balance.
+
+## 🌟 Code 25: 💸 Book Price Segmentation
+```python
+Book_Segment="""select 
+Book_ID,
+Price,
+case
+        when Price >=30 then 'premium'
+        when Price <30 then 'cheaper'
+end as BookSegment
+from Books"""
+Book_Seg= pd.read_sql(Book_Segment,conn)
+print(Book_Seg)
+```
+📌 Explanation:
+
+✅ This query categorizes each book based on its price.
+
+✅ Books priced ₹30 or above are labeled as "premium".
+
+✅ Books priced below ₹30 are labeled as "cheaper".
+
+✅ Helps in price-based customer targeting and inventory grouping.
+
+## 🌟 Code 26: 👤 Customer Segmentation Based on Spending in 2024
+```python
+Customer_Segment="""select
+Customer_ID,
+sum(Total_Amount) AS Total_Spent,
+case
+        when sum(Total_Amount) >= 800 then 'Premium'
+        when sum(Total_Amount) >= 500 then 'Regular'
+        else 'Low Spender'
+end AS CustomerSegment
+from Orders
+where year(Order_Date)=2024
+group by Customer_ID
+"""
+CustomerSegment= pd.read_sql(Customer_Segment,conn)
+print(CustomerSegment)
+```
+📌 Explanation:
+
+✅ This query classifies customers into segments by their total spending in the year 2024.
+
+✅ Segments:
+
+Premium (spent ₹800 or more)
+
+Regular (spent ₹500–₹799)
+
+Low Spender (spent less than ₹500)
+
+
+✅ Useful for targeted marketing and loyalty strategies.
+
+## 🌟 Code 27: 📊 Monthly Borrowing Trend Comparison (2023 vs 2024)
+```python
+Monthly_Borrowing_2024 = """
+SELECT
+MONTHNAME(Order_Date) AS Month,
+COUNT(DISTINCT Order_ID) AS Borrowing_Events_2024
 FROM Orders
-GROUP BY Customer_ID
-HAVING YEAR(First_Order) = 2024;
+WHERE EXTRACT(YEAR FROM Order_Date) = 2024
+GROUP BY MONTHNAME(Order_Date), EXTRACT(MONTH FROM Order_Date)
+ORDER BY EXTRACT(MONTH FROM Order_Date)
 """
-Newly_Customers = pd.read_sql(New_Customers, conn)
-print("New Customers in 2024:\n", Newly_Customers)
+Monthly_Analysis2024 = pd.read_sql(Monthly_Borrowing_2024, conn)
+print(Monthly_Analysis2024)
 
-# 🔝 Top 3 Most Active Customers in 2024
-Most_Ordered_Customers = """
-SELECT Customer_ID,
-       COUNT(Order_ID) AS Total_Orders
+Monthly_Borrowing_2023 = """
+SELECT
+MONTHNAME(Order_Date) AS Month,
+COUNT(DISTINCT Order_ID) AS Borrowing_Events_2023
 FROM Orders
-WHERE YEAR(Order_Date) = 2024
-GROUP BY Customer_ID
-ORDER BY Total_Orders DESC
-LIMIT 3;
+WHERE EXTRACT(YEAR FROM Order_Date) = 2023
+GROUP BY MONTHNAME(Order_Date), EXTRACT(MONTH FROM Order_Date)
+ORDER BY EXTRACT(MONTH FROM Order_Date)
 """
+Monthly_Analysis2023= pd.read_sql(Monthly_Borrowing_2023, conn)
+print(Monthly_Analysis2023)
+
+Monthly_Trend_Comparison = pd.merge(
+Monthly_Analysis2023 ,
+Monthly_Analysis2024,
+on='Month',
+how='outer'
+).fillna(0)
+print(Monthly_Trend_Comparison)
 ```
-# 🚀 Advanced SQL Queries
+📌 Explanation:
 
-## 🚀 1. Top 3 Trending Books by Genre in 2024
-```sql
-Top3_TrendingBooks_ByGenre_2024 = """
-WITH BookOrders AS (
-    SELECT a.Book_ID, a.Genre,
-           a.Title, a.Stock,
-           SUM(b.Quantity) AS Total_Quantiy_Ordered,
-           COUNT(DISTINCT b.Order_ID) AS Order_Count
-    FROM Books AS a
-    JOIN Orders AS b ON a.Book_ID = b.Book_ID
-    WHERE YEAR(Order_Date) = 2024
-    GROUP BY a.Book_ID, a.Genre, a.Title, a.Stock
-),
-RankedBooks AS (
-    SELECT *,
-           DENSE_RANK() OVER (PARTITION BY Genre ORDER BY Total_Quantiy_Ordered DESC) AS Genre_Rank
-    FROM BookOrders
-)
-SELECT *
-FROM RankedBooks
-WHERE Genre_Rank <= 3;
-"""
-```
+✅ This code compares monthly borrowing activity for the years 2023 and 2024.
 
-## 🚀 2. Customer Segment Revenue Analysis by Year
-```sql
-Customer_Segment_Revenue = """
-WITH CustomerSegment AS (
-    SELECT
-        Customer_ID,
-        COUNT(Order_ID) AS Order_Count,
-        SUM(Total_Amount) AS Total_Spent,
-        CASE
-            WHEN SUM(Total_Amount) >= 800 THEN 'Premium'
-            WHEN SUM(Total_Amount) >= 500 THEN 'Regular'
-            WHEN COUNT(Order_ID) = 1 THEN 'One Time Buyer'
-            ELSE 'Low Spender'
-        END AS CustomerSegment
-    FROM Orders
-    GROUP BY Customer_ID
-)
-SELECT 
-    SUM(b.Total_Amount) AS Customer_Revenue,
-    SUM(b.Quantity) AS Quantity,
-    a.CustomerSegment,
-    YEAR(b.Order_Date) AS Year
-FROM CustomerSegment AS a
-JOIN Orders AS b ON a.Customer_ID = b.Customer_ID
-GROUP BY YEAR(b.Order_Date), CustomerSegment
-ORDER BY Year, CustomerSegment;
-"""
-```
-## 🚀 3. Book Segment on Price Classification Basis
+✅ It calculates the number of distinct borrowings (Order_IDs) for each month in both years.
 
-```sql
-Book_Segment = """
-SELECT 
-    Book_ID,
-    Price,
-    CASE
-        WHEN Price >= 30 THEN 'Premium'
-        WHEN Price < 30 THEN 'Cheaper'
-    END AS BookSegment
-FROM Books;
-"""
-```
+✅hen merges both datasets to form a single trend comparison table.
 
-## 🚀 4. Top 10 Countries with Highest Number of Customers
+✅ Helps identify seasonal borrowing behavior and growth/drop patterns month-wise.
 
-```sql
-Top10_Customer_Countries = """
-SELECT COUNT(DISTINCT Customer_ID) AS Customer_Count,
-       Country
-FROM Customers
-GROUP BY Country
-ORDER BY Customer_Count DESC
-LIMIT 10;
-"""
-```
-## 🔄 Data Analysis Workflow - Key Points
-
-- Performed all data querying and analysis directly in MySQL using optimized SQL queries.  
-- Extracted valuable insights from the `Books`, `Orders`, and `Customers` tables through SQL commands.  
-- Established a connection between Python and MySQL to fetch query results for further use.
-- Created clear and informative visualizations of sales trends and customer segments using `matplotlib` and `seaborn`.  
-
----
-## 5.Comparison of Understock,Lowerstock,OverStock Books.
-```sql
-Out_of_Stock_Books="""
-select Distinct a.Book_ID,a.Stock as Stock_Available,
-count(Distinct b.Order_ID),
-sum(b.Quantity)as Quantity,
-count(b.Order_ID)as Orders,
-a.Price as Book_price
-from Books as a
-join Orders as b
-on a.Book_ID=b.Book_ID
-where a.Stock is null or a.Stock=0
-group by a.Book_ID
-"""
-Stock_Out_Books=pd.read_sql(Out_of_Stock_Books,conn)
-
-
-Over_Stock_Books="""
-select Distinct a.Book_ID,a.Stock as Stock_Available,
-sum(b.Quantity)as Quantity,
-Count(year(b.Order_Date)) as Total_Order_Years ,
-count(b.Order_ID)as Orders,
-a.Price as Book_price
-from Books as a
-join Orders as b
-on a.Book_ID=b.Book_ID
-and a.Stock is not null and a.Stock!=0
-and a.Stock >70
-group by a.Book_ID
-order by a.Stock asc
-
-"""
-
-Over_Stock=pd.read_sql(Over_Stock_Books,conn)
-
-
-Lower_Stock_Books="""
-select Distinct a.Book_ID,a.Stock as Stock_Available,
-sum(b.Quantity)as Quantity,
-count(b.Order_ID)as Orders,
-a.Price as Book_price
-from Books as a
-join Orders as b
-on a.Book_ID=b.Book_ID
-and a.Stock is not null and a.Stock!=0
-and a.Stock <=10
-group by a.Book_ID
-order by a.Stock asc
-
-"""
-
-Lowest_Stock=pd.read_sql(Lower_Stock_Books,conn)
-conn.close()
-
+✅ Ideal for plotting a line/bar chart to visualize shifts in customer engagement.
 
 ```
 
@@ -584,7 +684,7 @@ Book_ID | Stock | Quantity | Orders | Price
 301     |   99  |     1     |   1    |  34.10
 456     |   82  |     6     |   3    |  27.00
 199     |   74  |     8     |   4    |  20.00
-388     |   79  |     3     |   2    |  21.75
+388     |   79  |     3     |   2    |  215
 ```
 ## 2. Overstocked Books (Stock > 70)
 
@@ -614,30 +714,6 @@ Book_ID | Stock | Quantity | Orders | Price
 ```
 ## 3. Low Stock (Stock ≤ 10)
 
-### Books like:
-
-Book_ID 307, 288, 447, etc., have high orders (3 orders) and quantities (e.g., 23, 18, etc.).
-
-
-🧠 Insights:
-
-🔥 These are hot-selling books, about to run out of stock.
-
-✅ Good candidates for restocking quickly.
-
-📈 Demand is clear from multiple years ordered and higher quantities.
-
-![OverStock vs Under Stock Books](OverStock%20vs%20Under%20Stock%20Books.png)
-
-## Key Points
-🔸 Median stock is moderate, but some books have very high stock.
-
-🎯 Outliers present — a few books are extremely overstocked.
-
-🛒 These books may not be selling well, leading to inventory pile-up.
-
-
-💡 Need better demand forecasting or promotional strategies for these titles.
 ## 1.Sales and Revenue Analysis
 
 **Objective:** Analyze yearly sales revenue and quantity sold.
@@ -758,129 +834,13 @@ plt.show()
 ```
 ![Genre-Wise Trends](Genres%20Trend.png)
 
-## 3. 🧑‍🤝‍🧑 Customer Segment and Trend Analysis
-
-- 1.Extracted only customers who placed at least one order by joining the Customers and Orders tables.
-- 2.Queried year-wise count of unique customers to analyze growth over time.
-- 3.Retrieved Top 10 countries based on total number of unique customers.
-
-**1.Identified:**
-
-- 1. Regular Customers: who placed orders in 2 or more different years.
-- 2.Irregular Customers: who placed orders in only one year.
-
-
-**2.Segmented customers into 4 categories based on their total spend and order count:**
-
-🏆 Premium: Spent ≥ 800
-
-🔁 Regular: Spent ≥ 500
-
-☝️ One Time Buyer: Only 1 order
-
-🪙 Low Spender: Everyone else
-
-
-
-
-**3.Aggregated segment-wise revenue and quantity sold for each year using CTE and joins.**
-
-**Visualized:**
-
-📊 Top 10 countries by customer count using bar chart.
-📈 Year-wise unique customers using bar chart.
-🧮 Comparison of Regular vs Irregular customers using horizontal bar chart.
+##  vs Irregular customers using horizontal bar chart.
 🔥 Revenue by Customer Segment across years using heatmap.
 
 
 **4.Saved final visualization as CustomerSegment.png.**
 ## Sql Code
 ```sql
-
-UniqueCustomers_Count="""
-select count(Distinct a.Customer_ID)as
-Customer_Count,
-year(b.Order_Date)as Year
-From Customers as a
-join Orders as b
-on a.Customer_ID=b.Customer_ID
-group by year(b.Order_Date)"""
-
-Yearly_UniqueCustomers=pd.read_sql(UniqueCustomers_Count,conn)
-print(Yearly_UniqueCustomers)
-
-Top10_Customer_Countries="""
-select count(Distinct Customer_ID)as 
-Customer_Count,Country
-from Customers
-Group by Country
-order by Customer_Count desc
-limit 10"""
-CustomerCount_CountryTop10=pd.read_sql(Top10_Customer_Countries,conn)
-print(CustomerCount_CountryTop10)
-
-Regular_Customers_Count="""
-select 
-count(Customer_ID)
-as Regular_Customers
-from (
-select  Customer_ID
-from Orders
-Group by Customer_ID
-Having count(Distinct year(Order_Date))>=2
-)ct"""
-
-Regular_Customers=pd.read_sql(Regular_Customers_Count,conn)
-print(Regular_Customers)
-
-Irregular_Customers_Count = """
-SELECT 
-    COUNT(DISTINCT Customer_ID) AS Irregular_Customers
-FROM Customers 
-WHERE Customer_ID IN (
-    SELECT Customer_ID
-    FROM Orders
-    GROUP BY Customer_ID
-    HAVING COUNT(DISTINCT YEAR(Order_Date)) = 1
-)
-"""
-Irregular_Customers=pd.read_sql(Irregular_Customers_Count,conn)
-print(Irregular_Customers)
-
-Customer_Segment_Revenue="""
-with CustomerSegment as (
-select
-Customer_ID,
-count(Order_ID)as Order_Count,
-sum(Total_Amount) AS Total_Spent,
-case
-        when sum(Total_Amount) >= 800 then 'Premium'
-        when sum(Total_Amount) >= 500 then 'Regular'
-        when count(Order_ID)=1
-        then 'One Time Buyer'
-        else 'Low Spender'
-end AS CustomerSegment
-from Orders
-group by Customer_ID)
-
-select sum(b.Total_amount) as Customer_Revenue,
-sum(b.Quantity)as Quantity,
-a.CustomerSegment,
-year(b.Order_Date)as Year
-from CustomerSegment as a
-join Orders as b
-on a.Customer_ID=b.Customer_ID
-group by year(b.Order_Date),CustomerSegment
-order by Year,CustomerSegment
-"""
-Customer_Categories_Revenue= pd.read_sql(Customer_Segment_Revenue,conn)
-print(Customer_Categories_Revenue)
-
-regular=Regular_Customers['Regular_Customers'][0]
-Irregular=Irregular_Customers['Irregular_Customers'][0]
-
-categories = ['Regular Customers', 'Irregular Customers']
-counts = [regular, Irregular]
 
 ```
 ## Visual Code

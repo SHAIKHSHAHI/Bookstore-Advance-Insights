@@ -226,6 +226,8 @@ from Orders"""
 TotalRevenue=pd.read_sql(Total_Revenue,conn)
 print(TotalRevenue)
 ```
+# Advance Queries 📊 | Powerful Insights Through Complex SQL
+
 ## 🌟 Code 14: 🏆 Top 10 Customers Based on Orders Placed
 ```python
 Top10Customers_OrdersBased="""
@@ -714,294 +716,8 @@ Book_ID | Stock | Quantity | Orders | Price
 ```
 ## 3. Low Stock (Stock ≤ 10)
 
-## 1.Sales and Revenue Analysis
 
-**Objective:** Analyze yearly sales revenue and quantity sold.
-**Output:**
-- 📦 Extracted yearly total revenue and quantity sold from the `Orders` table using SQL aggregation.
-- 📊 Plotted the results to visualize:
-  - Annual revenue trends.
-  - Yearly sales quantity.
-  - Comparison between revenue and quantity sold.
-  - Revenue share per year using a pie chart.
-## Sql Code
-```sql
-SELECT YEAR(Order_Date) AS Year, 
-       SUM(Total_Amount) AS Yearly_Revenue, 
-       SUM(Quantity) AS Yearly_SalesQuantity
-FROM Orders
-GROUP BY YEAR(Order_Date)
-ORDER BY Year
-```
-## Visual Code
----
-```python
-plt.figure(figsize=(10, 14),dpi=300)
-
-plt.subplot(2,2,1)
-sns.lineplot(data=Yearly_Revenue_Quantity, x='Year', y='Yearly_Revenue',
-             marker='o', color='purple')
-plt.grid(True, linestyle='--', linewidth=1, alpha=0.7)
-plt.title('Revenue Generated Per Year', fontsize=12, fontweight='heavy', fontstyle='italic')
-plt.xlabel('Year', fontsize=12, fontweight='heavy')
-plt.ylabel('Revenue', fontsize=12, fontweight='heavy')
-plt.xticks(Yearly_Revenue_Quantity['Year'],rotation=20)
-
-plt.subplot(2,2,2)
-sns.barplot(data=Yearly_Revenue_Quantity, x='Year', y='Yearly_SalesQuantity',
-            palette='flare', alpha=0.8)
-plt.title('Quantity Sold Per Year', fontsize=12, fontweight='heavy', fontstyle='italic')
-plt.xlabel('Year', fontsize=12, fontweight='heavy')
-plt.ylabel('Sales Quantity', fontsize=12, fontweight='heavy')
-plt.xticks(rotation=20)
-
-
-plt.subplot(2,2, 3)
-sns.scatterplot(data=Yearly_Revenue_Quantity, x='Yearly_SalesQuantity', y='Yearly_Revenue', hue='Year', palette='flare', s=200)
-plt.title('Comparison of Quantity Sold and Revenue Earned', fontsize=12, fontweight='heavy', fontstyle='italic')
-plt.xlabel('Sales Quantity', fontsize=12, fontweight='heavy')
-plt.ylabel('Total Revenue', fontsize=12, fontweight='heavy')
-plt.legend(title='Year')
-
-plt.suptitle("Annual Wise Sales and Revenue Trend", fontsize=20, fontweight='heavy')
-plt.subplots_adjust(hspace=0.4)
-
-plt.subplot(2, 2, 4)
-plt.pie(Yearly_Revenue_Quantity['Yearly_Revenue'], labels=Yearly_Revenue_Quantity['Year'],
-        colors=['pink','orange','coral'], autopct='%1.0f%%', shadow=True,radius=1.5,
-        textprops={'fontsize': 12, 'color': 'black', 'weight': 'bold'},
-        wedgeprops={'edgecolor': 'black', 'linewidth': 2,'width':0.8})
-plt.title('Revenue Contribution by Year', fontsize=12, fontweight='heavy', fontstyle='italic')
-plt.legend(title='year',loc='lower right')
-
-
-plt.tight_layout(rect=[1,1,1,3])  
-plt.suptitle("Annual Wise Sales and Revenue Trend", fontsize=20, fontweight='heavy')
-plt.subplots_adjust(hspace=0.5, wspace=0.5)
-plt.savefig('Sales And Revenue Analysis.png')
-
-
-plt.show()
-```
-
-![Sales and Revenue Analysis](Sales%20And%20Revenue%20Analysis.png)
-
-## 2.📚 Genre-Wise Borrowing Trends Analysis Over the Years
-
-- Extracted genre-wise data from the Orders and Books tables using SQL:
-- Fetched distinct book count and total orders for each genre per year.
-
-
-Visualized the insights using two plots:
-
-📊 Bar Plot showing unique books borrowed by genre, across years.
-
-📈 Line Plot showing total number of orders placed per genre, over time.
-## Sql Code
-```sql
-select b.Genre,
-       year(a.Order_Date) as Year,
-       count(Distinct a.Book_ID) as Book_Count,
-       count(Distinct a.Order_ID) as Total_Orders
-from Orders as a
-join Books as b
-on a.Book_ID = b.Book_ID
-group by year(Order_Date), b.genre
-order by Book_Count;
-```
-## Visual Code
-```Python
-# Matplotlib & Seaborn Visualization
-plt.figure(figsize=(8,10), dpi=300)
-
-# Bar Plot - Unique Books by Genre
-plt.subplot(2,1,1)
-sns.barplot(data=Genre_Books_Count,
-x='Genre', y='Book_Count', hue='Year',
-palette='Dark2', saturation=0.75)
-plt.title("Unique Book Borrowings by Genre Over the Years")
-
-# Line Plot - Orders by Genre
-plt.subplot(2,1,2)
-sns.lineplot(data=Genre_Books_Count, x='Genre',
- y='Total_Orders', hue='Year', style='Year',
- palette='flare')
-plt.title("Total Orders Placed Genre-Wise Over the Years")
-
-plt.tight_layout()
-plt.savefig('Genres Trend.png')
-plt.show()
-```
-![Genre-Wise Trends](Genres%20Trend.png)
-
-##  vs Irregular customers using horizontal bar chart.
-🔥 Revenue by Customer Segment across years using heatmap.
-
-
-**4.Saved final visualization as CustomerSegment.png.**
-## Sql Code
-```sql
-
-```
-## Visual Code
-```python
-plt.figure(figsize=(15,12),dpi=300)
-
-plt.subplot(2,2,1)
-
-sns.barplot(data=CustomerCount_CountryTop10,
-            x='Customer_Count',
-            y='Country',
-            palette='crest')
-
-plt.title('Top10_Countries Based on Customers', fontsize=14, fontweight='heavy')
-plt.xlabel('Number of Unique Customers', fontsize=14, fontweight='heavy')
-plt.ylabel('Country', fontsize=14, fontweight='heavy')
-plt.grid(True, linestyle='--', alpha=0.6)
-
-
-# Subplot 1: Lineplot
-plt.subplot(2,2,2)
-
-sns.barplot(data=Yearly_UniqueCustomers, 
-            x='Year', 
-            y='Customer_Count', 
-            palette='flare',
-            width=0.8)
-
-plt.title('Year-wise Unique Customers', fontsize=14, fontweight='heavy')
-plt.xlabel('Year', fontsize=14, fontweight='heavy')
-plt.ylabel('Customer Count', fontsize=14, fontweight='heavy')
-
-plt.grid(axis='x', linestyle='--', alpha=0.5)
-
-
-plt.subplot(2,2,3)
-
-sns.barplot(y=categories, x=counts, palette='flare')
-plt.title('Customer Count Based Types ', fontsize=14, fontweight='bold')
-plt.xlabel('Customer Type',fontsize=14, fontweight='heavy')
-plt.ylabel('Total Count',fontsize=14, fontweight='heavy')
-
-plt.grid(axis='x', linestyle='--', alpha=0.6)
-
-plt.subplot(2,2,4)
-
-pivot = Customer_Categories_Revenue.pivot(index='CustomerSegment', columns='Year', values='Customer_Revenue')
-sns.heatmap(pivot, annot=True, cmap='crest', fmt=".0f")
-plt.title("Revenue By Customer Segment and Year",fontsize=14, fontweight='heavy')
-plt.xlabel('Year',fontsize=14, fontweight='heavy')
-plt.ylabel('CustomerSegment',fontsize=14, fontweight='heavy')
-plt.xticks(rotation=30)
-plt.yticks(rotation=30)
-
-plt.tight_layout(rect=[1,1,1,3])  # Adjust spacing to make room
-plt.suptitle("Customer Segment and Customer Trend Analysis",
-fontsize=20,fontweight='heavy')
-plt.subplots_adjust(hspace=0.5, wspace=0.5)
-plt.savefig('CustomerSegment.png')
-```
-
-
-plt.show()
-
-![Customer Segment Trend](CustomerSegment.png)
-## 4. 📈 Borrowing Trend Analysis
-1.Extracted top 3 trending books by genre in 2024 based on total quantity ordered .
-
-2.Extracted monthly borrowing event counts for 2024 from Orders.
-## Visuals
-1.Created a bar plot comparing stock vs total quantity ordered for the top 3 books per genre.
-
-2.Created a line plot showing the monthly borrowing events trend in 2024.
-## Sql Code
-```sql
-Top3_TrendingBooks_ByGenre_2024="""
-with BookOrders as(
-select a.Book_ID ,a.Genre,
-a.Title,a.Stock,
-sum(b.Quantity)as Total_Quantiy_Ordered,
-Count(Distinct b.Order_ID )as
-Order_Count
-From Books as a
-Join Orders as b
-on a.Book_ID=b.Book_ID
-where year(Order_Date)=2024
-group by a.Book_ID,a.Genre,a.Title,a.Stock),
-
-RankedBooks AS (
-    SELECT *,
-           Dense_rank()OVER (PARTITION BY Genre ORDER BY  Total_Quantiy_Ordered  DESC) AS Genre_Rank
-    FROM BookOrders
-)
-SELECT *
-FROM RankedBooks
-WHERE Genre_Rank <=3
-
-"""
-Top3Books_PerGenre_2024=pd.read_sql(Top3_TrendingBooks_ByGenre_2024
-,conn)
-
-
-
-Monthly_Borrowing_2024 = """
-SELECT 
-    MONTHNAME(Order_Date) AS Month,
-    COUNT(DISTINCT Order_ID) AS Borrowing_Events_2024
-FROM Orders 
-WHERE EXTRACT(YEAR FROM Order_Date) = 2024
-GROUP BY MONTHNAME(Order_Date), EXTRACT(MONTH FROM Order_Date)
-ORDER BY EXTRACT(MONTH FROM Order_Date)
-"""
-Monthly_Analysis2024 = pd.read_sql(Monthly_Borrowing_2024, conn)
-```
-## Python Code
-```python
-plt.figure(figsize=(10, 15),dpi=300)
-
-df_melted = pd.melt(
-    Top3Books_PerGenre_2024,
-    id_vars=['Book_ID'], 
-    value_vars=['Stock', 'Total_Quantiy_Ordered'],
-    var_name='Type', 
-    value_name='Value'
-)
-plt.subplot(2,1,1)
-sns.barplot(data=df_melted, x='Book_ID', y='Value', hue='Type', palette='Set2')
-
-plt.title('Top 3 Books of Each Genre on Quantity Basis (2024)',fontsize=14, fontweight='heavy')
-plt.xticks(rotation=60)
-
-plt.ylabel('Quantity Ordered vs Stock Available',fontsize=14, fontweight='heavy')
-plt.xlabel('Book Name',fontsize=14, fontweight='heavy')
-plt.legend()
-
-plt.subplot(2,1,2)
-
-plt.plot(
-    Monthly_Analysis2024['Month'],
-    Monthly_Analysis2024['Borrowing_Events_2024'],
-    marker='o',
-    color='teal'
-)
-plt.title('Monthly Borrowing Events in 2024', fontsize=14, fontweight='bold')
-plt.xlabel('Month', fontsize=14,fontweight='heavy')
-plt.ylabel('Number of Orders ', fontsize=14,fontweight='heavy')
-plt.xticks(rotation=30)
-plt.grid(True)
-
-plt.tight_layout(rect=[1,1,1,3])  
-plt.suptitle("Borrowing Trend Analysis",
-fontsize=20,fontweight='heavy')
-plt.subplots_adjust(hspace=0.5, wspace=0.5)
-plt.savefig('Borrowing Trend.png')
-
-plt.show()
-```
-
-![Borrowing Trend](Borrowing%20Trend.png)
-
-## 📌 Recommendations
+# 📌 Recommendations
 
 Reduce purchase of overstocked books with low demand.
 
@@ -1024,7 +740,7 @@ Manage stock based on customer demand patterns.
 Promote top-selling books more aggressively.
 
 
-### 📍 Market & Customer Insights
+# 📍 Market & Customer Insights
 
 📈 We've identified 10 countries with more consumers — focus marketing and supply in these regions to create potential loyal customers.
 
@@ -1032,14 +748,39 @@ Promote top-selling books more aggressively.
 
 💰 We have a list of top revenue-generating customers — provide exclusive offers or personalized messages to maintain their interest.
 
+# 📚 Conclusion
+
 🔍 Monitor popular genres based on order history to ensure you're offering what readers love.
 
-## 📘 Conclusion
-With each query, insights compiled,
-Customer trends and genres profiled.
-From stock alerts to revenue streams,
-Data unfolded like structured dreams.
-A clean script closes — analysis complete.
+1. This project analyzed 500+ rows of data from Books, Orders, and Customers tables.
+
+
+2. We discovered a rising customer base year by year, with 2023 having the highest engagement.
+
+
+3. Fiction and Science Fiction genres emerged as the most borrowed, with changing trends over the years.
+
+
+4. Revenue insights showed which books and customers contributed most to sales.
+
+
+5. Monthly trends helped understand demand cycles and seasonality in orders.
+
+
+6. Stock analysis classified books into understocked, overstocked, and optimum levels.
+
+
+7. Customer segmentation revealed patterns of premium, regular, and low spenders.
+
+
+8. Repeated and diverse readers were identified, aiding in customer retention strategies.
+
+
+9. Time-based comparisons gave visibility into 2023 vs. 2024 borrowing patterns.
+
+
+10. Overall, the project delivered actionable insights for inventory planning and customer targeting.
+
 
 ## Author
 

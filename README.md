@@ -62,94 +62,221 @@ bookstore-sql-insights/
 - 📈 Showcased consistent growth in orders and revenue.
 
 # 📋 Basic Queries
+## 🌟 Code 1:  Unique Customer Count Analysis
+```python
+UniqueCustomers="""
+select count(Distinct a.Customer_ID)as
+UniqueCustomer_Count
+From Customers as a
+join Orders as b
+on a.Customer_ID=b.Customer_ID
 
-## ✅ 1. Total Quantity Ordered
-```sql
-Total_Quantity_Ordered = """
-SELECT SUM(Quantity) AS Total_Quantity_Ordered
-FROM Orders"""
+UniqueCustomers_Count=pd.read_sql(UniqueCustomers,conn)
+print(UniqueCustomers_Count)
 ```
-## ✅ 2. Total Revenue Generated
-```sql
-Total_Revenue = """
-SELECT SUM(Total_Amount) AS Total_Revenue_Generated
-FROM Orders"""
-```
-## ✅ 3. Orders Placed Years
-```sql
-Order_Years = """
-SELECT DISTINCT EXTRACT(YEAR FROM Order_Date) AS years 
-FROM Orders
-ORDER BY years"""
-```
-## ✅ 4. Genre-wise Borrowed Books
-```sql
-Genrewise_Borrowed_Books = """
-SELECT Genre,
-       COUNT(Book_ID) AS Borrowed_Books
-FROM Books
-WHERE Book_ID IN (
-    SELECT Book_ID FROM Orders
-)
-GROUP BY Genre"""
-```
+📌 Explanation:
 
-## ✅ 5. Author-wise Borrowed Books
-```sql
-Authorwise_Borrowed_Books = """
-SELECT a.Author,
-       COUNT(b.Book_ID) AS Borrowed_Books
-FROM Books a
-JOIN Orders b ON a.Book_ID = b.Book_ID
-GROUP BY a.Author
-ORDER BY Borrowed_Books DESC"""
+✅ This query calculates how many unique customers have placed at least one order.
 
+✅ It performs a join between the Customers and Orders tables to ensure only those with actual transactions are counted.
+
+🔍 Great for understanding how many engaged customers your business has!
+📊 Helps measure customer base size and business reach.
+💡 Useful for customer retention and marketing strategies.
+
+## 🌟 Code 2: Unique Cities Count
+```python
+
+City_Count="""select count(Distinct City)as Cities
+from Customers"""
+CitiesCount=pd.read_sql(City_Count,conn)
+print(CitiesCount)
 ```
-## ✅ 6. Number of Customers per Year
-```sql
-CustomersPerYear = """
-SELECT COUNT(DISTINCT Customer_ID) AS Customers_Per_Year,
-       YEAR(Order_Date) AS Order_Year
-FROM Orders 
-GROUP BY Order_Year
-ORDER BY Order_Year;
+📌 Explanation:
+
+✅ This SQL query calculates how many unique cities your customers come from.
+
+✅ It helps you understand the geographical spread of your customer base.
+
+📍 Great for market segmentation and regional performance analysis.
+📊 A key metric to analyze your customer distribution.
+
+## 🌟 Code 3: 📅 Distinct Order Years
+```python
+Order_Years="""
+select Distinct
+(extract(year from Order_Date))as years from Orders
+Order by years"""
+Orders_Placed_Years=pd.read_sql(Order_Years,conn)
+print(Orders_Placed_Years)
+```
+📌 Explanation:
+
+✅ This query extracts all unique years in which orders were placed from the Orders table.
+
+✅ It's sorted in ascending order to give a clear timeline of order activity.
+
+
+## 🌟 Code 4: 👥 Customers Per Year
+```python
+CustomersPerYear="""
+select count(Distinct Customer_ID)as Customers_Per_Year ,
+year(Order_Date)as Order_Year
+from Orders
+group by Order_Year
+Order by Order_Year
 """
+Yearly_Customers= pd.read_sql(CustomersPerYear, conn)
+print(Yearly_Customers)
+```
+📌 Explanation:
+
+✅ This query calculates the number of unique customers for each year by grouping data from the Orders table.
+
+✅ It helps in understanding customer growth or decline year over year.
+
+✅ The results are sorted by year for clear chronological insight.
+
+## 🌟 Code 5: 📚 Total Unique Books Available
+``` python
+TotalUniqueBooks="""
+select count(Distinct Book_ID)as Book_Count
+from Books"""
+TotalBooksAvailable=pd.read_sql(TotalUniqueBooks,conn)
+print(TotalBooksAvailable)
+```
+📌 Explanation:
+
+✅ This query counts the total number of unique books present in the Books table.
+
+✅ Useful for knowing the overall size of the book inventory.
+
+
+## 🌟 Code 6: 📦 Total Quantity Ordered
+```python
+TotalUniqueBooks="""
+select count(Distinct Book_ID)as Book_Count
+from Books"""
+TotalBooksAvailable=pd.read_sql(TotalUniqueBooks,conn)
+print(TotalBooksAvailable)
+```
+📌 Explanation:
+
+✅ This SQL query calculates the total quantity of books ordered by summing up the Quantity column in the Orders table.
+
+✅ It gives insight into the total volume of orders placed, regardless of customer or product.
+
+🌟 Code 7: 📊 Average Quantity Sold
+```python
+AverageQuantitySold="""
+select avg(Quantity)as avg_Quantiy
+from Orders"""
+AvgQuantity=pd.read_sql(AverageQuantitySold,conn)
+print(AvgQuantity)
+```
+📌 Explanation:
+
+✅ This query calculates the average quantity of books sold per order.
+
+✅ It uses the AVG() function on the Quantity column from the Orders table.
+
+✅ Useful to understand the typical order size customers place
+
+🌟 Code 8: 📅 Total Orders Placed Per Year
+```python
+OrdersPerYear="""
+select year(Order_Date)as Year,count(Distinct Order_ID)as Total_Orders
+from Orders
+group by year(Order_Date)
+"""
+YearlyOrders=pd.read_sql(OrdersPerYear,conn)
+print(YearlyOrders)
+```
+📌 Explanation:
+
+✅ This query counts how many unique orders were placed each year.
+
+✅ It uses COUNT(DISTINCT Order_ID) grouped by the YEAR of the Order_Date.
+
+✅ Helps track yearly customer activity and order trends over time.
+
+🌟 Code 9: 💰 Total Sales Generated Per Year
+```python
+SalesPerYear="""
+select year(Order_Date)as Year,sum(Total_Amount)as Total_Sales
+from Orders
+group by year(Order_Date)
+"""
+YearlySales=pd.read_sql(SalesPerYear,conn)
+print(YearlySales)
+```
+📌 Explanation:
+
+✅ This query calculates the total sales amount generated each year.
+
+✅ It uses SUM(Total_Amount) and groups the results by the year from Order_Date.
+
+✅ Useful for understanding revenue growth trends across different years.
+
+🌟 Code 10: 📚 List of Distinct Book Genres
+```python
+Genres="""
+select Distinct Genre from
+Books
+"""
+Distinct_Genres=pd.read_sql(Genres,conn)
+print(Distinct_Genres)
+```
+📌 Explanation:
+
+✅ This simple query fetches all unique book genres available in the Books table.
+
+✅ It helps in identifying category diversity within the inventory.
+
+🌟 Code 11: ✍️ Count of Unique Authors in the Dataset
+```python
+Authors="""
+select count(Distinct Author)as
+Authors_Count from 
+Books
+"""
+Author_Count=pd.read_sql(Authors,conn)
+print(Author_Count)
+```
+📌 Explanation:
+
+✅ This query calculates the total number of distinct authors in the Books table.
+
+✅ Helps in understanding the variety of contributors in the book collection.
+
+🌟 Code 12: 💰 Average Book Price Calculation
+```python
+AvgBookPrice="""select avg(price)as avg_BookPrice
+from Books"""
+AvgPrice= pd.read_sql(AvgBookPrice,conn)
 ```
 
-## ✅ 7. Average Book Price
-```sql
-SELECT AVG(Price) AS avg_BookPrice
-FROM Books;
+📌 Explanation:
+
+✅ This query returns the average price of all books from the Books table.
+
+✅ Helps understand the pricing trend in the dataset and identify if the books are generally affordable or premium.
+
+🌟 Code 13: 💵 Total Revenue Generated
+```python
+Total_Revenue="""select sum(Total_Amount)as Total_Revenue_Generated
+from Orders"""
+TotalRevenue=pd.read_sql(Total_Revenue,conn)
+print(TotalRevenue)
+```
+📌 Explanation:
+
+✅ This query calculates the total revenue generated from all orders.
+
+✅ Useful for understanding the overall financial performance of the bookstore.
+
 ```
 
-## ✅ 8. Average Borrowing Quantity Per Order
-
-```sql
-SELECT AVG(Quantity_per_Order) AS AvgQuantity_Per_Order
-FROM (
-    SELECT Order_ID,
-           SUM(Quantity) AS Quantity_per_Order
-    FROM Orders
-    GROUP BY Order_ID
-) AS sub;
-```
-## ✅ 9. Top 10 Revenue Generating Books
-```sql
-WITH cte AS (
-    SELECT Book_ID, 
-           SUM(Total_Amount) AS Total_Revenue 
-    FROM Orders
-    GROUP BY Book_ID
-    ORDER BY Total_Revenue DESC
-    LIMIT 10
-)
-SELECT a.Book_ID, 
-       b.Title, 
-       a.Total_Revenue 
-FROM cte AS a
-JOIN Books AS b
-ON a.Book_ID = b.Book_ID;
-```
 # Key Values
 ```python
 AvgQuantity_Per_Order
@@ -164,7 +291,7 @@ AvgQuantity_Per_Order
 ## ✅ 1. Average Borrowing Per Order
 ```sql
 Avg_Borrowing_Per_Order = """
-SELECT AVG(Quantity_per_Order) AS AvgQuantity_Per_Order
+SELECT AVG(Quantity_per_Ordr) AS AvgQuantity_Per_Order
 FROM (
     SELECT Order_ID,
            SUM(Quantity) AS Quantity_per_Order

@@ -402,8 +402,7 @@ print(Inactive_Customers)
 
 ✅ Result: a list of customers considered inactive or lost.
 
-```
-🌟 Code 20: 🆕 Most Recent Customer Details
+## 🌟 Code 20: 🆕 Most Recent Customer Details
 ```python
 Recent_Customer="""
 select a.Customer_ID ,

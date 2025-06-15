@@ -802,6 +802,7 @@ The visual plot compares monthly borrowing events across two consecutive years �
 -Months like January, May, and October witnessed a notable increase in orders in 2023 compared to the previous year, each recording 22–25 orders, showing rising customer engagement.
 
 # 5.📈 Key Insights: Monthly Sales Comparison (2023 vs 2024)
+![MonthlyTrend](Montly.png)
 
 - 🔺 May recorded the highest sales in 2023 with over ₹5000, but declined significantly in 2024 to around ₹3000.
 

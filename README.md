@@ -967,6 +967,52 @@ plt.show()
 
 - 📉 December remained the lowest-performing month overall, with just around ₹3000 in total sales.
 
+# 6.📚 Genre-Wise Customer and Order Trend Analysis (2023 vs 2024)
+
+## 👥 Customer Insights:
+
+- 🥇 In 2023, the Science Fiction and Mystery genres had the highest number of customers, making them top-performing genres.
+
+- 🔄 In 2024, the trend shifted:
+
+- Romance genre became the top customer-attracting genre.
+
+- Science Fiction dropped to second place, indicating a decline in customer interest and requires attention.
+
+
+- ⚠️ **Fiction consistently had the lowest customer base in both years:**
+
+- Dropped from 20 to below 15 in 2024.
+
+- Suggests limited engagement and possible mismatch with audience preference.
+
+
+
+## 📦 Order Volume Insights:
+
+- 📉 Fiction genre also showed lowest order volumes, aligning with the declining customer count.
+
+Orders dropped from 25 to 15 (2023 → 2024).
+
+-🏆 In 2023, Mystery and Science Fiction also had the highest order volumes due to high customer interest.
+
+-🔻 In 2024, their order volumes declined significantly:
+
+**Mystery: from 45 to ~30**
+
+**Science Fiction: from 45+ to ~35**
+
+
+📈 Non-Fiction showed a positive trend:
+
+** Customers increased, and orders rise from 30 to 40.**
+
+
+- 📉 Fantasy experienced a slight drop in both:
+
+**Customers: 25 to ~23**
+
+**Orders: 40 to ~38**
 
 # 📌 Recommendations
 

@@ -777,6 +777,7 @@ The analysis was performed to understand how customer distribution varies by cou
 - 🔍 Based on this insight, targeted marketing campaigns, promotions, or country-specific strategies are essential to increase global engagement.
 
 # 4.📦 Stock Level Segmentation & Analysis
+![StockSegment](StocksSegment.png)
 
 - Stock was categorized into three segments:
 🔴 Understock (Stock < 10), 🟢 Overstock (Stock > 50), and 🟡 Optimum Stock (others).

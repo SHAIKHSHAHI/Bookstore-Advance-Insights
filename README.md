@@ -969,6 +969,7 @@ plt.show()
 
 # 6.📚 Genre-Wise Customer and Order Trend Analysis (2023 vs 2024)
 
+![Genre](Genres%20Trend%20(1).png)
 ## 👥 Customer Insights:
 
 - 🥇 In 2023, the Science Fiction and Mystery genres had the highest number of customers, making them top-performing genres.

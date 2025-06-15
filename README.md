@@ -791,6 +791,7 @@ The analysis was performed to understand how customer distribution varies by cou
 - This insight suggests a risk of stockout for popular books if restocking isn’t timely.
 
 # 4.📈 Borrowing Event Comparison: 2022 vs 2023
+![Borrowing](Borrowing%20Trend%20Analysis.png)
 
 The visual plot compares monthly borrowing events across two consecutive years — 2022 and 2023. Key observations:
 

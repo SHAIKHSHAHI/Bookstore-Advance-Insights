@@ -731,7 +731,7 @@ Book_ID | Stock | Quantity | Orders | Price
 151     |   2   |     24    |   8    |  13.60
 ```
 
-## 1.📦 Stock Status & Order Frequency Analysis
+#  1.📦 Stock Status & Order Frequency Analysis
 
 - Books were classified as Overstocked, Understocked, or Stockout based on inventory levels.
 
@@ -745,7 +745,7 @@ Book_ID | Stock | Quantity | Orders | Price
 
 - Actionable steps like reordering fast-moving titles or reducing overstock can optimize operations
 
-## 2.📊 Customer Segment Analysis – Revenue Trends
+# 2.📊 Customer Segment Analysis – Revenue Trends
 ![CustomerSegment](Customer%20Segment%20(1).png)
 
 - Customers were segmented into Premium, Regular, and Low Spender based on total spending across 3 years.
@@ -801,7 +801,7 @@ The visual plot compares monthly borrowing events across two consecutive years �
 
 -Months like January, May, and October witnessed a notable increase in orders in 2023 compared to the previous year, each recording 22–25 orders, showing rising customer engagement.
 
-5.📈 Key Insights: Monthly Sales Comparison (2023 vs 2024)
+# 5.📈 Key Insights: Monthly Sales Comparison (2023 vs 2024)
 
 - 🔺 May recorded the highest sales in 2023 with over ₹5000, but declined significantly in 2024 to around ₹3000.
 
@@ -822,11 +822,6 @@ The visual plot compares monthly borrowing events across two consecutive years �
 - 🥈 May with ₹7000+ in combined sales.
 
 - 📉 December remained the lowest-performing month overall, with just around ₹3000 in total sales.
-
-
-
-
-
 
 
 # 📌 Recommendations

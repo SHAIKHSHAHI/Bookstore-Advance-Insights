@@ -762,6 +762,42 @@ Book_ID | Stock | Quantity | Orders | Price
 
 - The business should implement strategies to retain one-time buyers and convert them into repeat or premium customers.
 
+# 3.🌍 Country-wise Customer Analysis
+
+![Countrycount](Country%20Wise%20Customer%20Count.png)
+
+The analysis was performed to understand how customer distribution varies by country.
+
+- 📈 Top 3 countries with the highest customer count are Cuba (7), Turkey, and Micronesia, each receiving between 6 to 7 customers.
+
+- 📉 A drop is seen in Belgium, with only 4 customers, followed by countries with even fewer (1–4 customers).
+
+- This shows a low customer base in many countries, suggesting limited awareness or outreach.
+
+- 🔍 Based on this insight, targeted marketing campaigns, promotions, or country-specific strategies are essential to increase global engagement.
+
+# 4.📦 Stock Level Segmentation & Analysis
+
+- Stock was categorized into three segments:
+🔴 Understock (Stock < 10), 🟢 Overstock (Stock > 50), and 🟡 Optimum Stock (others).
+
+- A countplot showed the distribution of stock levels across all books.
+
+- 🔍 From the ‘Lowerstock’ data, it’s clear that books with stock levels between 6 to 9 received the highest order frequency.
+
+- 📊 These books also recorded higher quantities sold, indicating high demand.
+
+- This insight suggests a risk of stockout for popular books if restocking isn’t timely.
+
+
+
+
+
+
+
+
+
+
 # 📌 Recommendations
 
 Reduce purchase of overstocked books with low demand.

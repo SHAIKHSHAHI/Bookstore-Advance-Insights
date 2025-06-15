@@ -746,6 +746,7 @@ Book_ID | Stock | Quantity | Orders | Price
 - Actionable steps like reordering fast-moving titles or reducing overstock can optimize operations
 
 ## 2.📊 Customer Segment Analysis – Revenue Trends
+![CustomerSegment](Customer%20Segment%20(1).png)
 
 - Customers were segmented into Premium, Regular, and Low Spender based on total spending across 3 years.
 

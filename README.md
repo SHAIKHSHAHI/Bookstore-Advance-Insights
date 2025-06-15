@@ -789,8 +789,39 @@ The analysis was performed to understand how customer distribution varies by cou
 
 - This insight suggests a risk of stockout for popular books if restocking isn’t timely.
 
+# 4.📈 Borrowing Event Comparison: 2022 vs 2023
 
+The visual plot compares monthly borrowing events across two consecutive years — 2022 and 2023. Key observations:
 
+- March and November show a similar borrowing pattern for both years, with around 20 to 25 orders placed consistently.
+
+- In December 2022, the borrowing activity was at its lowest, with fewer than 8 orders, but saw a positive shift in 2023, increasing to over 22 orders.
+
+- July emerged as the highest-performing month in both years, with more than 25 borrowing events, reflecting a strong mid-year demand.
+
+-Months like January, May, and October witnessed a notable increase in orders in 2023 compared to the previous year, each recording 22–25 orders, showing rising customer engagement.
+
+5.📈 Key Insights: Monthly Sales Comparison (2023 vs 2024)
+
+- 🔺 May recorded the highest sales in 2023 with over ₹5000, but declined significantly in 2024 to around ₹3000.
+
+- 🔄 April, June, July, and September maintained a similar sales level across both years:
+
+- **April & July: ₹3000–₹4000**
+
+- **June: ₹2000**
+
+- **September: ₹2000–₹3000**
+- 
+- 📉 **December 2024**experienced the lowest sales, indicating a need for focused strategy during this period.
+
+## 📊 Overall Monthly Sales (2023 + 2024 Combined)
+
+- 🥇 January topped the overall sales chart with ₹8000+, followed by:
+
+- 🥈 May with ₹7000+ in combined sales.
+
+- 📉 December remained the lowest-performing month overall, with just around ₹3000 in total sales.
 
 
 

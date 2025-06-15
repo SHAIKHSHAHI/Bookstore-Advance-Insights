@@ -652,7 +652,22 @@ print(Monthly_Trend_Comparison)
 
 ✅ Ideal for plotting a line/bar chart to visualize shifts in customer engagement.
 
-```
+
+
+# 📊 Visualisations & Interpretation of Output/Results
+
+- Visuals such as bar charts, line graphs, and pie charts were used to present trends clearly.
+
+- Sales, customer segments, and genre-wise performance were visualized for better insights.
+
+- Charts helped identify seasonal trends, top-performing books, and customer behavior.
+
+- Understock and overstock patterns were highlighted using conditional formatting and counts.
+
+- Year-wise comparison showed clear growth in low spender segments and one-time buyers.
+
+- Interpretations drawn from visuals guided meaningful business recommendations and actions.
+
 
 ```plaintext
 Book_ID | Stock | Years Ordered | Quantity | Orders | Price
@@ -700,6 +715,7 @@ Low quantity per order (some just 1–3 units).
 
 🛒 Needs promotion, or stop ordering those not performing.
 
+## 3. Low Stock (Stock ≤ 10)
 ```plaintext
 Book_ID | Stock | Quantity | Orders | Price
 --------------------------------------------
@@ -714,8 +730,36 @@ Book_ID | Stock | Quantity | Orders | Price
 411     |   1   |     23    |   6    |  10.75
 151     |   2   |     24    |   8    |  13.60
 ```
-## 3. Low Stock (Stock ≤ 10)
 
+## 1.📦 Stock Status & Order Frequency Analysis
+
+- Books were classified as Overstocked, Understocked, or Stockout based on inventory levels.
+
+- The Quantity column was used to assess whether high sales frequency contributed to stock shortages.
+
+- Book_ID helped identify specific books that frequently faced stock issues.
+
+- This insight enables businesses to perform a deeper performance analysis on these titles.
+
+- Understanding stock patterns helps in planning inventory strategies more effectively.
+
+- Actionable steps like reordering fast-moving titles or reducing overstock can optimize operations
+
+## 2.📊 Customer Segment Analysis – Revenue Trends
+
+- Customers were segmented into Premium, Regular, and Low Spender based on total spending across 3 years.
+
+- Interestingly, Low Spender segment contributed the highest revenue in 2024, despite having the lowest cumulative revenue earlier (only 585).
+
+- No premium customers existed in 2022, indicating no high spenders during that year.
+
+- Across all years, Premium Segment consistently generated the lowest revenue, showing fewer high-value buyers.
+
+- One-time buyers played a key role — their contribution grew from 1,201 (2022) to 11,849 (2024).
+
+- Regular customers showed a dip in 2024, from 8,451 to 7,472, requiring attention.
+
+- The business should implement strategies to retain one-time buyers and convert them into repeat or premium customers.
 
 # 📌 Recommendations
 

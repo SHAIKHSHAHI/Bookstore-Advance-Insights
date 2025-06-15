@@ -1,3 +1,4 @@
+![Booksstore](caption.jpg)
 # 📚 Bookstore Sales Insights: Advanced SQL Analysis & Data Exploration
 
 ---

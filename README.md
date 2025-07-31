@@ -1023,8 +1023,8 @@ Orders dropped from  Around 25  to less than 20.(2023 → 2024).
 ### Customers increased, and orders rise from 30 to 40 
 
 Fantasy experienced a slight drop in both:
-** Customers: 30 to ~26**
-** Orders: 40 to ~38**
+**Customers: 30 to ~26**
+**Orders: 40 to ~38**
 
 
 # 📌 Recommendations

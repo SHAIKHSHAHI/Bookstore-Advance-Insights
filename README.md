@@ -501,7 +501,7 @@ print(PublishedYearsRange)
 
 ## 🌟 Code 23: 🕰️ Old vs Latest Books Count
 ![OldvsLatest](Old%20vs%20Latest%20Books.png)
-python```
+```python
 Old_Books_Count="""select count(Book_ID)as Books_Count from Books where Published_Year=1990"""
 OldBooks=pd.read_sql(Old_Books_Count,conn)
 

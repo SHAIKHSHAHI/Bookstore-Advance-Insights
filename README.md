@@ -783,20 +783,19 @@ plt.tight_layout(rect=[0,0,0,1])
 plt.show()
 ```
 ![CustomerSegment](Heatmap%20of%20Customer%20Segments.png)
+- Customers were segmented into Premium, Regular, and Low Spender and One Time Buyers based on total spending across 3 years.
 
-- Customers were segmented into Premium, Regular, and Low Spender based on total spending across 3 years.
+- Interestingly, One Time Buyers contributed the highest revenue in 2024..
 
-- Interestingly, Low Spender segment contributed the highest revenue in 2024, despite having the lowest cumulative revenue earlier (only 585).
-
-- No premium customers existed in 2022, indicating no high spenders during that year.
+- No Other customers existed in 2022, indicating,as it Was the initial yea of the business.
 
 - Across all years, Premium Segment consistently generated the lowest revenue, showing fewer high-value buyers.
 
-- One-time buyers played a key role — their contribution grew from 1,201 (2022) to 11,849 (2024).
+- One-time buyers played a key role — their contribution grew from 2513 (2022) to 23,307 (2024).
 
-- Regular customers showed a dip in 2024, from 8,451 to 7,472, requiring attention.
+- Regular customers showed a dip in 2024, from 6,976 to 4,042, requiring attention.
 
-- The business should implement strategies to retain one-time buyers and convert them into repeat or premium customers.
+- The business should implement strategies to retain one-time buyers and convert them into repeat or premium customers
 
 # 3.🌍 Country-wise Customer Analysis
 ```python

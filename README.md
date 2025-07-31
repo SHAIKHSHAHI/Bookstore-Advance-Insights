@@ -973,7 +973,7 @@ plt.show()
 
 - December remained the lowest-performing month overall, with just around ₹3000 in total sales.
 
-# 6.📚 Genre-Wise Customer and Order Trend Analysis (2023 vs 2024)
+# 5.📚 Genre-Wise Customer and Order Trend Analysis (2023 vs 2024)
 
 ![Genre](Genres%20Trend%20(1).png)
 ## 👥 Customer Insights:

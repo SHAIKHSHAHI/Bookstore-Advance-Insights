@@ -782,7 +782,7 @@ plt.savefig('Customer Segment.png')
 plt.tight_layout(rect=[0,0,0,1])
 plt.show()
 ```
-![CustomerSegment](Customer%20Segment%20(1).png)
+![CustomerSegment](Heatmap%20of%20Customer%20Segments.png)
 
 - Customers were segmented into Premium, Regular, and Low Spender based on total spending across 3 years.
 

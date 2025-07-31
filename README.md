@@ -501,14 +501,35 @@ print(PublishedYearsRange)
 
 ## 🌟 Code 23: 🕰️ Old vs Latest Books Count
 ![OldvsLatest](Old%20vs%20Latest%20Books.png)
-```python
-Old_Books_Count="select count(Book_ID) from Books where Published_Year=1990"
+python```
+Old_Books_Count="""select count(Book_ID)as Books_Count from Books where Published_Year=1990"""
 OldBooks=pd.read_sql(Old_Books_Count,conn)
-print(OldBooks)
 
-Latest_Books_Count="select count(Book_ID) from Books where Published_Year=2003"
+Latest_Books_Count="""select count(Book_ID)as Books_Count
+ from Books where Published_Year=2003
+ """
 LatestBooks=pd.read_sql(Latest_Books_Count,conn)
 print(LatestBooks)
+
+Books=pd.DataFrame({'Book_Type':['OldBooks','LatestBooks'],
+'Books_Count':
+    [OldBooks['Books_Count'][0],
+   LatestBooks ['Books_Count'][0]
+    ]})
+
+
+plt.figure(figsize=(8, 5))
+sns.barplot(data=Books, x='Book_Type', y='Books_Count', palette='crest')
+plt.xlabel('Book Type', fontweight='bold',fontsize=12)
+plt.ylabel('Number of Books', fontweight='bold',fontsize=12)
+plt.grid(axis='y', linestyle='--', alpha=0.5)
+
+plt.suptitle('Comparison of Old vs Latest Books', fontweight='bold', fontsize=16)
+
+
+plt.savefig('Old vs Latest Books.png')
+plt.tight_layout(rect=[0,0,0,1])
+plt.show()
 ```
 📌 Explanation:
 

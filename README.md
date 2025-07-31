@@ -256,7 +256,8 @@ print(Top10_OrderedCustomers)
 
 ✅ This helps analyze loyalty and engagement of high-value customers.
 
-## 🌟 Code 15: 👤 Count of One-Time Customers
+
+## 🌟 Code 15: 🏆 One Time Customers
 ```python
 One_Time_Customers = """
 SELECT

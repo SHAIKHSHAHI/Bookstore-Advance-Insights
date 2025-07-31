@@ -858,7 +858,7 @@ The analysis was performed to understand how customer distribution varies by cou
 
 
 
-# 4.📈 Key Insights: Monthly Sales Comparison (2023 vs 2024)
+# 5.📈 Key Insights: Monthly Sales Comparison (2023 vs 2024)
 ```python
 Visual Code
 
@@ -973,7 +973,7 @@ plt.show()
 
 - December remained the lowest-performing month overall, with just around ₹3000 in total sales.
 
-# 5.📚 Genre-Wise Customer and Order Trend Analysis (2023 vs 2024)
+# 6.📚 Genre-Wise Customer and Order Trend Analysis (2023 vs 2024)
 
 ![Genre](Genres%20Trend%20(1).png)
 ## 👥 Customer Insights:

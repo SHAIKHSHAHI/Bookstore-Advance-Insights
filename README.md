@@ -239,9 +239,75 @@ pd.read_sql(YearlyOrders,conn)
 
 - Interpretations drawn from visuals guided meaningful business recommendations and actions.
 
+## Distribution of Price and Stock
+```python
+Price="select Price from Books"
+df=pd.read_sql(Price,conn)
 
+plt.figure(figsize=(7,5))
+sns.histplot(data=df,x='Price',bins=20,kde=True)
+plt.savefig('Price Distibution')
+```
+- There is the variability in the price range some books are low priced and some are high priced.
+- which price segment generates more revenue or having more orders is need to see in detail.
+- which will gonna help in understanding customer prefeences as well as overall peformance insights
+- 
+## Segmenting Books on the basis of Books Price into 2 Categories High Priced and Low priced.
+```python
+# Adding Column
+BooksCategoy= """ Alter table Books 
+                  Add column Books_Category varchar(20)"""
+cursor.execute(BooksCategoy)
+conn.commit()
+```
+```python
+# Updating Column
+BooksSegmentUpdate= """ UPDATE Books 
+                  SET  Books_Category =  case
+                  when price >27 then 'High Priced'
+                  else 'Low Priced'
+                  END """
+cursor.execute(BooksSegmentUpdate)
+conn.commit()
+```
+- So as the Average Book Price is (27.36744) based on this Price books will categories in two segments High priced and Low Priced Books.
+- Where if the Books price would be less than average will consider as Low Priced and if > More than average then will be treated as High Priced.
 
+## 1.Overall Quantity Ordered from Each Category? VS Overall Revenue Generated from Each Category?
+```python
+# Executing Query 
+BooksQuantity =""" SELECT a.Books_Category,sum(b.Quantity ) as Quantity_Ordered
+                        FROM Books as a
+                        join Orders as b
+                        on a.Book_ID= b.Book_ID
+                        group by a.Books_Category"""
 
+Data1=pd.read_sql(BooksQuantity ,conn)
+
+BooksRevenue=""" SELECT a.Books_Category,sum(b.Total_Amount) as Revenue
+                        FROM Books as a
+                        join Orders as b
+                        on a.Book_ID= b.Book_ID
+                        where year(b.Order_Date)= 2024
+                        group by a.Books_Category
+                        """
+Data2=pd.read_sql(BooksRevenue,conn)
+
+# Printing Query Result
+print(Data1)
+print(Data2)
+plt.figure(figsize=(10,5))
+plt.subplot(1,2,1)
+sns.barplot(data=Data1,x= 'Books_Category',y='Quantity_Ordered',width=0.3,color='Orange')
+plt.title("Books Category-Wise Quantity Comparison",fontsize=10,fontweight='bold')
+
+plt.subplot(1,2,2)
+sns.barplot(data=Data2,y='Revenue',x= 'Books_Category',width=0.3,color='Red')
+plt.title("Books Category-Wise Revenue Comparison",fontsize=10,fontweight='bold')
+
+plt.savefig('Quantity and Revenue Comparison')
+
+```
 
 ## 🌟 Code 4: 👥 Customers Per Year
 ```python

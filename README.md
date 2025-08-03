@@ -2,15 +2,12 @@
 # 📚 Bookstore Sales Insights: Advanced SQL Analysis & Data Exploration
 
 ---
+## 📌 Problem Statement
 
-## 📖 Project Overview
-
-### This project dives deep into bookstore transaction data using advanced SQL queries.  
-### We explore sales patterns, customer behavior, and genre preferences.  
-### It provides actionable insights based on real-world data structures.
-
----
-
+- In today’s competitive  retail environment, understanding sales performance, customer behavior, inventory efficiency, and hidden data patterns is crucial for business growth.
+- Our fictional Bookstore has been experiencing inconsistent revenue, unexplained stockouts, and uncertain customer retention trends.
+- Despite collecting  amounts of data across orders, customers, books, and inventory, decision-makers struggle to turn this data into actionable insights.
+  
 ## 🎯 Project Objectives
 
 - ✅ Perform monthly and yearly sales & revenue analysis
@@ -24,14 +21,24 @@
 
 ---
 
-## 🛠️ Tools Used
-
-- 🗃️ MySQL – to write and run SQL queries for data exploration  
-- 📊 Seaborn – for optional visual representation of trends  
-- 📈 Matplotlib – for professional plotting (if needed)
-
+🛠️ Tools Used
+MySQL – to write and run SQL queries for data exploration
+Seaborn – for optional visual representation of trends
+Matplotlib – for professional plotting (if needed)
+stattools
+Pandas
+Numpy
 ---
+## Project Objective
+- This project aims to analyze the bookstore’s data through SQL and Python to extract more 30 high-impact business insights that support data-driven decision-making. The analysis is divided into four key areas:
 
+- Sales Performance – Understand revenue trends, top-selling products, and growth patterns.
+
+- Customer Behavior – Segment customers by spending and loyalty to improve retention.
+
+- Inventory Management – Optimize stock by identifying overstocked, understocked, and dead items.
+
+- Deep Data Insights – Detect outliers, trends, and anomalies using advanced EDA techniques.
 
 ## 📁 Project Structure
 
@@ -51,17 +58,6 @@ bookstore-sql-insights/
 ├── Reports/                      
 └── Visuals/                
 ```
-## 📊 Key Insights
-
-- 📅 Tracked monthly and yearly sales trends using order data.  
-- 🧾 Identified top-selling books and high-revenue genres.  
-- 👥 Segmented customers by location for regional insights.  
-- 🔁 Found repeat buyers and high-frequency customers.  
-- 📚 Highlighted low-stock, high-demand books for restocking.  
-- 🕵️‍♀️ Observed changing genre preferences over time.  
-- 💰 Analyzed key revenue drivers across products and customers.  
-- 📈 Showcased consistent growth in orders and revenue.
-
 
 # Key Values
 ```python
@@ -74,39 +70,176 @@ AvgQuantity_Per_Order
 ```
 
 # 📋 Basic Queries
-## 🌟 Code 1:  Unique Customer Count Analysis
+## Loading Data File and Building Connection
 ```python
-UniqueCustomers="""
-select count(Distinct a.Customer_ID)as
-UniqueCustomer_Count
-From Customers as a
-join Orders as b
-on a.Customer_ID=b.Customer_ID
+import numpy as np 
+import pandas as pd
+import seaborn as sns 
+import matplotlib.pyplot as plt
+import mysql.connector
+import warnings
+warnings.filterwarnings('ignore')```
 
-UniqueCustomers_Count=pd.read_sql(UniqueCustomers,conn)
-print(UniqueCustomers_Count)
-```
- 
-
-## 🌟 Code 2: Unique Cities Count
 ```python
-
-City_Count="""select count(Distinct City)as Cities
-from Customers"""
-CitiesCount=pd.read_sql(City_Count,conn)
-print(CitiesCount)
+conn = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="shahista123@dataanalyst456",
+    database="books",
+    charset='utf8mb4',
+    collation='utf8mb4_general_ci'
+)
+cursor=conn.cursor()
 ```
- 
-
-## 🌟 Code 3: 📅 Distinct Order Years
+## Exploaratory Data Analysis(EDA)
+## Code 1:Total Unique Books Available
+```python
+TotalUniqueBooks="""
+select count(Distinct Book_ID)as Book_Count
+from Books """
+pd.read_sql(TotalUniqueBooks,conn)
+```
+## Code 2: List of Distinct Book Genres
+```python
+DistinctGenres= "Select Distinct(Genre) from Books"
+pd.read_sql(DistinctGenres,conn)
+```
+## Code 3 : Count Of Distinct Authors
+```python
+DistinctAuthors="Select Count(Distinct Author)from Books"
+pd.read_sql(DistinctAuthors,conn)
+```
+## Code 4: Average Quantity Ordered
+```python
+AverageQuantityOrdered="""
+select avg(Quantity)as Avg_Quantiy_Ordered
+from Orders"""
+pd.read_sql(AverageQuantityOrdered,conn)
+```
+## Code 5: Distinct Order Years
 ```python
 Order_Years="""
 select Distinct
 (extract(year from Order_Date))as years from Orders
 Order by years"""
-Orders_Placed_Years=pd.read_sql(Order_Years,conn)
-print(Orders_Placed_Years)
+pd.read_sql(Order_Years,conn)
 ```
+## Code 6: Total Sales Generated Per Year
+```python
+SalesPerYear="""
+select year(Order_Date)as Year,sum(Total_Amount)as Total_Sales
+from Orders
+group by year(Order_Date)
+""" 
+pd.read_sql(SalesPerYear,conn)
+```
+## Code 7: Total Quantity Ordered
+```python
+Total_Quantity_Ordered="""
+select sum(Quantity)as Total_Quantity_ordered
+from Orders"""
+pd.read_sql(Total_Quantity_Ordered,conn)
+```
+## Code 8: Unique Cities Count
+```python
+City_Count="""select count(Distinct City)as Cities
+from Customers"""
+pd.read_sql(City_Count,conn)
+Code 9: Average Book Price Calculation
+AvgBookPrice="""select avg(price)as Avg_BookPrice
+from Books"""
+pd.read_sql(AvgBookPrice,conn)
+```
+## Code 10: Total Revenue Generated
+```python
+Total_Revenue="""select sum(Total_Amount)as Total_Revenue_Generated
+from Orders"""
+pd.read_sql(Total_Revenue,conn)
+```
+## Code 11: One Time Customers
+```python
+One_Time_Customers = """
+SELECT
+COUNT(Distinct Customer_ID) AS One_Time_Customers
+FROM Customers
+WHERE Customer_ID IN (
+SELECT Customer_ID
+FROM Orders
+GROUP BY Customer_ID
+HAVING COUNT(Distinct Order_ID) = 1
+)
+"""
+pd.read_sql(One_Time_Customers,conn)
+```
+## Code 12: Count of Repeated Customers
+```python
+Repeated_Customers = """
+SELECT 
+    COUNT(Distinct Customer_ID) AS Repeated_Customers
+FROM Customers 
+WHERE Customer_ID IN (
+    SELECT Customer_ID
+    FROM Orders
+    GROUP BY Customer_ID
+    HAVING COUNT(Distinct Order_ID) > 1
+)
+"""
+pd.read_sql(Repeated_Customers,conn)
+```
+- In Total from 307 Customers the repeadted Customers are 139 and one time customers are 168.
+- that means business in alll the aspects failed to build stong engagement with buyers.
+## Code 13: Most Recent Customer Details
+```python
+Recent_Customer="""
+select a.Customer_ID ,
+a.Order_Date,
+b.Name,
+b.Country
+,b.City
+from Orders as a
+join Customers as b
+on a.Customer_ID=b.Customer_ID
+order by a.Order_Date Desc
+limit 5"""
+pd.read_sql(Recent_Customer, conn)
+```
+## Code 14: Distinct Country Count
+```python
+Total_Countries="Select count(Distinct Country)from Customers"""
+pd.read_sql(Total_Countries,conn)
+```
+## Code 15: Churned/Inactive Customers in the Latest Year 2024
+```python
+Churned_Customers="""With Churned as (select Customer_ID as Customer,
+Max(Order_Date)as Last_Order
+from Orders
+Group by Customer_ID
+Having year(Last_Order)<2024)
+ select count(Customer)as churned_Customers
+ from Churned"""
+pd.read_sql(Churned_Customers, conn)
+```
+## Code 16: Total Orders Placed per Year
+```python
+YearlyOrders=""" SELECT count(Distinct Order_ID)as Orders
+                 from orders 
+                 group by year(Order_Date)"""
+pd.read_sql(YearlyOrders,conn)
+```
+## Visualisations & Interpretation of Output/Results
+- Visuals such as bar charts, line graphs, and pie charts were used to present trends clearly.
+
+- Sales, customer segments, and genre-wise performance were visualized for better insights.
+
+- Charts helped identify seasonal trends, top-performing books, and customer behavior.
+
+- Understock and overstock patterns were highlighted using conditional formatting and counts.
+
+- Year-wise comparison showed clear growth in low spender segments and one-time buyers.
+
+- Interpretations drawn from visuals guided meaningful business recommendations and actions.
+
+
 
 
 

@@ -93,7 +93,7 @@ cursor=conn.cursor()
 ```
 ## Exploaratory Data Analysis(EDA)
 ## Code 1:Total Unique Books Available
-```python
+```code
 TotalUniqueBooks="""
 select count(Distinct Book_ID)as Book_Count
 from Books """
@@ -188,6 +188,7 @@ pd.read_sql(Repeated_Customers,conn)
 ```
 - In Total from 307 Customers the repeadted Customers are 139 and one time customers are 168.
 - that means business in alll the aspects failed to build stong engagement with buyers.
+- 
 ## Code 13: Most Recent Customer Details
 ```python
 Recent_Customer="""
@@ -374,15 +375,15 @@ Top3Genre_SalesWise=""" SELECT a.Genre,sum(b.Total_Amount)as Revenue
                          limit 3"""
 pd.read_sql(Top3Genre_SalesWise,conn)
 ```
-Top 3 Performing Genres are Science Fiction,Mystery and Fancy in the case of Orders with Placed Orders (81,83,84).
-on the Other side, Mystery and Science fictions also Comes under Top 3 Revenue generating Genres,
-where Mystery genre is on the 2 nd position in both orders and Sales Case.
-But Science fiction has lost its Position and From 1 st position directly came 3 rd Position in the Case of Generating Revenue.
-Even if the Romance Category is not in the list of Top 3 Ordered Genres ,then also Romance is the Top 1 Revenue Generating Genre.
-Romance Genre is Helping Business to Generate More income ,so we Sholud go with Romance Genre.
-and Science Fiction is showing Popularity among Customers we should Provide Some Extra Benefits or Offers On this Genre to Builld Loyal Customers For the Business.
-Total 6 Genre Books are there But,only this 4 Genres perfoming Good.
-other 2 Genres Need More Marketing to shift inteest of customers to those genres also.
+- Top 3 Performing Genres are Science Fiction,Mystery and Fancy in the case of Orders with Placed Orders (81,83,84).
+- on the Other side, Mystery and Science fictions also Comes under Top 3 Revenue generating Genres,
+- where Mystery genre is on the 2 nd position in both orders and Sales Case.
+- But Science fiction has lost its Position and From 1 st position directly came 3 rd Position in the Case of Generating Revenue.
+- Even if the Romance Category is not in the list of Top 3 Ordered Genres ,then also Romance is the Top 1 Revenue Generating Genre.
+- Romance Genre is Helping Business to Generate More income ,so we Sholud go with Romance Genre.
+- and Science Fiction is showing Popularity among Customers we should Provide Some Extra Benefits or Offers On this Genre to Builld Loyal Customers For the Business.
+- Total 6 Genre Books are there But,only this 4 Genres perfoming Good.
+- other 2 Genres Need More Marketing to shift inteest of customers to those genres also.
 
 6.Worst Performing Genre Placing Orders? /Worst Performing Genre Earning Revenue?
 ```python
@@ -495,15 +496,15 @@ pd.read_sql(Total_Countries,conn)
 count(Distinct Country)
 0	215
 ```
-The business is now after 3 years also in the intial stage only.
-the business has spread eveywhere but not that much awareness is there ,we are placing and getting Customers from the 215 Countries total.
-But from the 215 countries (65) Countires are their where the customer_Count is only 1
-Needs a Stong Marketing of the Business and Awareness about the products among the Buyers.
-We can provide Discounts on the Particular popular genres tend to Stable Customer Loyalty towards the business.
-Top 3 countries with the highest customer count are Cuba (7),Zimbabve, and Micronesia, each receiving between 6 to 7 customers.
-This shows a low customer base in many countries, suggesting limited awareness or outreach.
-Based on this insight, targeted marketing campaigns, promotions, or country-specific strategies are essential to increase global engagement.
-10. Is there a positive growth in the Revenue Earning?
+- The business is now after 3 years also in the intial stage only.
+- The business has spread eveywhere but not that much awareness is there ,we are placing and getting Customers from the 215 Countries total.
+- But from the 215 countries (65) Countires are their where the customer_Count is only 1
+- Needs a Stong Marketing of the Business and Awareness about the products among the Buyers.
+- We can provide Discounts on the Particular popular genres tend to Stable Customer Loyalty towards the business.
+- Top 3 countries with the highest customer count are Cuba (7),Zimbabve, and Micronesia, each receiving between 6 to 7 customers.
+- This shows a low customer base in many countries, suggesting limited awareness or outreach.
+- Based on this insight, targeted marketing campaigns, promotions, or country-specific strategies are essential to increase global engagement.
+## 10. Is there a positive growth in the Revenue Earning?
 ```python
 SalesPerYear="""
 select year(Order_Date)as Year,sum(Total_Amount)as Total_Sales
@@ -519,23 +520,23 @@ sns.barplot(data=Data,x='Year',y='Total_Sales',width=0.5,color='Red')
 plt.show()
 plt.savefig('Yearly Revenue')
 ```
-There is an overall positive growth trend in sales from 2022 to 2024.
+- There is an overall positive growth trend in sales from 2022 to 2024.
 
-The period from 2022 to 2023 witnessed an explosive rise in sales.
+- The period from 2022 to 2023 witnessed an explosive rise in sales.
 
-The growth between 2023 and 2024, while still positive, indicates a stabilization in the growth rate.
+- The growth between 2023 and 2024, while still positive, indicates a stabilization in the growth rate.
 
-This suggests that while the business scaled up quickly, it may now be entering a mature phase, where growth is steadiy increasing.
+- This suggests that while the business scaled up quickly, it may now be entering a mature phase, where growth is steadiy increasing.
 
-Sales increased from ₹2,513 in 2022 to ₹36,775 in 2024.
+- Sales increased from ₹2,513 in 2022 to ₹36,775 in 2024.
 
-That’s nearly 13 times growth in just two years.
+- That’s nearly 13 times growth in just two years.
 
-Total growth is around 1363%, showing massive improvement.
+- Total growth is around 1363%, showing massive improvement.
 
-Growth from 2023 to 2024 is around 1.2%, showing steady progress.
+- Growth from 2023 to 2024 is around 1.2%, showing steady progress.
 
-11.Is there a Stock of Books available in the optimized quantity?
+## 11.Is there a Stock of Books available in the optimized quantity?
 ```python
 Stock Distribution
 Stock="select Stock from Books"
@@ -547,10 +548,10 @@ sns.histplot(data=df,x='Stock',bins=30,kde=True,color='skyblue')
 plt.title('Stock Distibution Analysis')
 plt.savefig('Stock Distribution')
 ```
-It is Clearly understandable from the visual that there is not an outliers but data is not equallly distibuted as well .
-Some Books possibly overstocked Some in optimum Limit and Some are Overstock.
-To find out,do such Overstock books really having that much demand and do this overstock products are contibuting to the revenue or not at such expected level.
-Segmentation of Stock into 2 Categories based on Stock Availability
+- It is Clearly understandable from the visual that there is not an outliers but data is not equallly distibuted as well .
+- Some Books possibly overstocked Some in optimum Limit and Some are Overstock.
+- To find out,do such Overstock books really having that much demand and do this overstock products are contibuting to the revenue or not at such expected level.
+- Segmentation of Stock into 2 Categories based on Stock Availability
 ```python
 StockClassification="""Alter Table Books
                      Add Column Stock_Segment varchar(20)"""
@@ -581,12 +582,12 @@ Stock_Segment	Orders
 0	Overstock	101
 1	Understock	159
 2	Optimum Stock	240
-Optimum Segment Books stocked in the ideal quantity range and received the most customer interest.
-Understock Books received 159 orders had stong demand-
-1.suggests lost sales potential due to insufficient stock.
-2.These Books needs stock level adjustment.
-Ovestock books had only 101 orders ,the lowest among all,indicates low demand relative to stock levels.
-The business can definately control stock budgets by adjusting stock levels for this category books or can provide discounts to sale this books more.
+- Optimum Segment Books stocked in the ideal quantity range and received the most customer interest.
+- Understock Books received 159 orders had stong demand-
+- 1.suggests lost sales potential due to insufficient stock.
+- 2.These Books needs stock level adjustment.
+- Ovestock books had only 101 orders ,the lowest among all,indicates low demand relative to stock levels.
+- The business can definately control stock budgets by adjusting stock levels for this category books or can provide discounts to sale this books more.
 12. Key Insights: Monthly Orders Comparison (2023 vs 2024)
 # Fetching 2023 Orders insights 
 ```python
@@ -659,17 +660,17 @@ plt.tight_layout(rect=[0,0,0,1])
 plt.subplots_adjust(hspace=0.5,wspace=0.5)
 plt.show()
 ```
-July month is the peak month.Both in 2023 and 2024 july had the highest orders.
-November is on the Second highest Position.
-In this Both months of July and November fo both years orders are same showing consitent trends in those paticular months.
-2024 underperformed in several key months (notably May, October, December).
-Focus for improvement in 2024: investigate and address reasons for underperformance in May, October, and December.
-Plan promotions or outreach campaigns targeting low-performing months to balance the trend.
-so in short November,July are peak Months.
-May,October and Specially December Needs attention.
-There is a significant growth in the month of June and and February.
-2023 had stronger and more consistent performance compared to 2024
-13. Who are the Top 10 customers based on orders placed?
+- July month is the peak month.Both in 2023 and 2024 july had the highest orders.
+- November is on the Second highest Position.
+- In this Both months of July and November fo both years orders are same showing consitent trends in those paticular months.
+- 2024 underperformed in several key months (notably May, October, December).
+- Focus for improvement in 2024: investigate and address reasons for underperformance in May, October, and December.
+- Plan promotions or outreach campaigns targeting low-performing months to balance the trend.
+- so in short November,July are peak Months.
+- May,October and Specially December Needs attention.
+- There is a significant growth in the month of June and and February.
+- 2023 had stronger and more consistent performance compared to 2024
+## 13. Who are the Top 10 customers based on orders placed?
 ```python
 Top10Customers_OrdersBased="""with Top10 as(
                         Select a.Customer_ID,
@@ -688,26 +689,14 @@ Top10Customers_OrdersBased="""with Top10 as(
                        order by Orders_placed desc"""
 pd.read_sql(Top10Customers_OrdersBased,conn)
 ```
-```plaintext
-Customer	Orders_placed	Phone	Email	Country	City
-0	Carrie Perez	6	1234568254	chelsea23@gillespie-walker.com	Hungary	Kennethland
-1	Anthony Young	5	1234568364	rogersbill@gmail.com	Cook Islands	East Chelsea
-2	Amy Hunt	4	1234567997	emilybecker@perkins.com	Aruba	Ericborough
-3	Jonathon Strickland	4	1234568064	ryan10@yahoo.com	Dominica	Bakerton
-4	Emily Vargas	4	1234568215	lklein@gmail.com	Tonga	Aguilarside
-5	Julie Smith	4	1234568295	knightmonica@krueger-hamilton.biz	Vanuatu	Freemanland
-6	Ashley Perez	4	1234568315	williamslindsey@yahoo.com	United States Minor Outlying Islands	Elizabethshire
-7	Cynthia Cooper	4	1234568327	russellpriscilla@gmail.com	Philippines	Wrightfurt
-8	Kim Turner	4	1234568347	jennifer45@weiss-perry.com	Cambodia	South Rachelview
-9	Andrew Figueroa	4	1234568375	john28@gmail.com	Macedonia	New Veronicaside
 ```python
 Top10Customers=pd.read_sql(Top10Customers_OrdersBased,conn)
 Top10CustomersDetails=pd.DataFrame(Top10Customers)
 ```
-Here with the help of Orders count performed query to get the Top customers.
-So that afterwards it willl help the business to make more engagement with them to gain long time loyal customers.
-We can provide Discount to them on there most favouite genre books and also can introduce them new books.
-14. Who are the Top 10 customers based on Revenue Generated?
+- Here with the help of Orders count performed query to get the Top customers.
+- So that afterwards it willl help the business to make more engagement with them to gain long time loyal customers.
+- We can provide Discount to them on there most favouite genre books and also can introduce them new books.
+## 14. Who are the Top 10 customers based on Revenue Generated?
 ```python
 Top10Customers_RevenueBased="""with Top10 as(
                         Select a.Customer_ID,
@@ -726,7 +715,7 @@ Top10Customers_RevenueBased="""with Top10 as(
                        order by Revenue_Generated desc"""
 pd.read_sql(Top10Customers_RevenueBased,conn)
 ```
-15. What are the Top 10 Books Revenue Generated?
+## 15. What are the Top 10 Books Revenue Generated?
 ```python
 Top10BooksRevenueBased="""with Top as(
                         Select a.Book_ID,
@@ -745,8 +734,9 @@ Top10BooksRevenueBased="""with Top as(
                        order by Revenue_Generated desc"""
 pd.read_sql(Top10BooksRevenueBased,conn)
 ```
-17. What are the Low Perfoming Books ?
-18. ```python
+## 16. What are the Low Perfoming Books ?
+
+1 ```python
 BottomBooksRevenueBased="""with Bottom as(
                         Select a.Book_ID,
                        sum(b.Total_Amount)Revenue_Generated,
@@ -766,16 +756,17 @@ BottomBooksRevenueBased="""with Bottom as(
                        where a.Stock>60 and b.Quantity_Sold<3
                        order by Revenue_Generated,Stock 
                        """
-pd.read_sql(BottomBooksRevenueBased,conn)
-```
-This Bottom Books are the lowest perfoming books are there , Revenue range between 6.64 to 96.42 only
-Sum of Stock shows the Total Stock of 3 years that this books have always stocked in higher quantity fom the begining even though there is no sale.
-if look at the Quantity sold is only 1 to 2.
-Where as on the other hand if we see the Top3 Revenue Generated Books Income is between 1047.12 to 1104.69.
-Showing the difference on largest scale Between this numbers and also falls under Optimum Stock and OverStock Category so we can simply remove them as thie is not at all demand fo this products in the market to reduce Cost
-that will result in stock Optimization and can invest in stocking those books that have demand among buyers.
+pd.read_sql(BottomBooksRevenueBased,conn)```
+- This Bottom Books are the lowest perfoming books are there , Revenue range between 6.64 to 96.42 only
+- Sum of Stock shows the Total Stock of 3 years that this books have always stocked in higher quantity fom the begining even though there is no sale.
+- if look at the Quantity sold is only 1 to 2.
+- Where as on the other hand if we see the Top3 Revenue Generated Books Income is between 1047.12 to 1104.69.
+- Showing the difference on largest scale Between this numbers and also falls under Optimum Stock and OverStock Category so we can simply remove them as thie is not at all demand for this products in the market to reduce Cost
+- that will result in stock Optimization and can invest in stocking those books that have demand among buyers.
+
+## 17.How Was the Quantity Trend Over the Years Based on Books Categoy?
+
 ```python
-17.How Was the Quantity Trend Over the Years Based on Books Categoy?
 BooksCategoryQuantity =""" SELECT a.Books_Category,sum(b.Quantity ) as Quantity_Ordered,year(b.Order_Date) as Year
                         FROM Books as a
                         join Orders as b
@@ -787,11 +778,12 @@ pivot=Books_Quantity_Data.pivot(index='Books_Category',columns='Year',values='Qu
 plt.figure(figsize=(6,4))
 sns.heatmap(pivot, annot=True, cmap='Reds', fmt=",.0f", linewidths=0.5, linecolor='white')
 ```
-Overall Quantity Ordered from Low Priced Books is (1309) Where as From High Priced Books it is (1388) ,that Higher than Low Priced Books.
-That Means in the aspects of Revenue and Quantity both High Priced Books perfoming better than the LOw Priced Books.
-That means We Easily can say that Premium Customers are their who spend good Amount on the Premium Books.
-Both in the year (2022,2024) High Priced Books Have Sold More only in the Year 2023 Low Piced Category Placed sold More Quantity.
-19. How was the Orders and Revenue trend Yearly of Books Category?
+- Overall Quantity Ordered from Low Priced Books is (1309) Where as From High Priced Books it is (1388) ,that Higher than Low Priced Books.
+- That Means in the aspects of Revenue and Quantity both High Priced Books perfoming better than the LOw Priced Books.
+- That means We Easily can say that Premium Customers are their who spend good Amount on the Premium Books.
+- Both in the year (2022,2024) High Priced Books Have Sold More only in the Year 2023 Low Piced Category Placed sold More Quantity.
+- 
+  # 18. How was the Orders and Revenue trend Yearly of Books Category?
 ```python
 BooksCategoryOrders=""" SELECT a.Books_Category,Count(b.Order_ID)as Orders,Year(b.Order_Date) as Year
                         FROM Books as a
@@ -833,13 +825,13 @@ plt.subplots_adjust(hspace=0.5,wspace=0.5)
 plt.tight_layout()
 plt.show()
 ```
-By Comparing 3 visuals here we are tying to figure out that do increase in Orders Increases Quantity and is there a correlation between Orders and Revenue.
-In High priced Books Case from 2022 to 2024 positive trend is there in both case of Orders and the Quantity where Orders from (10) to increased to the (128) in this three years the Quantity from 50 to reached to 713.
-But in the Case of Low Priced Books Orders increased from 6 to 143 and Quantity supplied from (29) to (761) from the year (2022-2023).
-But in the the 2024 trend is declined directly from 143 to 100 ,that also impacted the Quantity sold and only (519) Quantity got sold in 2024.
-And Lastly it also visible in the Revenue map where as the Quantity Ordered increases Revenue Also increased and In 2024 in the case of Low Priced Books as the Orders and Quantity Decreased Reveneue also Decreased.
-So in short we can clearly say that Quantity,Orders and Revenue Has a strong Relationship which is Clearly visible in this 3 years Comparison.
-Even though there is a difference in the values but then also eqaully both categoies have performed well and helped business to grow overall.
+- By Comparing 3 visuals here we are tying to figure out that do increase in Orders Increases Quantity and is there a correlation between Orders and Revenue.
+- In High priced Books Case from 2022 to 2024 positive trend is there in both case of Orders and the Quantity where Orders from (10) to increased to the (128) in this three years the Quantity from 50 to reached to 713.
+- But in the Case of Low Priced Books Orders increased from 6 to 143 and Quantity supplied from (29) to (761) from the year (2022-2023).
+- But in the the 2024 trend is declined directly from 143 to 100 ,that also impacted the Quantity sold and only (519) Quantity got sold in 2024.
+- And Lastly it also visible in the Revenue map where as the Quantity Ordered increases Revenue Also increased and In 2024 in the case of Low Priced Books as the Orders and Quantity Decreased Reveneue also Decreased.
+- So in short we can clearly say that Quantity,Orders and Revenue Has a strong Relationship which is Clearly visible in this 3 years Comparison.
+- Even though there is a difference in the values but then also eqaully both categoies have performed well and helped business to grow overall.
 
 📍 Market & Customer Insights:
 - We have identified 12 countries with more consumers — focus marketing and supply in these regions to create potential loyal customers.
@@ -906,222 +898,6 @@ Even though there is a difference in the values but then also eqaully both categ
 
 
 
-
-# 5.📈 Key Insights: Monthly Sales Comparison (2023 vs 2024)
-```python
-Visual Code
-
-SalesPerMonth = """
-SELECT 
-    MONTH(Order_Date) AS Month,
-    MONTHNAME(Order_Date) AS MonthName,
-    SUM(Total_Amount) AS Total_Sales
-FROM Orders
-where Year(Order_Date) in (2023,2024)
-GROUP BY MONTH(Order_Date), MONTHNAME(Order_Date)
-ORDER BY Month
-"""
-MonthlySales = pd.read_sql(SalesPerMonth, conn)
-print(MonthlySales)
-
-
-Monthly_BorrowingandSales_2024 = """
-SELECT 
-    MONTHNAME(Order_Date) AS Month,
-    COUNT(DISTINCT Order_ID) AS Borrowing_Events_2024,
-    sum(Total_Amount)as Total_Sales_2024
-FROM Orders 
-WHERE EXTRACT(YEAR FROM Order_Date) = 2024
-GROUP BY MONTHNAME(Order_Date), EXTRACT(MONTH FROM Order_Date)
-ORDER BY EXTRACT(MONTH FROM Order_Date)
-"""
-Monthly_Analysis2024 = pd.read_sql(Monthly_BorrowingandSales_2024, conn)
-print(Monthly_Analysis2024)
-
-
-Monthly_BorrowingandSales_2023 = """
-SELECT 
-    MONTHNAME(Order_Date) AS Month,
-    COUNT(DISTINCT Order_ID) AS Borrowing_Events_2023,
-    sum(Total_Amount)as Total_Sales_2023 
-FROM Orders 
-WHERE EXTRACT(YEAR FROM Order_Date) = 2023
-GROUP BY MONTHNAME(Order_Date), EXTRACT(MONTH FROM Order_Date)
-ORDER BY EXTRACT(MONTH FROM Order_Date)
-"""
-Monthly_Analysis2023= pd.read_sql(Monthly_BorrowingandSales_2023, conn)
-print(Monthly_Analysis2023)
-
-
-Monthly_Trend_Comparison = pd.merge(
-   Monthly_Analysis2023 ,  
-    Monthly_Analysis2024,  
-    on='Month',  
-    how='outer'  
-).fillna(0)
-print(Monthly_Trend_Comparison)
-
-
-plt.figure(figsize=(8,9))
-plt.subplot(2,1,1)
-sns.lineplot(data=Monthly_Trend_Comparison, x='Month', y='Total_Sales_2023', label='2023', marker='o', color='green')
-sns.lineplot(data=Monthly_Trend_Comparison, x='Month', y='Total_Sales_2024', label='2024', marker='o', color='orange')
-plt.title('Monthly Sales Trend', fontweight='heavy', fontsize=16)
-plt.ylabel('Total Sales',fontweight='heavy',fontsize=14)
-plt.xticks(rotation=30)
-plt.legend()
-plt.grid(axis='y')
-
-
-plt.subplot(2,1,2)
-sns.barplot(data=MonthlySales, x='MonthName', y='Total_Sales', palette='viridis')
-
-plt.title('Overall Monthly Sales Trend', fontsize=14, fontweight='bold')
-plt.ylabel('Total Sales', fontsize=12, fontweight='bold')
-plt.xlabel('Months', fontsize=12, fontweight='bold')
-
-plt.xticks(rotation=30)
-plt.grid(axis='y', linestyle='--', alpha=0.6)
-
-plt.suptitle('Monthly Sales Generated(2023-2024)',fontweight='heavy', fontsize=16)
-plt.savefig('Montly.png')
-plt.tight_layout(rect=[0,0,0,1])
-plt.subplots_adjust(hspace=0.5,wspace=0.5)
-plt.show()
-```
-
-![MonthlyTrend](Montly.png)
-
-- The visual plot compares monthly borrowing events across two consecutive years — 2022 and 2023. Key observations:
-
-- March and November show a similar borrowing pattern for both years, with around 20 to 25 orders placed consistently.
-
-- In December 2022, the borrowing activity was at its lowest, with fewer than 8 orders, but saw a positive shift in 2023, increasing to over 22 orders.
-
-- July emerged as the highest-performing month in both years, with more than 25 borrowing events, reflecting a strong mid-year demand.
-
-- Months like January, May, and October witnessed a notable increase in orders in 2023 compared to the previous year, each recording 22–25 orders, showing rising customer engagement.
-
-- May recorded the highest sales in 2023 with over ₹5000, but declined significantly in 2024 to around ₹3000.
-
-- April, June, July, and September maintained a similar sales level across both years:
-
-**April & July: ₹3000–₹4000**
-
-**June: ₹2000**
-
-- September: ₹2000–₹3000
-
-- December 2024experienced the lowest sales, indicating a need for focused strategy during this period.
-
-### Overall Monthly Sales (2023 + 2024 Combined)
-
-- January topped the overall sales chart with ₹8000+, followed by:
-
-- May with ₹7000+ in combined sales at Second Highest Earned Month Overall.
-
-- December remained the lowest-performing month overall, with just around ₹3000 in total sales.
-
-# 6.📚 Genre-Wise Customer and Order Trend Analysis (2023 vs 2024)
-
-![Genre](Genres%20Trend%20(1).png)
-## 👥 Customer Insights:
- ## Customer Insights:
- 
-- In 2023, The Most Borrowed Genres are the  Science Fiction and Mystery genre.
-
-- In 2024, the trend shifted and Romance genre became the top customer-attracting genre.
-
-- Science Fiction dropped to second place, indicating a decline in customer interest .
-
-- Fiction consistently had the lowest customer base in both years
-
-- Dropped from around 20 to less than  15 in 2024.
-
-## 📦 Order Volume Insights:
-
-- Fiction genre also showed lowest order volumes, aligning with the declining customer count.
-Orders dropped from  Around 25  to less than 20.(2023 → 2024).
-
-- In 2023, Mystery and Science Fiction also had the highest order volumes due to high customer interest.
-
-- In 2024, their order volumes declined significantly:
-
-- Mystery: from 49 to 32
-- Science Fiction: from 47 to 37
-
-- Non-Fiction showed a positive trend:
-
-### Customers increased, and orders rise from 30 to 40 
-
-Fantasy experienced a slight drop in both:
-**Customers: 30 to ~26**
-**Orders: 40 to ~38**
-
-
-# 📌 Recommendations
-
-Reduce purchase of overstocked books with low demand.
-
-Restock books that are out of stock but in high demand.
-
-Monitor past order quantity to plan stock effectively.
-
-Set alerts for books with critically low stock.
-
-Use discounts/offers to clear excess inventory.
-
-Revisit pricing of books with low sales.
-
-Avoid overstocking slow-moving titles.
-
-Focus on books with higher order frequency.
-
-Manage stock based on customer demand patterns.
-
-Promote top-selling books more aggressively.
-
-
-# 📍 Market & Customer Insights
-
-📈 We've identified 10 countries with more consumers — focus marketing and supply in these regions to create potential loyal customers.
-
-🌎 Explored data of diverse customers — analyze the genres they prefer and recommend similar books to increase engagement.
-
-💰 We have a list of top revenue-generating customers — provide exclusive offers or personalized messages to maintain their interest.
-
-# 📚 Conclusion
-
-🔍 Monitor popular genres based on order history to ensure you're offering what readers love.
-
-1. This project analyzed 500+ rows of data from Books, Orders, and Customers tables.
-
-
-2. We discovered a rising customer base year by year, with 2023 having the highest engagement.
-
-
-3. Fiction and Science Fiction genres emerged as the most borrowed, with changing trends over the years.
-
-
-4. Revenue insights showed which books and customers contributed most to sales.
-
-
-5. Monthly trends helped understand demand cycles and seasonality in orders.
-
-
-6. Stock analysis classified books into understocked, overstocked, and optimum levels.
-
-
-7. Customer segmentation revealed patterns of premium, regular, and low spenders.
-
-
-8. Repeated and diverse readers were identified, aiding in customer retention strategies.
-
-
-9. Time-based comparisons gave visibility into 2023 vs. 2024 borrowing patterns.
-
-
-10. Overall, the project delivered actionable insights for inventory planning and customer targeting.
 
 
 ## Author

@@ -742,8 +742,7 @@ Top10BooksRevenueBased="""with Top as(
 pd.read_sql(Top10BooksRevenueBased,conn)
 ```
 ## 16. What are the Low Perfoming Books ?
-
-1 ```python
+```python
 BottomBooksRevenueBased="""with Bottom as(
                         Select a.Book_ID,
                        sum(b.Total_Amount)Revenue_Generated,
@@ -763,7 +762,8 @@ BottomBooksRevenueBased="""with Bottom as(
                        where a.Stock>60 and b.Quantity_Sold<3
                        order by Revenue_Generated,Stock 
                        """
-pd.read_sql(BottomBooksRevenueBased,conn)```
+pd.read_sql(BottomBooksRevenueBased,conn)
+```
 - This Bottom Books are the lowest perfoming books are there , Revenue range between 6.64 to 96.42 only
 - Sum of Stock shows the Total Stock of 3 years that this books have always stocked in higher quantity fom the begining even though there is no sale.
 - if look at the Quantity sold is only 1 to 2.
@@ -772,7 +772,6 @@ pd.read_sql(BottomBooksRevenueBased,conn)```
 - that will result in stock Optimization and can invest in stocking those books that have demand among buyers.
 
 ## 17.How Was the Quantity Trend Over the Years Based on Books Categoy?
-
 ```python
 BooksCategoryQuantity =""" SELECT a.Books_Category,sum(b.Quantity ) as Quantity_Ordered,year(b.Order_Date) as Year
                         FROM Books as a
@@ -840,14 +839,14 @@ plt.show()
 - So in short we can clearly say that Quantity,Orders and Revenue Has a strong Relationship which is Clearly visible in this 3 years Comparison.
 - Even though there is a difference in the values but then also eqaully both categoies have performed well and helped business to grow overall.
 
-📍 Market & Customer Insights:
+# 📍 Market & Customer Insights:
 - We have identified 12 countries with more consumers — focus marketing and supply in these regions to create potential loyal customers.
 
 - Explored data of diverse customers — analyze the genres they prefer and recommend similar books to increase engagement.
 
 - We have a list of top revenue-generating and Orders placed customers — provide exclusive offers or personalized messages to maintain their interest.
 
-📌 Recommendations:
+# 📌 Recommendations:
 - Reduce purchase of overstocked books with low demand Instead invest in High Demand Books.
 
 - July and Novembe are the peak month promote new books in this month as customers tend to spend in this months more.
@@ -882,7 +881,7 @@ plt.show()
 
 - Promote top-selling books more aggressively.
 
-📚 Conclusion:
+# 📚 Conclusion:
 - Monitored popular genres based on order history to ensure you're offering what readers love.
 
 - This project analyzed 500+ rows of data from Books, Orders, and Customers tables.

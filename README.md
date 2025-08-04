@@ -240,7 +240,7 @@ pd.read_sql(YearlyOrders,conn)
 
 - Interpretations drawn from visuals guided meaningful business recommendations and actions.
 
-## Distribution of Price and Stock
+## Distribution of Price 
 ```python
 Price="select Price from Books"
 df=pd.read_sql(Price,conn)
@@ -249,6 +249,7 @@ plt.figure(figsize=(7,5))
 sns.histplot(data=df,x='Price',bins=20,kde=True)
 plt.savefig('Price Distibution')
 ```
+!(image1)[Price Distibution.png]
 - There is the variability in the price range some books are low priced and some are high priced.
 - which price segment generates more revenue or having more orders is need to see in detail.
 - which will gonna help in understanding customer prefeences as well as overall peformance insights

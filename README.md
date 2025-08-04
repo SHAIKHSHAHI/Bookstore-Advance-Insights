@@ -352,7 +352,7 @@ Correlation coefficient
 ------------
 Quantity_RevenueCorr: 0.73
 ```
-![image4]()
+![image4](Quantity%20and%20Revenue%20Corelation.png)
 - So Correlation Between Quantity and Revenue is(0.73) is a positive correlation is their.
 - ((0.73) is Not really a Very strong Correlation but Good Correlation is there.
 - So,yes by the increase in Sales More Quantity Business can Expect Generate More Revenue.
@@ -555,6 +555,7 @@ sns.histplot(data=df,x='Stock',bins=30,kde=True,color='skyblue')
 plt.title('Stock Distibution Analysis')
 plt.savefig('Stock Distribution')
 ```
+![Stock](Stock%20Distribution.png)
 - It is Clearly understandable from the visual that there is not an outliers but data is not equallly distibuted as well .
 - Some Books possibly overstocked Some in optimum Limit and Some are Overstock.
 - To find out,do such Overstock books really having that much demand and do this overstock products are contibuting to the revenue or not at such expected level.

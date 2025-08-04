@@ -93,7 +93,7 @@ cursor=conn.cursor()
 ```
 ## Exploaratory Data Analysis(EDA)
 ## Code 1:Total Unique Books Available
-```sql
+```python
 TotalUniqueBooks="""
 select count(Distinct Book_ID)as Book_Count
 from Books """

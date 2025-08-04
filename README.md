@@ -308,751 +308,602 @@ plt.title("Books Category-Wise Revenue Comparison",fontsize=10,fontweight='bold'
 plt.savefig('Quantity and Revenue Comparison')
 
 ```
-
-## 🌟 Code 4: 👥 Customers Per Year
+## 2. Which Books_Category is Customer Preference ? Which Books_Category has Placed More Orders?
 ```python
-CustomersPerYear="""
-select count(Distinct Customer_ID)as Customers_Per_Year ,
-year(Order_Date)as Order_Year
-from Orders
-group by Order_Year
-Order by Order_Year
-"""
-Yearly_Customers= pd.read_sql(CustomersPerYear, conn)
-print(Yearly_Customers)
+BooksOrders=""" SELECT a.Books_Category,Count(b.Order_ID)as Orders
+                        FROM Books as a
+                        join Orders as b
+                        on a.Book_ID= b.Book_ID
+                        group by a.Books_Category"""
+Data=pd.read_sql(BooksOrders,conn)
+print(Data)
+
+plt.figure(figsize=(4,4))
+sns.barplot(data=Data,y='Orders',x= 'Books_Category',width=0.3,color='Green')
+plt.title("Books Category-Wise Orders Comparison")
+plt.savefig('Orders Comparison')
 ```
-
-## 🌟 Code 5: 📚 Total Unique Books Available
-``` python
-TotalUniqueBooks="""
-select count(Distinct Book_ID)as Book_Count
-from Books"""
-TotalBooksAvailable=pd.read_sql(TotalUniqueBooks,conn)
-print(TotalBooksAvailable)
-```
-📌 Explanation:
-
-✅ This query counts the total number of unique books present in the Books table.
-
-✅ Useful for knowing the overall size of the book inventory.
-
-
-## 🌟 Code 6: 📦 Total Quantity Ordered
+## 3. Is there a correlation between Quantity and Revenue ? By the Increase in Quantity Can we Expect to generate more Revenue?
 ```python
-TotalUniqueBooks="""
-select count(Distinct Book_ID)as Book_Count
-from Books"""
-TotalBooksAvailable=pd.read_sql(TotalUniqueBooks,conn)
-print(TotalBooksAvailable)
+RevenueandOrders="SELECT Quantity ,Total_Amount as Revenue from Orders"
+Data=pd.read_sql(RevenueandOrders,conn)
+df=pd.DataFrame(Data)
+plt.figure(figsize=(8,4))
+sns.scatterplot(data=df,x='Revenue',y= 'Quantity')
+plt.title("Books_Category wise Ordered Quantity Comparison")
+plt.savefig('Quantity and Revenue Corelation')
 ```
-## 🌟 Code 7: 📊 Average Quantity Sold
 ```python
-AverageQuantitySold="""
-select avg(Quantity)as avg_Quantiy
-from Orders"""
-AvgQuantity=pd.read_sql(AverageQuantitySold,conn)
-print(AvgQuantity)
+Quantity_RevenueCorr=df[['Quantity','Revenue']].corr()
+Quantity_RevenueCorr
 ```
-## 🌟 Code 8: 📅 Total Orders Placed Per Year
 ```python
-OrdersPerYear="""
-select year(Order_Date)as Year,count(Distinct Order_ID)as Total_Orders
-from Orders
-group by year(Order_Date)
-"""
-YearlyOrders=pd.read_sql(OrdersPerYear,conn)
-print(YearlyOrders)
+print('Correlation coefficient\n------------')
+print('Quantity_RevenueCorr:',round(Quantity_RevenueCorr.values[0,1],2))
 ```
 ```plaintext
-Year  Total_Orders
-0  2022            16
-1  2023           256
-2  2024           228
+Correlation coefficient
+------------
+Quantity_RevenueCorr: 0.73
 ```
 
-## 🌟 Code 9: 💰 Total Sales Generated Per Year
+- So Correlation Between Quantity and Revenue is(0.73) is a positive correlation is their.
+- ((0.73) is Not really a Very strong Correlation but Good Correlation is there.
+- So,yes by the increase in Salin More Quantity Business can Expect Generate More Revenue.
+
+
+##  4.What Are the Top 3 Genres in the sense of Orders?
 ```python
-SalesPerYear="""
-select year(Order_Date)as Year,sum(Total_Amount)as Total_Sales
-from Orders
-group by year(Order_Date)
-"""
-YearlySales=pd.read_sql(SalesPerYear,conn)
-print(YearlySales)
+Top3Genre_OrdersWise=""" SELECT a.Genre,Count(b.Order_ID)as Orders
+                         from Books as a
+                         join Orders as b
+                         on a.Book_ID=b.Book_ID
+                         group by a.Genre
+                         Order by Orders desc
+                         limit 3"""
+pd.read_sql(Top3Genre_OrdersWise,conn)
 ```
-## 🌟 Code 10: 📚 List of Distinct Book Genres
+5.What Are the Top 3 Genres in the sense of Revenue?
 ```python
-Genres="""
-select Distinct Genre from
-Books
-"""
-Distinct_Genres=pd.read_sql(Genres,conn)
-print(Distinct_Genres)
+Top3Genre_SalesWise=""" SELECT a.Genre,sum(b.Total_Amount)as Revenue
+                         from Books as a
+                         join Orders as b
+                         on a.Book_ID=b.Book_ID
+                         group by a.Genre
+                         Order by Revenue desc
+                         limit 3"""
+pd.read_sql(Top3Genre_SalesWise,conn)
+```
+Top 3 Performing Genres are Science Fiction,Mystery and Fancy in the case of Orders with Placed Orders (81,83,84).
+on the Other side, Mystery and Science fictions also Comes under Top 3 Revenue generating Genres,
+where Mystery genre is on the 2 nd position in both orders and Sales Case.
+But Science fiction has lost its Position and From 1 st position directly came 3 rd Position in the Case of Generating Revenue.
+Even if the Romance Category is not in the list of Top 3 Ordered Genres ,then also Romance is the Top 1 Revenue Generating Genre.
+Romance Genre is Helping Business to Generate More income ,so we Sholud go with Romance Genre.
+and Science Fiction is showing Popularity among Customers we should Provide Some Extra Benefits or Offers On this Genre to Builld Loyal Customers For the Business.
+Total 6 Genre Books are there But,only this 4 Genres perfoming Good.
+other 2 Genres Need More Marketing to shift inteest of customers to those genres also.
+
+6.Worst Performing Genre Placing Orders? /Worst Performing Genre Earning Revenue?
+```python
+worstEarningGenre="""SELECT a.Genre,sum(b.Total_Amount)as Revenue
+                         from Books as a
+                         join Orders as b
+                         on a.Book_ID=b.Book_ID
+                         group by a.Genre
+                         Order by Revenue asc
+                         limit 1"""
+pd.read_sql(worstEarningGenre,conn)
 ```
 ```plaintext
-0        Biography
-1          Fantasy
-2      Non-Fiction
-3          Fiction
-4          Romance
-5  Science Fiction
-6          Mystery
+	Genre	Revenue
+0	Fiction	7271.22
 ```
-## 🌟 Code 11: ✍️ Count of Unique Authors in the Dataset
 ```python
-Authors="""
-select count(Distinct Author)as
-Authors_Count from 
-Books
-"""
-Author_Count=pd.read_sql(Authors,conn)
-print(Author_Count)
+LessOrderedGenre=""" SELECT a.Genre,Count(b.Order_ID)as Orders
+                         from Books as a
+                         join Orders as b
+                         on a.Book_ID=b.Book_ID
+                         group by a.Genre
+                         Order by Orders asc
+                         limit 1"""
+pd.read_sql(LessOrderedGenre,conn)
 ```
 ```plaintext
-Authors_Count
-0            493
+Genre	Orders
+0	Fiction	46
 ```
-## 🌟 Code 12: 💰 Average Book Price Calculation
+- Fiction Genre is the lowest performing Genre ,in the case of both Generating Orders and Generating Revenue.
+## 7.Was there a huge Differenciation in the performance of Good VS Bad performing Genres?
 ```python
-AvgBookPrice="""select avg(price)as avg_BookPrice
-from Books"""
-AvgPrice= pd.read_sql(AvgBookPrice,conn)
-```
+LessOrderedGenre=""" SELECT a.Genre,Count(b.Order_ID)as Orders,Year(b.Order_Date)as Year
+                         from Books as a
+                         join Orders as b
+                         on a.Book_ID=b.Book_ID
+                         group by a.Genre,Year(b.Order_Date)
+                         Order by Genre,Year 
+                         """
 
-## 🌟 Code 13: 💵 Total Revenue Generated
+GenreComparison=pd.read_sql(LessOrderedGenre,conn)
+pivot= GenreComparison.pivot(index='Genre',columns='Year',values='Orders')
+plt.figure(figsize=(12,5))
+
+sns.heatmap(pivot, annot=True, cmap='Greens', fmt=",.0f", linewidths=0.5, linecolor='white')
+
+plt.savefig('Genre Orders Comparison')
+```
+- Here From the Top Orders Placing data we have selected Genres and then Compared with the Fiction Genre to understand Why there is a That much difference in the Count of Orders between this Top Orders Placing Genres VS Fiction Genre.
+- In the Initial Year of the Business Fiction was on on top 1 but after Years it Failed to compete with other genres and match thier level,as it can be because shift of Customer Preference.
+- Where as Biography genre is on secoland last position.
+- There is huge diffeence between this low Performing genres vs Better performing genres.
+- where Maximum Orders Count of Biography and Fiction is (25 to 27) only.
+- On ther Other Hand, Other Genres maximum count ranges Between (38 to 49) which a huge big number as compared those 2 Low Performing genres.
+## 8.What are the Top 12 Countries with Customer Count?
 ```python
-Total_Revenue="""select sum(Total_Amount)as Total_Revenue_Generated
-from Orders"""
-TotalRevenue=pd.read_sql(Total_Revenue,conn)
-print(TotalRevenue)
-```
-# Advance Queries 📊 | Powerful Insights Through Complex SQL
-
-## 🌟 Code 14: 🏆 Top 10 Customers Based on Orders Placed
-```python
-Top10Customers_OrdersBased="""
-Select a.Customer_ID as Customer,
-count(Distinct b.Order_ID)as Orders_placed
-from Customers as a
-join Orders as b
-on a.Customer_ID =b.Customer_ID
-group by a.Customer_ID
-order by Orders_placed desc
-limit 10
-"""
-Top10_OrderedCustomers=pd.read_sql(Top10Customers_OrdersBased,conn)
-print(Top10_OrderedCustomers)
-```
-📌 Explanation:
-
-✅ This SQL query identifies the top 10 customers who have placed the highest number of unique orders.
-
-✅ It uses JOIN to combine customer and order data.
-
-✅ COUNT(DISTINCT Order_ID) ensures only unique orders are counted.
-
-✅ ORDER BY Orders_placed DESC ranks them in descending order.
-
-✅ This helps analyze loyalty and engagement of high-value customers.
-
-
-## 🌟 Code 15: 🏆 One Time Customers
-```python
-One_Time_Customers = """
-SELECT
-COUNT(Distinct Customer_ID) AS One_Time_Customers
-FROM Customers
-WHERE Customer_ID IN (
-SELECT Customer_ID
-FROM Orders
-GROUP BY Customer_ID
-HAVING COUNT(Distinct Order_ID) = 1
-)
-"""
-One_Time_Customers_Count=pd.read_sql(One_Time_Customers,conn)
-print(One_Time_Customers_Count)
-```
-📌 Explanation:
-
-✅ This query counts customers who placed only one order ever.
-
-✅ Helpful in identifying low-retention or casual buyers.
-
-
-✅ Uses a subquery to filter customers with exactly 1 unique order.
-
-## 🌟 Code 16: 🔁 Count of Repeated Customers
-```python
-Repeated_Customers = """
-SELECT 
-    COUNT(Distinct Customer_ID) AS Repeated_Customers
-FROM Customers 
-WHERE Customer_ID IN (
-    SELECT Customer_ID
-    FROM Orders
-    GROUP BY Customer_ID
-    HAVING COUNT(Distinct Order_ID) > 1
-)
-"""
-Repeated_Customers_Count=pd.read_sql(Repeated_Customers,conn)
-print(Repeated_Customers_Count)
-```
-📌 Explanation:
-
-✅ This query finds customers who have placed more than one order.
-
-✅ Helps identify loyal or returning customers.
-
-✅ Useful for tracking customer retention trends.
-
-```plaintext
-One-time vs Repeated Customers
-One_Time_Customers = 168
-Repeated_Customers = 139
-```
-## 🌟 Code 17: 💰 Top 10 Customers Based on Total Spending
-```python
-Top10Customers_SpendingBased="""
-Select  a.Customer_ID as Customer,
-sum(b.Total_Amount)as Total_Spent
-from Customers as a
-join Orders as b
-on a.Customer_ID =b.Customer_ID
-group by a.Customer_ID
-order by  Total_Spent desc
-limit 10
-"""
-Top10_SpendingCustomers=pd.read_sql(Top10Customers_SpendingBased,conn)
-print(Top10_SpendingCustomers)
-```
-```plaintext
-# Customers with Highest Total Spending
-Top_Spending_Customers = {
-    457: 1398.90,
-    174: 1080.95,
-    364: 1052.27,
-    405: 991.00,
-    386: 986.30,
-    425: 942.62,
-    474: 929.19,
-    163: 746.65,
-    167: 719.93,
-    214: 682.15
-}
-```
-📌 Explanation:
-
-✅ This SQL query retrieves the top 10 customers who have spent the most.
-
-✅ It joins Customers and Orders tables to sum total amount spent.
-
-✅ Helps businesses recognize their highest-value customers.
-
-✅ Useful for loyalty programs and customer engagement strategies.
-
-✅ Data is grouped by Customer_ID and sorted in descending order.
-
-## 🌟 Code 18: 🏙️ Top 10 Cities with Highest Customer Count
-```python
-Top10CustomersCities="""
-select City,count(Distinct Customer_ID)
-as Customer_Count
-from Customers 
-group by City
-Order by Customer_Count desc
-limit 10"""
-Country_CustomerCount=pd.read_sql(Top10CustomersCities,conn)
-print(Country_CustomerCount)
-```
-📌 Explanation:
-
-✅ This query finds the top 10 cities with the most unique customers.
-
-✅ Helps identify geographical hotspots where customer base is concentrated.
-
-✅ Groups customer data by city and counts distinct Customer_ID.
-
-✅ Insightful for targeted marketing and regional campaigns.
-
-✅ Data is sorted in descending order by customer count.
-
-✅ Supports location-wise customer segmentation.
-
-## 🌟 Code 19: ❌ Churned/Inactive Customers Before 2024
-```python
-Churned_Customers="""select Customer_ID,
-Max(Order_Date)as Last_Order
-from Orders
-Group by Customer_ID
-Having year(Last_Order)<2024
-"""
-Inactive_Customers= pd.read_sql(Churned_Customers, conn)
-print(Inactive_Customers)
-```
-📌 Explanation:
-
-✅ This query identifies churned customers—those who haven’t placed any orders in 2024.
-
-✅ It retrieves each customer's latest order date.
-
-✅ Filters out customers whose last purchase was before 2024.
-
-✅ Helps in understanding customer retention and targeting re-engagement campaigns.
-
-✅ Valuable for calculating churn rate in business performance analysis.
-
-✅ Result: a list of customers considered inactive or lost.
-
-## 🌟 Code 20: 🆕 Most Recent Customer Details
-```python
-Recent_Customer="""
-select a.Customer_ID ,
-a.Order_Date,
-b.Name,
-b.Country
-,b.City
-from Orders as a
-join Customers as b
-on a.Customer_ID=b.Customer_ID
-order by a.Order_Date Desc
-limit 1"""
-RecentCustomer= pd.read_sql(Recent_Customer, conn)
-print(RecentCustomer)
-```
-
-📌 Explanation:
-
-✅ This query fetches the most recent customer who placed an order.
-
-✅ It includes details like Customer ID, Order Date, Name, Country, and City.
-
-✅ Uses ORDER BY Order_Date DESC to sort from latest to oldest.
-
-✅ LIMIT 1 ensures only the latest customer is retrieved.
-
-✅ Helps identify who was the last active buyer on the platform.
-
-✅ Useful for recent engagement analysis or real-time dashboards.
-
-## 🌟 Code 21: 🥇 First Customer Details
-```python
-First_Customer="""
-select a.Customer_ID ,
-a.Order_Date,
-b.Name,
-b.Country
-,b.City
-from Orders as a
-join Customers as b
-on a.Customer_ID=b.Customer_ID
-order by a.Order_Date
-limit 1"""
-FirstCustomer= pd.read_sql(First_Customer, conn)
-print(FirstCustomer)
-```
-📌 Explanation:
-
-✅ This query retrieves the first-ever customer who placed an order.
-
-✅ Displays key information like Customer ID, Order Date, Name, Country, and City.
-
-✅ Uses ORDER BY Order_Date to sort from earliest to latest.
-
-✅ LIMIT 1 ensures only the first customer is selected.
-
-✅ Helpful in understanding early adopters and customer journey beginnings.
-
-✅ Can be used in historical analysis and platform growth tracking.
-
-## 🌟 Code 22: 📚 Published Year Range of Books
-```python
-Published_Years_Range="""
-with Earliest as
-(select Published_Year as year 
-from Books
- order by Published_Year asc
-  limit 1) ,
-Latest as
-(select Published_Year as year from Books 
-order by Published_Year desc
- limit 1)
-select
-(select year from Earliest ) as Earliest_year,
-(select year from  Latest )as Latest_year
-"""
-PublishedYearsRange=pd.read_sql(Published_Years_Range,conn)
-print(PublishedYearsRange)
-```
-
-📌 Explanation:
-
-✅ This query fetches the earliest and latest published year of all books.
-
-✅ Uses two CTEs: Earliest and Latest to find minimum and maximum years.
-
-✅ LIMIT 1 with ORDER BY ensures only the top record is selected.
-
-✅ Returns a single row with Earliest_year and Latest_year.
-
-✅ Useful for understanding the publication span of your book catalog.
-
-✅ Helpful in tracking how recent or historical your inventory is.
-
-## 🌟 Code 23: 🕰️ Old vs Latest Books Count
-![OldvsLatest](Old%20vs%20Latest%20Books.png)
-```python
-Old_Books_Count="""select count(Book_ID)as Books_Count from Books where Published_Year=1990"""
-OldBooks=pd.read_sql(Old_Books_Count,conn)
-
-Latest_Books_Count="""select count(Book_ID)as Books_Count
- from Books where Published_Year=2003
- """
-LatestBooks=pd.read_sql(Latest_Books_Count,conn)
-print(LatestBooks)
-
-Books=pd.DataFrame({'Book_Type':['OldBooks','LatestBooks'],
-'Books_Count':
-    [OldBooks['Books_Count'][0],
-   LatestBooks ['Books_Count'][0]
-    ]})
-
-
-plt.figure(figsize=(8, 5))
-sns.barplot(data=Books, x='Book_Type', y='Books_Count', palette='crest')
-plt.xlabel('Book Type', fontweight='bold',fontsize=12)
-plt.ylabel('Number of Books', fontweight='bold',fontsize=12)
-plt.grid(axis='y', linestyle='--', alpha=0.5)
-
-plt.suptitle('Comparison of Old vs Latest Books', fontweight='bold', fontsize=16)
-
-
-plt.savefig('Old vs Latest Books.png')
-plt.tight_layout(rect=[0,0,0,1])
-plt.show()
-```
-📌 Explanation:
-
-✅ This query fetches the earliest and latest published year of all books.
-
-✅ Uses two CTEs: Earliest and Latest to find minimum and maximum years.
-
-✅ LIMIT 1 with ORDER BY ensures only the top record is selected.
-
-✅ Returns a single row with Earliest_year and Latest_year.
-
-✅ Useful for understanding the publication span of your book catalog.
-
-✅ Helpful in tracking how recent or historical your inventory is.
-
-## 🌟 Code 24: 📦 Book Stock Level Classification
-```python
-Stock_Status="""
-select Book_ID,
-sum(Stock),
-    case  
-        when sum(Stock) is not null and
-        sum(Stock) != 0 and sum(Stock)<10 then 'Understock'
-        when sum(Stock)>50 then 'Overstock'
-        Else 'Optimum Stock'
-    end as Stock_Status
-from Books
-group by Book_ID 
-"""
-Stocks=pd.read_sql(Stock_Status,conn)
-print(Stocks)
-```
-📌 Explanation:
-
-✅ This query groups books by Book_ID and calculates total stock.
-
-✅ Then it classifies stock into three categories: Understock, Overstock, and Optimum Stock.
-
-✅ Understock → stock < 10, Overstock → stock > 50, else optimum.
-
-✅ Helps in inventory planning, highlighting books that need restocking or clearance.
-
-✅ Great for maintaining stock efficiency and balance.
-
-## 🌟 Code 25: 💸 Book Price Segmentation
-```python
-Book_Segment="""select 
-Book_ID,
-Price,
-case
-        when Price >=30 then 'premium'
-        when Price <30 then 'cheaper'
-end as BookSegment
-from Books"""
-Book_Seg= pd.read_sql(Book_Segment,conn)
-print(Book_Seg)
-```
-📌 Explanation:
-
-✅ This query categorizes each book based on its price.
-
-✅ Books priced ₹30 or above are labeled as "premium".
-
-✅ Books priced below ₹30 are labeled as "cheaper".
-
-✅ Helps in price-based customer targeting and inventory grouping.
-
-## 🌟 Code 26: 👤 Customer Segmentation Based on Spending in 2024
-```python
-Customer_Segment="""select
-Customer_ID,
-sum(Total_Amount) AS Total_Spent,
-case
-        when sum(Total_Amount) >= 800 then 'Premium'
-        when sum(Total_Amount) >= 500 then 'Regular'
-        else 'Low Spender'
-end AS CustomerSegment
-from Orders
-where year(Order_Date)=2024
-group by Customer_ID
-"""
-CustomerSegment= pd.read_sql(Customer_Segment,conn)
-print(CustomerSegment)
-```
-📌 Explanation:
-
-✅ This query classifies customers into segments by their total spending in the year 2024.
-
-✅ Segments:
-
-Premium (spent ₹800 or more)
-
-Regular (spent ₹500–₹799)
-
-Low Spender (spent less than ₹500)
-
-
-✅ Useful for targeted marketing and loyalty strategies.
-
-## 🌟 Code 27: 📊 Monthly Borrowing Trend Comparison (2023 vs 2024)
-```python
-Monthly_Borrowing_2024 = """
-SELECT
-MONTHNAME(Order_Date) AS Month,
-COUNT(DISTINCT Order_ID) AS Borrowing_Events_2024
-FROM Orders
-WHERE EXTRACT(YEAR FROM Order_Date) = 2024
-GROUP BY MONTHNAME(Order_Date), EXTRACT(MONTH FROM Order_Date)
-ORDER BY EXTRACT(MONTH FROM Order_Date)
-"""
-Monthly_Analysis2024 = pd.read_sql(Monthly_Borrowing_2024, conn)
-print(Monthly_Analysis2024)
-
-Monthly_Borrowing_2023 = """
-SELECT
-MONTHNAME(Order_Date) AS Month,
-COUNT(DISTINCT Order_ID) AS Borrowing_Events_2023
-FROM Orders
-WHERE EXTRACT(YEAR FROM Order_Date) = 2023
-GROUP BY MONTHNAME(Order_Date), EXTRACT(MONTH FROM Order_Date)
-ORDER BY EXTRACT(MONTH FROM Order_Date)
-"""
-Monthly_Analysis2023= pd.read_sql(Monthly_Borrowing_2023, conn)
-print(Monthly_Analysis2023)
-
-Monthly_Trend_Comparison = pd.merge(
-Monthly_Analysis2023 ,
-Monthly_Analysis2024,
-on='Month',
-how='outer'
-).fillna(0)
-print(Monthly_Trend_Comparison)
-```
-📌 Explanation:
-
-✅ This code compares monthly borrowing activity for the years 2023 and 2024.
-
-✅ It calculates the number of distinct borrowings (Order_IDs) for each month in both years.
-
-✅hen merges both datasets to form a single trend comparison table.
-
-✅ Helps identify seasonal borrowing behavior and growth/drop patterns month-wise.
-
-✅ Ideal for plotting a line/bar chart to visualize shifts in customer engagement.
-
-
-
-# 📊 Visualisations & Interpretation of Output/Results
-
-- Visuals such as bar charts, line graphs, and pie charts were used to present trends clearly.
-
-- Sales, customer segments, and genre-wise performance were visualized for better insights.
-
-- Charts helped identify seasonal trends, top-performing books, and customer behavior.
-
-- Understock and overstock patterns were highlighted using conditional formatting and counts.
-
-- Year-wise comparison showed clear growth in low spender segments and one-time buyers.
-
-- Interpretations drawn from visuals guided meaningful business recommendations and actions.
-
-
-```plaintext
-Book_ID | Stock | Years Ordered | Quantity | Orders | Price
-------------------------------------------------------------
-60      | 0     | 1             | 9        | 1      | 35.14
-127     | 0     | 3             | 9        | 3      | 11.66
-163     | 0     | 1             | 3        | 1      | 19.11
-378     | 0     | 1             | 6        | 1      | 6.01
-```
-## 1. Out of Stock Books
-
-🧠 Insights:
-
--📉 Low order frequency (1–3 orders only).
-
-- Still out of stock, meaning initial stock was very small.
-
-- 📊 These books didn’t sell a lot, so stock may have never been replenished.
-
-- ⚠️ May need better inventory planning or reorder automation.
-
-```plaintext
-Book_ID | Stock | Quantity | Orders | Price
---------------------------------------------
-105     |   85  |     12    |   6    |  25.99
-212     |   90  |     5     |   3    |  19.50
-337     |   72  |     7     |   4    |  22.75
-418     |   95  |     2     |   1    |  30.00
-129     |   88  |     9     |   3    |  15.60
-222     |   76  |     4     |   2    |  18.20
-301     |   99  |     1     |   1    |  34.10
-456     |   82  |     6     |   3    |  27.00
-199     |   74  |     8     |   4    |  20.00
-388     |   79  |     3     |   2    |  215
-```
-## 2. Overstocked Books (Stock > 70)
-
-Mostly only 1–2 orders per book.
-
-Low quantity per order (some just 1–3 units).
-
-### 🧠 Insights:
-
-📈 Over-purchased, but not in demand.
-
-🛒 Needs promotion, or stop ordering those not performing.
-
-## 3. Low Stock (Stock ≤ 10)
-```plaintext
-Book_ID | Stock | Quantity | Orders | Price
---------------------------------------------
-390     |   1   |     15    |   6    |  13.99
-287     |   2   |     22    |   9    |  10.50
-128     |   1   |     18    |   7    |  11.25
-145     |   2   |     25    |   8    |  16.40
-319     |   1   |     20    |   6    |  12.00
-204     |   2   |     17    |   7    |  14.30
-277     |   1   |     19    |   5    |  15.80
-342     |   2   |     21    |   9    |  11.90
-411     |   1   |     23    |   6    |  10.75
-151     |   2   |     24    |   8    |  13.60
-```
-
-#  1.📦 Stock Status & Order Frequency Analysis
-
-- Books were classified as Overstocked, Understocked, or Stockout based on inventory levels.
-
-- The Quantity column was used to assess whether high sales frequency contributed to stock shortages.
-
-- Book_ID helped identify specific books that frequently faced stock issues.
-
-- This insight enables businesses to perform a deeper performance analysis on these titles.
-
-- Understanding stock patterns helps in planning inventory strategies more effectively.
-
-- Actionable steps like reordering fast-moving titles or reducing overstock can optimize operations
-
-# 2.📊 Customer Segment Analysis – Revenue Trends
-```
-Customers_pivot = Customer_Categories_Revenue.pivot(index='CustomerSegment', columns='Year', values='Customer_Revenue')
-
-plt.figure(figsize=(8,6))
-sns.heatmap(Customers_pivot, annot=True, fmt='.0f', cmap='Oranges')
-plt.title('Revenue Generated by Customer Segment ', fontweight='bold', fontsize=16)
-plt.ylabel('Customer Segment',fontweight='bold', fontsize=14)
-plt.xlabel('Year',fontweight='bold', fontsize=14)
-
-plt.savefig('Customer Segment.png')
-plt.tight_layout(rect=[0,0,0,1])
-plt.show()
-```
-![CustomerSegment](Heatmap%20of%20Customer%20Segments.png)
-- Customers were segmented into Premium, Regular, and Low Spender and One Time Buyers based on total spending across 3 years.
-
-- Interestingly, One Time Buyers contributed the highest revenue in 2024..
-
-- No Other customers existed in 2022, indicating,as it Was the initial yea of the business.
-
-- Across all years, Premium Segment consistently generated the lowest revenue, showing fewer high-value buyers.
-
-- One-time buyers played a key role — their contribution grew from 2513 (2022) to 23,307 (2024).
-
-- Regular customers showed a dip in 2024, from 6,976 to 4,042, requiring attention.
-
-- The business should implement strategies to retain one-time buyers and convert them into repeat or premium customers
-
-# 3.🌍 Country-wise Customer Analysis
-```python
-Visual Code
-Top10_Customer_Countries="""
+Top12_Customer_Countries="""
 select count(Distinct Customer_ID)as 
 Customer_Count,Country
 from Customers
 Group by Country
 order by Customer_Count desc
-limit 10"""
-CustomerCount_CountryTop10=pd.read_sql(Top10_Customer_Countries,conn)
-print(CustomerCount_CountryTop10)
+limit 12"""
+CustomerCount_CountryTop12=pd.read_sql(Top12_Customer_Countries,conn)
 
-plt.figure(figsize=(15,10),dpi=300)
-
-
+plt.figure(figsize=(10,5))
+```
+```python
 sns.barplot(data=CustomerCount_CountryTop10,
-            y='Customer_Count',
-            x='Country',
+            x='Customer_Count',
+            y='Country',
             palette='crest')
 
-plt.title('Top10_Countries Based on Customers', fontsize=14, fontweight='heavy')
-plt.ylabel('Number of Unique Customers', fontsize=14, fontweight='heavy')
-plt.xlabel('Country', fontsize=14, fontweight='heavy')
-plt.xticks(rotation=30)
+plt.title('Top12_Countries Based on Customers', fontsize=8, fontweight='bold')
+plt.ylabel('Number of Unique Customers', fontsize=8, fontweight='bold')
+plt.xlabel('Country', fontsize=8,fontweight='bold')
+plt.xticks(fontsize=8)
+plt.yticks(fontsize=8)
 plt.grid(True, linestyle='--', alpha=0.6)
-plt.suptitle('Country Wise Customer Count',fontsize=16, fontweight='heavy')
-plt.savefig('Country .png')
+plt.suptitle('Country Wise Customer Count',fontsize=8, fontweight='heavy')
+plt.tight_layout(rect=[0,0,0,1])
+plt.savefig('Country')
 plt.show()
-
 ```
 
-![Countrycount](Country%20Wise%20Customer%20Count.png)
+## 9.How Many Countries are their where customer count is very low?How the Overall Customer Engament in the Business?
 
-The analysis was performed to understand how customer distribution varies by country.
+### Countries with Customer Count 1
+```python
+Country_Count="""Select Count(Country) as Countries_Count
+from Customers
+where Country in (Select Country  
+                  from Customers
+                  group by Country
+                  having Count(Distinct Customer_ID)=1)
+                """
+pd.read_sql(Country_Count,conn)
+```
+```plaintext
+Countries_Count
+0	65
+```
+### Distinct Country Count
+```python
+Total_Countries="Select count(Distinct Country)from Customers"""
+pd.read_sql(Total_Countries,conn)
+```
+```plaintext
+count(Distinct Country)
+0	215
+```
+The business is now after 3 years also in the intial stage only.
+the business has spread eveywhere but not that much awareness is there ,we are placing and getting Customers from the 215 Countries total.
+But from the 215 countries (65) Countires are their where the customer_Count is only 1
+Needs a Stong Marketing of the Business and Awareness about the products among the Buyers.
+We can provide Discounts on the Particular popular genres tend to Stable Customer Loyalty towards the business.
+Top 3 countries with the highest customer count are Cuba (7),Zimbabve, and Micronesia, each receiving between 6 to 7 customers.
+This shows a low customer base in many countries, suggesting limited awareness or outreach.
+Based on this insight, targeted marketing campaigns, promotions, or country-specific strategies are essential to increase global engagement.
+10. Is there a positive growth in the Revenue Earning?
+```python
+SalesPerYear="""
+select year(Order_Date)as Year,sum(Total_Amount)as Total_Sales
+from Orders
+group by year(Order_Date)
+order by year(Order_Date)
+"""
+Data=pd.read_sql(SalesPerYear,conn)
+print(Data)
 
-- 📈 Top 3 countries with the highest customer count are Cuba (7), Turkey, and Micronesia, each receiving between 6 to 7 customers.
+plt.figure(figsize=(5,3))
+sns.barplot(data=Data,x='Year',y='Total_Sales',width=0.5,color='Red')
+plt.show()
+plt.savefig('Yearly Revenue')
+```
+There is an overall positive growth trend in sales from 2022 to 2024.
 
-- 📉 A drop is seen in Belgium, with only 4 customers, followed by countries with even fewer (1–4 customers).
+The period from 2022 to 2023 witnessed an explosive rise in sales.
 
-- This shows a low customer base in many countries, suggesting limited awareness or outreach.
+The growth between 2023 and 2024, while still positive, indicates a stabilization in the growth rate.
 
-- 🔍 Based on this insight, targeted marketing campaigns, promotions, or country-specific strategies are essential to increase global engagement.
+This suggests that while the business scaled up quickly, it may now be entering a mature phase, where growth is steadiy increasing.
 
-# 4.📦 Stock Level Segmentation & Analysis
-![StockSegment](StocksSegment.png)
+Sales increased from ₹2,513 in 2022 to ₹36,775 in 2024.
 
-- Stock was categorized into three segments:
-🔴 Understock (Stock < 10), 🟢 Overstock (Stock > 50), and 🟡 Optimum Stock (others).
+That’s nearly 13 times growth in just two years.
 
-- A countplot showed the distribution of stock levels across all books.
+Total growth is around 1363%, showing massive improvement.
 
-- 🔍 From the ‘Lowerstock’ data, it’s clear that books with stock levels between 6 to 9 received the highest order frequency.
+Growth from 2023 to 2024 is around 1.2%, showing steady progress.
 
-- 📊 These books also recorded higher quantities sold, indicating high demand.
+11.Is there a Stock of Books available in the optimized quantity?
+```python
+Stock Distribution
+Stock="select Stock from Books"
+df=pd.read_sql(Stock,conn)
 
-- This insight suggests a risk of stockout for popular books if restocking isn’t timely.
+plt.figure(figsize=(8,8))
+plt.subplot(2,1,1)
+sns.histplot(data=df,x='Stock',bins=30,kde=True,color='skyblue')
+plt.title('Stock Distibution Analysis')
+plt.savefig('Stock Distribution')
+```
+It is Clearly understandable from the visual that there is not an outliers but data is not equallly distibuted as well .
+Some Books possibly overstocked Some in optimum Limit and Some are Overstock.
+To find out,do such Overstock books really having that much demand and do this overstock products are contibuting to the revenue or not at such expected level.
+Segmentation of Stock into 2 Categories based on Stock Availability
+```python
+StockClassification="""Alter Table Books
+                     Add Column Stock_Segment varchar(20)"""
+
+cursor.execute(StockClassification)
+conn.commit()
+UpdateStock_Category="""update Books
+                      Set Stock_Segment =
+                      Case 
+                      when Stock <30 then  'Understock'
+                      when Stock >80 then  'Overstock'
+                      Else 'Optimum Stock'
+                      End"""
+cursor.execute(UpdateStock_Category)
+conn.commit()
+```
+```python
+Values="""select a.Stock_Segment,count(b.Order_ID) as Orders
+         from Books as a
+         join Orders as b
+         on a.Book_ID =b.Book_ID
+         group by a.Stock_Segment"""
+
+pd.read_sql(Values,conn)
+```
+
+Stock_Segment	Orders
+0	Overstock	101
+1	Understock	159
+2	Optimum Stock	240
+Optimum Segment Books stocked in the ideal quantity range and received the most customer interest.
+Understock Books received 159 orders had stong demand-
+1.suggests lost sales potential due to insufficient stock.
+2.These Books needs stock level adjustment.
+Ovestock books had only 101 orders ,the lowest among all,indicates low demand relative to stock levels.
+The business can definately control stock budgets by adjusting stock levels for this category books or can provide discounts to sale this books more.
+12. Key Insights: Monthly Orders Comparison (2023 vs 2024)
+# Fetching 2023 Orders insights 
+```python
+Borrowing2023= """
+SELECT 
+    MONTHNAME(Order_Date) AS Month,
+    COUNT(DISTINCT Order_ID) AS Borrowing_Events_2023
+FROM Orders 
+WHERE EXTRACT(YEAR FROM Order_Date) = 2023
+GROUP BY MONTHNAME(Order_Date), EXTRACT(MONTH FROM Order_Date)
+ORDER BY EXTRACT(MONTH FROM Order_Date)
+"""
+Monthly_Analysis2023=pd.read_sql(Borrowing2023 , conn)
+# Fetching 2024 Orders insights
+Borrowingand2024 = """
+SELECT 
+    MONTHNAME(Order_Date) AS Month,
+    COUNT(DISTINCT Order_ID) AS Borrowing_Events_2024
+FROM Orders 
+WHERE EXTRACT(YEAR FROM Order_Date) = 2024
+GROUP BY MONTHNAME(Order_Date), EXTRACT(MONTH FROM Order_Date)
+ORDER BY EXTRACT(MONTH FROM Order_Date)
+"""
+Monthly_Analysis2024= pd.read_sql(Borrowingand2024 , conn)
+
+# Merging Both Months Orders insights
+Monthly_Trend_Comparison = pd.merge(
+   Monthly_Analysis2023 ,  
+    Monthly_Analysis2024,  
+    on='Month',  
+    how='inner'  
+).fillna(0)
+
+# fetching Overall Monthly Orders Insights
+
+OrdersPerMonth = """
+SELECT 
+    MONTH(Order_Date) AS Month,
+    MONTHNAME(Order_Date) AS MonthName,
+     COUNT(DISTINCT Order_ID) as Orders
+FROM Orders
+where Year(Order_Date) in (2023,2024)
+GROUP BY MONTH(Order_Date), MONTHNAME(Order_Date)
+ORDER BY Month
+"""
+MonthlyOrders= pd.read_sql(OrdersPerMonth, conn)
+
+# plotting Results
+plt.figure(figsize=(8,6))
+plt.subplot(2,1,1)
+sns.lineplot(data=Monthly_Trend_Comparison, x='Month', y='Borrowing_Events_2023', label='2023', marker='o', color='green')
+sns.lineplot(data=Monthly_Trend_Comparison, x='Month', y='Borrowing_Events_2024', label='2024', marker='o', color='orange')
+plt.title('Monthly Orders Trend', fontweight='heavy', fontsize=10)
+plt.ylabel('Orders',fontweight='heavy')
+plt.xticks(rotation=15,fontsize=8)
+plt.legend()
+plt.grid(axis='y')
+
+
+plt.subplot(2,1,2)
+sns.barplot(data=MonthlyOrders,x='MonthName', y='Orders', palette='viridis')
+
+plt.title('Overall Monthly Orders Trend', fontsize=10, fontweight='bold')
+plt.ylabel('Orders', fontsize=8, fontweight='bold')
+plt.grid(axis='y', linestyle='--', alpha=0.6)
+plt.xticks(rotation=15,fontsize=8)
+plt.suptitle('Monthly Orders Placed(2023-2024)',fontweight='heavy', fontsize=10)
+plt.savefig('Montly Trend.png')
+plt.tight_layout(rect=[0,0,0,1])
+plt.subplots_adjust(hspace=0.5,wspace=0.5)
+plt.show()
+```
+July month is the peak month.Both in 2023 and 2024 july had the highest orders.
+November is on the Second highest Position.
+In this Both months of July and November fo both years orders are same showing consitent trends in those paticular months.
+2024 underperformed in several key months (notably May, October, December).
+Focus for improvement in 2024: investigate and address reasons for underperformance in May, October, and December.
+Plan promotions or outreach campaigns targeting low-performing months to balance the trend.
+so in short November,July are peak Months.
+May,October and Specially December Needs attention.
+There is a significant growth in the month of June and and February.
+2023 had stronger and more consistent performance compared to 2024
+13. Who are the Top 10 customers based on orders placed?
+```python
+Top10Customers_OrdersBased="""with Top10 as(
+                        Select a.Customer_ID,
+                       count(Distinct b.Order_ID)as Orders_placed
+                       from Customers as a
+                       join Orders as b
+                       on a.Customer_ID =b.Customer_ID
+                       group by a.Customer_ID
+                       order by Orders_placed desc
+                       limit 10)
+                       select a.Name as Customer, b.Orders_placed,a.Phone,a.Email,
+                       a.Country,a.City
+                       from Customers as a
+                       join Top10 as b
+                       on a.Customer_ID = b.Customer_ID
+                       order by Orders_placed desc"""
+pd.read_sql(Top10Customers_OrdersBased,conn)
+```
+```plaintext
+Customer	Orders_placed	Phone	Email	Country	City
+0	Carrie Perez	6	1234568254	chelsea23@gillespie-walker.com	Hungary	Kennethland
+1	Anthony Young	5	1234568364	rogersbill@gmail.com	Cook Islands	East Chelsea
+2	Amy Hunt	4	1234567997	emilybecker@perkins.com	Aruba	Ericborough
+3	Jonathon Strickland	4	1234568064	ryan10@yahoo.com	Dominica	Bakerton
+4	Emily Vargas	4	1234568215	lklein@gmail.com	Tonga	Aguilarside
+5	Julie Smith	4	1234568295	knightmonica@krueger-hamilton.biz	Vanuatu	Freemanland
+6	Ashley Perez	4	1234568315	williamslindsey@yahoo.com	United States Minor Outlying Islands	Elizabethshire
+7	Cynthia Cooper	4	1234568327	russellpriscilla@gmail.com	Philippines	Wrightfurt
+8	Kim Turner	4	1234568347	jennifer45@weiss-perry.com	Cambodia	South Rachelview
+9	Andrew Figueroa	4	1234568375	john28@gmail.com	Macedonia	New Veronicaside
+```python
+Top10Customers=pd.read_sql(Top10Customers_OrdersBased,conn)
+Top10CustomersDetails=pd.DataFrame(Top10Customers)
+```
+Here with the help of Orders count performed query to get the Top customers.
+So that afterwards it willl help the business to make more engagement with them to gain long time loyal customers.
+We can provide Discount to them on there most favouite genre books and also can introduce them new books.
+14. Who are the Top 10 customers based on Revenue Generated?
+```python
+Top10Customers_RevenueBased="""with Top10 as(
+                        Select a.Customer_ID,
+                       sum(b.Total_Amount)Revenue_Generated,
+                       from Customers as a
+                       join Orders as b
+                       on a.Customer_ID =b.Customer_ID
+                       group by a.Customer_ID
+                       order by Revenue_Generated desc
+                       limit 10)
+                       select a.Name as Customer, b.Revenue_Generated,a.Phone,a.Email,
+                       a.Country,a.City
+                       from Customers as a
+                       join Top10 as b
+                       on a.Customer_ID = b.Customer_ID
+                       order by Revenue_Generated desc"""
+pd.read_sql(Top10Customers_RevenueBased,conn)
+```
+15. What are the Top 10 Books Revenue Generated?
+```python
+Top10BooksRevenueBased="""with Top as(
+                        Select a.Book_ID,
+                       sum(b.Total_Amount)Revenue_Generated
+                       from Books as a
+                       join Orders as b
+                       on a.Book_ID=b.Book_ID
+                       group by a.Book_ID
+                       order by Revenue_Generated desc
+                       limit 10)
+                       select a.Title,a.Author,a.Genre,a.Price,
+                       a.Published_Year,b.Revenue_Generated
+                       from Books as a
+                       join Top as b
+                       on a.Book_ID= b.Book_ID
+                       order by Revenue_Generated desc"""
+pd.read_sql(Top10BooksRevenueBased,conn)
+```
+17. What are the Low Perfoming Books ?
+18. ```python
+BottomBooksRevenueBased="""with Bottom as(
+                        Select a.Book_ID,
+                       sum(b.Total_Amount)Revenue_Generated,
+                       sum(b.Quantity) as Quantity_Sold,
+                       sum(a.Stock) as Stock
+                       from Books as a
+                       join Orders as b
+                       on a.Book_ID=b.Book_ID
+                       group by a.Book_ID
+                       order by Revenue_Generated 
+                     )
+                       select a.Title,a.Author,a.Genre,a.Price,a.Stock_Segment,a.Stock,
+                       a.Published_Year,b.Revenue_Generated,b.Quantity_Sold
+                       from Books as a
+                       join Bottom as b
+                       on a.Book_ID= b.Book_ID
+                       where a.Stock>60 and b.Quantity_Sold<3
+                       order by Revenue_Generated,Stock 
+                       """
+pd.read_sql(BottomBooksRevenueBased,conn)
+```
+This Bottom Books are the lowest perfoming books are there , Revenue range between 6.64 to 96.42 only
+Sum of Stock shows the Total Stock of 3 years that this books have always stocked in higher quantity fom the begining even though there is no sale.
+if look at the Quantity sold is only 1 to 2.
+Where as on the other hand if we see the Top3 Revenue Generated Books Income is between 1047.12 to 1104.69.
+Showing the difference on largest scale Between this numbers and also falls under Optimum Stock and OverStock Category so we can simply remove them as thie is not at all demand fo this products in the market to reduce Cost
+that will result in stock Optimization and can invest in stocking those books that have demand among buyers.
+```python
+17.How Was the Quantity Trend Over the Years Based on Books Categoy?
+BooksCategoryQuantity =""" SELECT a.Books_Category,sum(b.Quantity ) as Quantity_Ordered,year(b.Order_Date) as Year
+                        FROM Books as a
+                        join Orders as b
+                        on a.Book_ID= b.Book_ID
+                        group by year(b.Order_Date), a.Books_Category"""
+Books_Quantity_Data=pd.read_sql(BooksCategoryQuantity ,conn)
+print(Books_Quantity_Data)
+pivot=Books_Quantity_Data.pivot(index='Books_Category',columns='Year',values='Quantity_Ordered')
+plt.figure(figsize=(6,4))
+sns.heatmap(pivot, annot=True, cmap='Reds', fmt=",.0f", linewidths=0.5, linecolor='white')
+```
+Overall Quantity Ordered from Low Priced Books is (1309) Where as From High Priced Books it is (1388) ,that Higher than Low Priced Books.
+That Means in the aspects of Revenue and Quantity both High Priced Books perfoming better than the LOw Priced Books.
+That means We Easily can say that Premium Customers are their who spend good Amount on the Premium Books.
+Both in the year (2022,2024) High Priced Books Have Sold More only in the Year 2023 Low Piced Category Placed sold More Quantity.
+19. How was the Orders and Revenue trend Yearly of Books Category?
+```python
+BooksCategoryOrders=""" SELECT a.Books_Category,Count(b.Order_ID)as Orders,Year(b.Order_Date) as Year
+                        FROM Books as a
+                        join Orders as b
+                        on a.Book_ID= b.Book_ID
+                        group by a.Books_Category,Year(b.Order_Date)"""
+BooksOrders_Data=pd.read_sql(BooksCategoryOrders,conn)
+
+BooksCategoyRevenue=""" SELECT a.Books_Category,sum(b.Total_Amount) as Revenue,Year(b.Order_Date) as Year
+                        FROM Books as a
+                        join Orders as b
+                        on a.Book_ID= b.Book_ID
+                        group by a.Books_Category,Year(b.Order_Date)"""
+BooksRevenue_Data=pd.read_sql(BooksCategoyRevenue,conn)
+print('Books_OrdersTrend\n------------')
+print(BooksOrders_Data)
+print('Books_RevenueTrend\n------------')
+print(BooksRevenue_Data)
+pivot=BooksOrders_Data.pivot(index='Books_Category',columns='Year',values='Orders')
+plt.figure(figsize=(10,8))
+
+plt.subplot(2,2,1)
+sns.heatmap(pivot, annot=True, cmap='Oranges', fmt=",.0f", linewidths=0.5, linecolor='white')
+plt.xticks(fontsize=8)
+plt.title("Books Category Wise  Yearly Orders Trend",fontsize=10,fontweight='bold')
+
+plt.subplot(2,2,2)
+pivot=Books_Quantity_Data.pivot(index='Books_Category',columns='Year',values='Quantity_Ordered')
+sns.heatmap(pivot, annot=True, cmap='Reds', fmt=",.0f", linewidths=0.5, linecolor='white')
+plt.title("Books Category Wise  Yearly Quantity Ordered Trend",fontsize=10,fontweight='bold')
+plt.xticks(fontsize=8)
+
+plt.subplot(2,2,3)
+pivot=BooksRevenue_Data.pivot(index='Books_Category',columns='Year',values='Revenue')
+sns.heatmap(pivot, annot=True, cmap='Greens', fmt=",.0f", linewidths=0.5, linecolor='white')
+plt.title("Books Category Wise  Yearly Revenue Trend",fontsize=10,fontweight='bold')
+plt.xticks(fontsize=8)
+plt.subplots_adjust(hspace=0.5,wspace=0.5)
+plt.tight_layout()
+plt.show()
+```
+By Comparing 3 visuals here we are tying to figure out that do increase in Orders Increases Quantity and is there a correlation between Orders and Revenue.
+In High priced Books Case from 2022 to 2024 positive trend is there in both case of Orders and the Quantity where Orders from (10) to increased to the (128) in this three years the Quantity from 50 to reached to 713.
+But in the Case of Low Priced Books Orders increased from 6 to 143 and Quantity supplied from (29) to (761) from the year (2022-2023).
+But in the the 2024 trend is declined directly from 143 to 100 ,that also impacted the Quantity sold and only (519) Quantity got sold in 2024.
+And Lastly it also visible in the Revenue map where as the Quantity Ordered increases Revenue Also increased and In 2024 in the case of Low Priced Books as the Orders and Quantity Decreased Reveneue also Decreased.
+So in short we can clearly say that Quantity,Orders and Revenue Has a strong Relationship which is Clearly visible in this 3 years Comparison.
+Even though there is a difference in the values but then also eqaully both categoies have performed well and helped business to grow overall.
+
+📍 Market & Customer Insights:
+- We have identified 12 countries with more consumers — focus marketing and supply in these regions to create potential loyal customers.
+
+- Explored data of diverse customers — analyze the genres they prefer and recommend similar books to increase engagement.
+
+- We have a list of top revenue-generating and Orders placed customers — provide exclusive offers or personalized messages to maintain their interest.
+
+📌 Recommendations:
+- Reduce purchase of overstocked books with low demand Instead invest in High Demand Books.
+
+- July and Novembe are the peak month promote new books in this month as customers tend to spend in this months more.
+
+- Restock Understock books that have high demand.
+
+- Monitor past order quantity to plan stock effectively.
+
+- In the Year 2023 the Performance was better than 2024 latest year.
+
+- There is Strong Correlation between oders,Quantity and Revenue.
+
+- So to generate More income increasing orders is key solution.
+
+- Set alerts for books with critically low stock.
+
+- Use discounts/offers to clear excess inventory.
+
+- Stock Science Fiction ,Mystey and Romance Genre books this are popular genres among the customers.
+
+- Revisit pricing of books with low sales.We can minimize the prices of the low demand books to increase orders.
+
+- Avoid overstocking slow-moving titles.
+
+- Instead of focusing on connecting to world wide try establishing busines in those countries where customer count is high.
+
+- Engage with High Revenue Generated and High Orders Placed Customers to build customer loyalting.
+
+- Connect with Churned Customers through Emails,and Messages provide them best offers and Discounts.
+
+- Manage stock based on customer demand patterns.
+
+- Promote top-selling books more aggressively.
+
+📚 Conclusion:
+- Monitored popular genres based on order history to ensure you're offering what readers love.
+
+- This project analyzed 500+ rows of data from Books, Orders, and Customers tables.
+
+- We discovered a rising customer base year by year, with 2023 having the highest engagement.
+
+- Science Fiction genres emerged as the most borrowed, with changing trends over the years.
+
+- Revenue insights showed which books and customers contributed most to sales.
+
+- Monthly trends helped understand demand cycles and seasonality in orders.
+
+- Stock analysis classified books into understocked, overstocked, and optimum levels.
+
+- Repeated and One Time readers were identified, aiding in customer retention strategies.
+
+- Time-based comparisons gave visibility into 2023 vs. 2024 borrowing patterns.
+
+- Overall, the project delivered actionable insights for inventory planning and customer targeting.
+
 
 
 

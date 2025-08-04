@@ -93,7 +93,7 @@ cursor=conn.cursor()
 ```
 ## Exploaratory Data Analysis(EDA)
 ## Code 1:Total Unique Books Available
-```code
+```sql
 TotalUniqueBooks="""
 select count(Distinct Book_ID)as Book_Count
 from Books """
@@ -364,7 +364,7 @@ Top3Genre_OrdersWise=""" SELECT a.Genre,Count(b.Order_ID)as Orders
                          limit 3"""
 pd.read_sql(Top3Genre_OrdersWise,conn)
 ```
-5.What Are the Top 3 Genres in the sense of Revenue?
+## 5.What Are the Top 3 Genres in the sense of Revenue?
 ```python
 Top3Genre_SalesWise=""" SELECT a.Genre,sum(b.Total_Amount)as Revenue
                          from Books as a
@@ -385,7 +385,7 @@ pd.read_sql(Top3Genre_SalesWise,conn)
 - Total 6 Genre Books are there But,only this 4 Genres perfoming Good.
 - other 2 Genres Need More Marketing to shift inteest of customers to those genres also.
 
-6.Worst Performing Genre Placing Orders? /Worst Performing Genre Earning Revenue?
+## 6.Worst Performing Genre Placing Orders? /Worst Performing Genre Earning Revenue?
 ```python
 worstEarningGenre="""SELECT a.Genre,sum(b.Total_Amount)as Revenue
                          from Books as a

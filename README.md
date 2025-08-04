@@ -21,13 +21,15 @@
 
 ---
 
-🛠️ Tools Used
+## 🛠️ Tools Used
 MySQL – to write and run SQL queries for data exploration
 Seaborn – for optional visual representation of trends
 Matplotlib – for professional plotting (if needed)
 stattools
 Pandas
 Numpy
+
+
 ---
 ## Project Objective
 - This project aims to analyze the bookstore’s data through SQL and Python to extract more 30 high-impact business insights that support data-driven decision-making. The analysis is divided into four key areas:
@@ -436,6 +438,7 @@ sns.heatmap(pivot, annot=True, cmap='Greens', fmt=",.0f", linewidths=0.5, lineco
 
 plt.savefig('Genre Orders Comparison')
 ```
+![Genre](Genre%20Orders%20Comparison.png)
 - Here From the Top Orders Placing data we have selected Genres and then Compared with the Fiction Genre to understand Why there is a That much difference in the Count of Orders between this Top Orders Placing Genres VS Fiction Genre.
 - In the Initial Year of the Business Fiction was on on top 1 but after Years it Failed to compete with other genres and match thier level,as it can be because shift of Customer Preference.
 - Where as Biography genre is on second last position.
@@ -455,6 +458,7 @@ CustomerCount_CountryTop12=pd.read_sql(Top12_Customer_Countries,conn)
 
 plt.figure(figsize=(10,5))
 ```
+![Country](Country.png)
 ```python
 sns.barplot(data=CustomerCount_CountryTop10,
             x='Customer_Count',

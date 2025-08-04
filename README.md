@@ -252,7 +252,7 @@ plt.savefig('Price Distibution')
 - There is the variability in the price range some books are low priced and some are high priced.
 - which price segment generates more revenue or having more orders is need to see in detail.
 - which will gonna help in understanding customer prefeences as well as overall peformance insights
-- 
+
 ## Segmenting Books on the basis of Books Price into 2 Categories High Priced and Low priced.
 ```python
 # Adding Column
@@ -350,7 +350,7 @@ Quantity_RevenueCorr: 0.73
 
 - So Correlation Between Quantity and Revenue is(0.73) is a positive correlation is their.
 - ((0.73) is Not really a Very strong Correlation but Good Correlation is there.
-- So,yes by the increase in Salin More Quantity Business can Expect Generate More Revenue.
+- So,yes by the increase in Sales More Quantity Business can Expect Generate More Revenue.
 
 
 ##  4.What Are the Top 3 Genres in the sense of Orders?

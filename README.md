@@ -310,6 +310,7 @@ plt.title("Books Category-Wise Revenue Comparison",fontsize=10,fontweight='bold'
 plt.savefig('Quantity and Revenue Comparison')
 
 ```
+![image2](Quantity%20and%20Revenue%20Comparison.png)
 ## 2. Which Books_Category is Customer Preference ? Which Books_Category has Placed More Orders?
 ```python
 BooksOrders=""" SELECT a.Books_Category,Count(b.Order_ID)as Orders

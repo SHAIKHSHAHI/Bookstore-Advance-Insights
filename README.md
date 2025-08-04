@@ -326,6 +326,7 @@ sns.barplot(data=Data,y='Orders',x= 'Books_Category',width=0.3,color='Green')
 plt.title("Books Category-Wise Orders Comparison")
 plt.savefig('Orders Comparison')
 ```
+![image3]()
 ## 3. Is there a correlation between Quantity and Revenue ? By the Increase in Quantity Can we Expect to generate more Revenue?
 ```python
 RevenueandOrders="SELECT Quantity ,Total_Amount as Revenue from Orders"
@@ -349,7 +350,7 @@ Correlation coefficient
 ------------
 Quantity_RevenueCorr: 0.73
 ```
-
+![image4]()
 - So Correlation Between Quantity and Revenue is(0.73) is a positive correlation is their.
 - ((0.73) is Not really a Very strong Correlation but Good Correlation is there.
 - So,yes by the increase in Sales More Quantity Business can Expect Generate More Revenue.

@@ -378,12 +378,12 @@ pd.read_sql(Top3Genre_SalesWise,conn)
 - Top 3 Performing Genres are Science Fiction,Mystery and Fancy in the case of Orders with Placed Orders (81,83,84).
 - on the Other side, Mystery and Science fictions also Comes under Top 3 Revenue generating Genres,
 - where Mystery genre is on the 2 nd position in both orders and Sales Case.
-- But Science fiction has lost its Position and From 1 st position directly came 3 rd Position in the Case of Generating Revenue.
+- But Science fiction has lost its Position and From 1 st position directly came to 3 rd Position in the Case of Generating Revenue.
 - Even if the Romance Category is not in the list of Top 3 Ordered Genres ,then also Romance is the Top 1 Revenue Generating Genre.
 - Romance Genre is Helping Business to Generate More income ,so we Sholud go with Romance Genre.
 - and Science Fiction is showing Popularity among Customers we should Provide Some Extra Benefits or Offers On this Genre to Builld Loyal Customers For the Business.
 - Total 6 Genre Books are there But,only this 4 Genres perfoming Good.
-- other 2 Genres Need More Marketing to shift inteest of customers to those genres also.
+- other 2 Genres Need More Marketing to shift interst of customers to those genres also.
 
 ## 6.Worst Performing Genre Placing Orders? /Worst Performing Genre Earning Revenue?
 ```python
@@ -435,7 +435,7 @@ plt.savefig('Genre Orders Comparison')
 ```
 - Here From the Top Orders Placing data we have selected Genres and then Compared with the Fiction Genre to understand Why there is a That much difference in the Count of Orders between this Top Orders Placing Genres VS Fiction Genre.
 - In the Initial Year of the Business Fiction was on on top 1 but after Years it Failed to compete with other genres and match thier level,as it can be because shift of Customer Preference.
-- Where as Biography genre is on secoland last position.
+- Where as Biography genre is on second last position.
 - There is huge diffeence between this low Performing genres vs Better performing genres.
 - where Maximum Orders Count of Biography and Fiction is (25 to 27) only.
 - On ther Other Hand, Other Genres maximum count ranges Between (38 to 49) which a huge big number as compared those 2 Low Performing genres.
@@ -667,7 +667,7 @@ plt.show()
 - Focus for improvement in 2024: investigate and address reasons for underperformance in May, October, and December.
 - Plan promotions or outreach campaigns targeting low-performing months to balance the trend.
 - so in short November,July are peak Months.
-- May,October and Specially December Needs attention.
+- **May,October and Specially December** Needs attention.
 - There is a significant growth in the month of June and and February.
 - 2023 had stronger and more consistent performance compared to 2024
 ## 13. Who are the Top 10 customers based on orders placed?

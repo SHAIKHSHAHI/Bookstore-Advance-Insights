@@ -526,6 +526,10 @@ plt.figure(figsize=(5,3))
 sns.barplot(data=Data,x='Year',y='Total_Sales',width=0.5,color='Red')
 plt.show()
 plt.savefig('Yearly Revenue')
+
+![Revenue](Yearly%20Revenue.png)
+
+
 ```
 - There is an overall positive growth trend in sales from 2022 to 2024.
 

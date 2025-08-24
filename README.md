@@ -774,6 +774,9 @@ BottomBooksRevenueBased="""with Bottom as(
                        """
 pd.read_sql(BottomBooksRevenueBased,conn)
 ```
+
+![Lowest](Lowest%20Performing%20Books.png)
+
 - This Bottom Books are the lowest perfoming books are there , Revenue range between 6.64 to 96.42 only
 - Sum of Stock shows the Total Stock of 3 years that this books have always stocked in higher quantity fom the begining even though there is no sale.
 - if look at the Quantity sold is only 1 to 2.

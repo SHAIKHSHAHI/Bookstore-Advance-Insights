@@ -673,6 +673,7 @@ plt.tight_layout(rect=[0,0,0,1])
 plt.subplots_adjust(hspace=0.5,wspace=0.5)
 plt.show()
 ```
+![Monthly](Montly%20Trend%20(1).png)
 - July month is the peak month.Both in 2023 and 2024 july had the highest orders.
 - November is on the Second highest Position.
 - In this Both months of July and November fo both years orders are same showing consitent trends in those paticular months.

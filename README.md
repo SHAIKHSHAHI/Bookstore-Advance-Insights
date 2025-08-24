@@ -559,8 +559,8 @@ plt.subplot(2,1,1)
 sns.histplot(data=df,x='Stock',bins=30,kde=True,color='skyblue')
 plt.title('Stock Distibution Analysis')
 plt.savefig('Stock Distribution')
-```
-![Stock](Stock%20Distribution.png)
+``
+
 - It is Clearly understandable from the visual that there is not an outliers but data is not equallly distibuted as well .
 - Some Books possibly overstocked Some in optimum Limit and Some are Overstock.
 - To find out,do such Overstock books really having that much demand and do this overstock products are contibuting to the revenue or not at such expected level.

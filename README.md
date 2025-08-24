@@ -842,6 +842,7 @@ plt.tight_layout()
 plt.show()
 ```
 ![Yearlyoverall](Yearly%20OverallComparison.png)
+
 - By Comparing 3 visuals here we are tying to figure out that do increase in Orders Increases Quantity and is there a correlation between Orders and Revenue.
 - In High priced Books Case from 2022 to 2024 positive trend is there in both case of Orders and the Quantity where Orders from (10) to increased to the (128) in this three years the Quantity from 50 to reached to 713.
 - But in the Case of Low Priced Books Orders increased from 6 to 143 and Quantity supplied from (29) to (761) from the year (2022-2023).

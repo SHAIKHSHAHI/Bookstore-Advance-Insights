@@ -704,9 +704,12 @@ Top10Customers_OrdersBased="""with Top10 as(
 pd.read_sql(Top10Customers_OrdersBased,conn)
 ```
 ```python
+
 Top10Customers=pd.read_sql(Top10Customers_OrdersBased,conn)
 Top10CustomersDetails=pd.DataFrame(Top10Customers)
 ```
+![Top10](Top%2010.png)
+
 - Here with the help of Orders count performed query to get the Top customers.
 - So that afterwards it willl help the business to make more engagement with them to gain long time loyal customers.
 - We can provide Discount to them on there most favouite genre books and also can introduce them new books.

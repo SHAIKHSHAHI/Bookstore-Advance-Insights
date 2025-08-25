@@ -922,10 +922,6 @@ plt.show()
 
 
 
-
-
-## Author
-
 # SHAHISTA SHAIKH
 # Contact me:
 shaikhshahi326@gmail.com

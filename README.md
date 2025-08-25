@@ -916,6 +916,9 @@ plt.show()
 - Time-based comparisons gave visibility into 2023 vs. 2024 borrowing patterns.
 
 - Overall, the project delivered actionable insights for inventory planning and customer targeting.
+  
+ # Downloadd the project file from here.
+ ![project file](Coffee%20Project%20file.pdf)
 
 
 

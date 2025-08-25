@@ -918,7 +918,7 @@ plt.show()
 - Overall, the project delivered actionable insights for inventory planning and customer targeting.
   
  # Downloadd the project file from here.
- [view project](Book_Data.pdf)
+ [view project](Book520Project%20File.pdfBook520Project%20File.pdf)
 
 
 

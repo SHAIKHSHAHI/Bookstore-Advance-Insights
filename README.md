@@ -918,7 +918,7 @@ plt.show()
 - Overall, the project delivered actionable insights for inventory planning and customer targeting.
   
  # Downloadd the project file from here.
- [view project](Coffee%20Project%20file.pdf)
+ [view project](Book_Data.pdf)
 
 
 

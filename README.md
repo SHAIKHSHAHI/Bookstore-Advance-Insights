@@ -254,7 +254,7 @@ plt.savefig('Price Distibution')
 ![image1](Price%20Distibution.png)
 - There is the variability in the price range some books are low priced and some are high priced.
 - which price segment generates more revenue or having more orders is need to see in detail.
-- which will gonna help in understanding customer prefeences as well as overall peformance insights
+- which will gonna help in understanding customer preferences as well as overall peformance insights
 
 ## Segmenting Books on the basis of Books Price into 2 Categories High Priced and Low priced.
 ```python

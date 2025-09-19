@@ -1,5 +1,9 @@
 ![Booksstore](caption.jpg)
 # 📚 Bookstore Sales Insights: Advanced SQL Analysis & Data Exploration
+# Downloadd the project file from here.
+ [view project](https://github.com/SHAIKHSHAHI/Bookstore-Advance-Insights/raw/151348dbaf6f2ba7da906b79490e1d9e48721eca/Book%20Project%20File.pdf)
+
+
 
 ---
 ## 📌 Problem Statement
@@ -917,9 +921,6 @@ plt.show()
 
 - Overall, the project delivered actionable insights for inventory planning and customer targeting.
   
- # Downloadd the project file from here.
- [view project](https://github.com/SHAIKHSHAHI/Bookstore-Advance-Insights/raw/151348dbaf6f2ba7da906b79490e1d9e48721eca/Book%20Project%20File.pdf)
-
 
 
 # SHAHISTA SHAIKH

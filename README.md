@@ -918,7 +918,7 @@ plt.show()
 - Overall, the project delivered actionable insights for inventory planning and customer targeting.
   
  # Downloadd the project file from here.
- [view project](Book520Project%20File.pdfBook520Project%20File.pdf)
+ [view project](https://github.com/SHAIKHSHAHI/Bookstore-Advance-Insights/raw/151348dbaf6f2ba7da906b79490e1d9e48721eca/Book%20Project%20File.pdf)
 
 
 
